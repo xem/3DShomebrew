@@ -6,7 +6,8 @@ Introduction
 
 This document explains how to make your own homebrew software on Nintendo 3DS / 2DS / New 3DS.
 It's in the public domain and all contributions / translations are welcome!
-All credits go to [Smealum](http://smealum.net) for his [Ninjhax release](http://smealum.net/ninjhax).
+Authors: xem, octopuserectus.
+Thanks to [smealum](http://smealum.net) for his [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) [and hbmenu](https://github.com/xem/3ds_hb_menu) projects.
 
 Setup
 -----
@@ -14,24 +15,32 @@ Setup
 **Hardware**
 
 Here's what you need to buy to get started:
-- A Nintendo 3DS / 2DS console with a firmware version between 4.0.0-7 and 9.2.0-20, or a New 3DS with a firmware between 9.0.0-20 and 9.2.0-20. (you can find your firmware version in the "Settings" app, on the upper screen.)
-- An SD card + an SD card reader.
-- A copy of the 3DS game **Cubic Ninja** (new or used)
+
+- A Nintendo 3DS / 2DS console with a firmware version between 4.0.0-7 and 9.2.0-20 + a SD card.
+or 
+- A New 3DS with a firmware between 9.0.0-20 and 9.2.0-20 + a micro SD card.
+- An SD / microSD card reader.
+- A copy of the 3DS game "Cubic Ninja" (new or used). 
+
+Note: Gateway 3DS can also play homebrews, but only in .3ds and .cia formats. This tutorial will focus on .3dsx homebrews, playable with Ninjhack + hbmenu.
+
 
 **Software**
 
 Here's what you need to download and install:
-- The latest version of [DevKitPro](http://devkitpro.org). During setup, you can choose to install devkitARM only.
-- [ctrulib](https://github.com/smealum/ctrulib/archive/master.zip). Unzip this inside DevKitPro's install folder.
+
+- The latest version of [DevkitPro](http://devkitpro.org). During setup, you can choose to install devkitARM only.
 - [Ninjhack's homebrew starter kit](http://smealum.net/ninjhax/dl/starter.zip). Unzip this at the root of your SD card and place the SD card in your console.
 - A C++ compatible IDE like [Netbeans](https://netbeans.org/downloads), or a code editor, like [notepad++](http://notepad-plus-plus.org).
 - A FTP client like [FileZilla](https://filezilla-project.org) or [WinSCP](http://winscp.net) to upload homebrews directly on your 3DS using wi-fi connection. (optional)
 - Latest version of [Python 3.x.x](https://www.python.org), to use advanced features in your homebrews. (optional)
+- Note that [ctrulib](https://github.com/smealum/ctrulib) is automatically installed by DevkitPro, in the libctru folder. You can get the latest version [here](https://github.com/smealum/ctrulib/archive/master.zip). (optional)
 
 **Homebrew launcher setup**
 
 Follow these steps to install the homebrew launcher on your 3DS (this needs to be done only once):
-- Go on Ninjhax's website and [generate the QR code corresponding to your console's firmware](http://smealum.net/ninjhax/#qrcode).
+
+- Go on Ninjhax's website and [generate the QR code corresponding to your console's firmware](http://smealum.net/ninjhax/#qrcode). (you can find your firmware version in the "Settings" app, on the upper screen.)
 - Enable your 3DS' wi-fi connexion.
 - Start the game Cubic Ninja, choose "Create", then "QR code", and finally "Scan QR code". 
 - Scan the QR Code, then follow on-screen instructions to start HB launcher.
@@ -60,6 +69,7 @@ You can also upload them directly using wi-fi:
 <img src="http://img.ctrlv.in/img/14/11/22/54709afe2f047.png" width=700>
 
 **Where can we find 3DS homebrews?**
+
 Here are some sites listing 3DS homebrews. Most of them will need to be built with ctrulib to be playable on HB Launcher.
 
 - [3Dbrew](http://www.3dbrew.org/wiki/Homebrew_Applications)
@@ -90,6 +100,12 @@ Let's go back to our ctrulib/template folder.
 - type ````make```` and press enter.
 - After a few seconds, the process finishes and you can find a build folder (you can ignore it) and two new files **.3dsx** and **.smdh**. You can send them on your SD card to test the homebrew on real hardware.
 - You can rebuild those files anytyme after editing your source code.
+
+You can try to build all ctrulib examples and run them on your 3DS.
+
+***Sadly, I can't manage to build the "gpu" example (it says "python: command not found") nor the "httpd" example ("implicit declaration of function"). If someone knows how to fix that... :)***
+
+
 
 New project
 --
