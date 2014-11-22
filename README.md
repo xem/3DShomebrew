@@ -7,7 +7,7 @@ Introduction
 This document explains how to make your own homebrew software on Nintendo 3DS / 2DS / New 3DS.
 It's in the public domain and all contributions / translations are welcome!
 Authors: xem, octopuserectus.
-Thanks to [smealum](http://smealum.net) for his [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) [and hbmenu](https://github.com/xem/3ds_hb_menu) projects.
+Thanks to [smealum](http://smealum.net) for his [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) and [hbmenu](https://github.com/xem/3ds_hb_menu) projects.
 
 Setup
 -----
@@ -36,16 +36,16 @@ Here's what you need to download and install:
 - Latest version of [Python 3.x.x](https://www.python.org), to use advanced features in your homebrews. (optional)
 - Note that [ctrulib](https://github.com/smealum/ctrulib) is automatically installed by DevkitPro, in the libctru folder. You can get the latest version [here](https://github.com/smealum/ctrulib/archive/master.zip). (optional)
 
-**Homebrew launcher setup**
+**Homebrew launcher (hbmenu) setup**
 
-Follow these steps to install the homebrew launcher on your 3DS (this needs to be done only once):
+Follow these steps to install the hbmenu on your 3DS (this needs to be done only once):
 
 - Go on Ninjhax's website and [generate the QR code corresponding to your console's firmware](http://smealum.net/ninjhax/#qrcode). (you can find your firmware version in the "Settings" app, on the upper screen.)
 - Enable your 3DS' wi-fi connexion.
 - Start the game Cubic Ninja, choose "Create", then "QR code", and finally "Scan QR code". 
-- Scan the QR Code, then follow on-screen instructions to start HB launcher.
+- Scan the QR Code, then follow on-screen instructions to start hbmenu.
 
-The next time you turn your console on, just launch Cubic Ninja, choose "Create", then "QR code" and the HB launcher will start directly.
+The next time you turn your console on, just launch Cubic Ninja, choose "Create", then "QR code" and hbmenu will start directly.
 
 <img src="http://img.ctrlv.in/img/14/11/22/54709c512ae72.png" width=400>
 
@@ -58,8 +58,8 @@ If you want to play homebrews on your console, or test your own builds easily, y
 Note: you can create subfolders in your 3ds folder to organize your homebrews.
 
 You can also upload them directly using wi-fi:
-- Start HB launcher.
-- Start ftPONY.
+- Start hbmenu.
+- Start the ftPONY homebrew.
 - Note the IP and port displayed on the upper screen (for example: "IP: 192.168.0.128 port 5000")
 - Start a FTP client on your desktop, and use these credentials to get connected.
 - If asked, choose "anonymous connection".
@@ -70,7 +70,7 @@ You can also upload them directly using wi-fi:
 
 **Where can we find 3DS homebrews?**
 
-Here are some sites listing 3DS homebrews. Most of them will need to be built with ctrulib to be playable on HB Launcher.
+Here are some sites listing 3DS homebrews. Most of them will need to be built with ctrulib to be playable with hbmenu.
 
 - [3Dbrew](http://www.3dbrew.org/wiki/Homebrew_Applications)
 - [Nintendomax](http://www.nintendomax.com/portal.php?&page_id=3)
@@ -83,14 +83,14 @@ Anatomy of a homebrew project
 Let's take a look at our template default, in ctrulib/template. It's a minimal project that does nothing else than printing a white pixel on the upper screen.
 
 It contains:
-- a **source** folder, containing a **main.c** file. (this contains the source code of your homebrew)
-- a **makefile** file (this contains the instructions to build our homebrew for the HB Launcher)
+- a source folder, containing a main.c file. (this contains the source code of your homebrew)
+- a makefile file (this contains the instructions to build our homebrew for hbmenu)
 
 Let's see how bigger projects are made, for example [Yeti3DS](https://github.com/smealum/yeti3DS). You can notice a few other things:
-- an **icon.png** file (This is a 48x48px image displayed on HB launcher alongside your homebrew. Optional but preferable.) 
-- the **source** folder contains more **.c** files and **.h** files. (this is a common way to structure and organize a C/C++ project. Note that the main function ````int main()```` remains in **main.c**, the other C files are used to store additional code and data).
+- an icon.png file (This is a 48x48px image displayed on hbmenu alongside your homebrew. Optional but preferable.) 
+- the source folder contains more .c files and .h files. (this is a common way to structure and organize a C/C++ project. Note that the main function ````int main()```` remains in main.c, the other C files are used to store additional code and data).
 
-In many projects, like [3dscraft](https://github.com/smealum/3dscraft) you can find a **data** folder containing **.bin** files. Those are images, and we'll explain later how to make and how to use them.
+In many projects, like [3dscraft](https://github.com/smealum/3dscraft) you can find a data folder containing .bin files. Those are images, and we'll explain later how to make and how to use them.
 
 Build procedure
 --
@@ -98,7 +98,7 @@ Build procedure
 Let's go back to our ctrulib/template folder.
 - Open a CLI (command line invite). If you're on Windows, press Shift + right click on the template folder and choose "Open a CLI here".
 - type ````make```` and press enter.
-- After a few seconds, the process finishes and you can find a build folder (you can ignore it) and two new files **.3dsx** and **.smdh**. You can send them on your SD card to test the homebrew on real hardware.
+- After a few seconds, the process finishes and you can find a build folder (you can ignore it) and two new files .3dsx and .smdh. You can send them on your SD card to test the homebrew on real hardware.
 - You can rebuild those files anytyme after editing your source code.
 
 You can try to build all ctrulib examples and run them on your 3DS.
@@ -121,8 +121,8 @@ To start developing your own homebrew:
 Homebrew development
 ==
 
-This part will detail how to develop a homebrew by covering all the features in ctrulib.
+This part will detail how to develop a homebrew by covering all the features in ctrulib and all the technical details of the console.
 
-Chapters will include: display (stereoscopic or not, using bitmap or GPU, ...), sound, input, SD card access, HTTP internet access, Microphone, Battery, and ... God knows what.
+Chapters will include: display (stereoscopic or not, using bitmap or GPU, ...), sound, input, SD card access, HTTP internet access, microphone, battery, gyroscop, NFC and ... God knows what.
 
 Coming soon!
