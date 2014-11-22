@@ -4,7 +4,7 @@
 Introduction
 ------------
 
-This document explains how to make your own homebrew softwares on Nintendo 3DS / 2DS / new 3DS.
+This document explains how to make your own homebrew software on Nintendo 3DS / 2DS / New 3DS.
 It's in the public domain and all contributions / translations are welcome!
 All credits go to [Smealum](http://smealum.net) for his [Ninjhax release](http://smealum.net/ninjhax).
 
@@ -14,8 +14,8 @@ Setup
 **Hardware**
 
 Here's what you need to buy to get started:
-- A Nintendo 3DS / 2DS console with a firmware version between 4.0.0-7 and 9.2.0-20, or a New3DS with a firmware between 9.0.0-20 and 9.2.0-20. (you can find your firmware version in the "Console parameters" app, on the upper screen.)
-- A SD card + a SD card reader.
+- A Nintendo 3DS / 2DS console with a firmware version between 4.0.0-7 and 9.2.0-20, or a New 3DS with a firmware between 9.0.0-20 and 9.2.0-20. (you can find your firmware version in the "Settings" app, on the upper screen.)
+- An SD card + an SD card reader.
 - A copy of the 3DS game **Cubic Ninja** (new or used)
 
 **Software**
@@ -32,11 +32,11 @@ Here's what you need to download and install:
 
 Follow these steps to install the homebrew launcher on your 3DS (this needs to be done only once):
 - Go on Ninjhax's website and [generate the QR code corresponding to your console's firmware](http://smealum.net/ninjhax/#qrcode).
-- Enable your 3DS's wi-fi connexion.
+- Enable your 3DS' wi-fi connexion.
 - Start the game Cubic Ninja, choose "Create", then "QR code", and finally "Scan QR code". 
 - Scan the QR Code, then follow on-screen instructions to start HB launcher.
 
-The next times you turn your console on, just launch Cubic Ninja, choose "Create", then "QR code" and the HB launcher will start directly.
+The next time you turn your console on, just launch Cubic Ninja, choose "Create", then "QR code" and the HB launcher will start directly.
 
 <img src="http://img.ctrlv.in/img/14/11/22/54709c512ae72.png" width=400>
 
