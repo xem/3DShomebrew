@@ -5,8 +5,8 @@ Introduction
 ------------
 
 This document explains how to make your own homebrew software on Nintendo 3DS / 2DS / New 3DS.
-It's in the public domain and all contributions / translations are welcome!
-Authors: xem, octopuserectus.
+It's in the public domain and all contributions / translations are welcome!<br>
+Authors: xem, octopuserectus.<br>
 Thanks to [smealum](http://smealum.net) for his [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) and [hbmenu](https://github.com/xem/3ds_hb_menu) projects.
 
 Setup
