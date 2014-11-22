@@ -86,7 +86,9 @@ Let's go back to our ctrulib/template folder.
 - After a few seconds, the process finishes and you can find a build folder (you can ignore it) and two new files **.3dsx** and **.smdh**. You can send them on your SD card to test the homebrew on real hardware.
 - You can rebuild those files anytyme after editing your source code.
 
-**New project**
+New project
+--
+
 Make a copy of the template folder, place it where you want, and name it "tuto". 
 
 Homebrew development
