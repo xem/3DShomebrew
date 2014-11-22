@@ -6,7 +6,7 @@ Introduction
 
 This document explains how to make your own homebrew softwares on  Nintendo 3DS / 2DS / new 3DS.
 It's in the public domain and all contributions / translations are welcome!
-Thanks to Smealum (http://smealum.net) for making this possible!
+All credits go to [Smealum](http://smealum.net) and his [Ninjhax release](http://smealum.net/ninjhax).
 
 Setup
 -----
@@ -21,17 +21,17 @@ Here's what you need to buy to get started:
 **Software**
 
 Here's what you need to download and install:
-- The latest version of DevKitPro (http://devkitpro.org). During setup, you can choose to install devkitARM only.
-- ctrulib (https://github.com/smealum/ctrulib/archive/master.zip). Unzip it inside DevKitPro's install folder.
-- Ninjhack's homebrew starter kit. Unzip it at the root of your SD card and place the SD card in your console.
-- A C++ compatible IDE like Netbeans (https://netbeans.org/downloads), or any code editor, like notepad++ (http://notepad-plus-plus.org).
-- A FTP client like FileZilla (https://filezilla-project.org), to upload homebrews directly on your 3DS using wi-fi connection. (optional)
-- P.ython 3.x.x (https://www.python.org), to use advanced development features in your homebrews. (optional)
+- The latest version of [DevKitPro](http://devkitpro.org). During setup, you can choose to install devkitARM only.
+- [ctrulib](https://github.com/smealum/ctrulib/archive/master.zip). Unzip it inside DevKitPro's install folder.
+- [Ninjhack's homebrew starter kit](http://smealum.net/ninjhax/dl/starter.zip). Unzip it at the root of your SD card and place the SD card in your console.
+- A C++ compatible IDE like [Netbeans](https://netbeans.org/downloads), or a code editor, like [notepad++](http://notepad-plus-plus.org).
+- A FTP client like [FileZilla](https://filezilla-project.org), to upload homebrews directly on your 3DS using wi-fi connection. (optional)
+- [Python 3.x.x](https://www.python.org), to use advanced development features in your homebrews. (optional)
 
 **Initial setup**
 
 Follow these steps to install the homebrew launcher on your 3DS (this has to be done only once):
-- Go on Ninjhax's website and generate the QR code corresponding to your console's firmware (http://smealum.net/ninjhax/#qrcode).
+- Go on Ninjhax's website and [generate the QR code corresponding to your console's firmware](http://smealum.net/ninjhax/#qrcode).
 - Enable your 3DS's wi-fi connexion.
 - Start the game Cubic Ninja, choose "Create", then "QR code", and finally "Scan QR code". 
 - Scan the QR Code, then follow on-screen instructions.
