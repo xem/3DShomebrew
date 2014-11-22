@@ -59,7 +59,12 @@ You can also upload them directly using wi-fi:
 
 <img src="http://img.ctrlv.in/img/14/11/22/54709afe2f047.png" width=700>
 
+**Where can we find 3DS homebrews?**
+Here are some sites listing 3DS homebrews. Most of them will need to be built with ctrulib to be playable on HB Launcher.
 
+- [3Dbrew](http://www.3dbrew.org/wiki/Homebrew_Applications)
+- [Nintendomax](http://www.nintendomax.com/portal.php?&page_id=3)
+- [GBAtemp](https://gbatemp.net/threads/homebrew-development.360646/)
 
 
 Anatomy of a homebrew project
@@ -73,9 +78,9 @@ It contains:
 
 Let's see how bigger projects are made, for example [Yeti3DS](https://github.com/smealum/yeti3DS). You can notice a few other things:
 - an **icon.png** file (This is a 48x48px image displayed on HB launcher alongside your homebrew. Optional but preferable.) 
-- the **source** folder contains more **xxx.c** files and **xxx.h** files. (this is a common way to structure and organize a C/C++ project. Note that the main function ````int main()```` remains in **main.c**, the other C files are used to store additional code and data).
+- the **source** folder contains more **.c** files and **.h** files. (this is a common way to structure and organize a C/C++ project. Note that the main function ````int main()```` remains in **main.c**, the other C files are used to store additional code and data).
 
-In many projects, like [3dscraft](https://github.com/smealum/3dscraft) you can find a **data** folder containing **xxx.bin** files. Those are images, and we'll explain later how to make and how to use them.
+In many projects, like [3dscraft](https://github.com/smealum/3dscraft) you can find a **data** folder containing **.bin** files. Those are images, and we'll explain later how to make and how to use them.
 
 Build procedure
 --
@@ -89,9 +94,19 @@ Let's go back to our ctrulib/template folder.
 New project
 --
 
-Make a copy of the template folder, place it where you want, and name it "tuto". 
+To start developing your own homebrew:
+
+- Make a copy of the template folder, place it where you want, and name it "tuto" (for example).
+- Add a 48x48px icon.png file. Here's an example that you can download, use and edit freely:
+
+<a href="http://img.ctrlv.in/img/14/11/22/5470cab56bf39.png"><img src="http://img.ctrlv.in/img/14/11/22/5470cab56bf39.png"></a>
+
 
 Homebrew development
 ==
 
-coming soon!
+This part will detail how to develop a homebrew by covering all the features in ctrulib.
+
+Chapters will include: display (stereoscopic or not, using bitmap or GPU, ...), sound, input, SD card access, HTTP internet access, Microphone, Battery, and ... God knows what.
+
+Coming soon!
