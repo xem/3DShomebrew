@@ -28,7 +28,7 @@ Here's what you need to download and install:
 - A FTP client like FileZilla (https://filezilla-project.org), to upload homebrews directly on your 3DS using wi-fi connection. (optional)
 - P.ython 3.x.x (https://www.python.org), to use advanced development features in your homebrews. (optional)
 
-** Initial setup **
+**Initial setup**
 
 Follow these steps to install the homebrew launcher on your 3DS (this has to be done only once):
 - Go on Ninjhax's website and generate the QR code corresponding to your console's firmware (http://smealum.net/ninjhax/#qrcode).
@@ -36,11 +36,13 @@ Follow these steps to install the homebrew launcher on your 3DS (this has to be 
 - Start the game Cubic Ninja, choose "Create", then "QR code", and finally "Scan QR code". 
 - Scan the QR Code, then follow on-screen instructions.
 
-** Future setup **
+**Future setup**
 
 The next times you turn your console on, just launch Cubic Ninja, choose "Create", then "QR code" and the HB launcher will start directly.
 
-** Send homebrews on your console**
+<img src="http://img.ctrlv.in/img/14/11/22/54709c512ae72.png" width=400>
+
+**Send homebrews on your console**
 
 If you want to play homebrews on your console (or test your own builds) easily, you can place them in the "3ds" folder of your SD card, but you can also upload them directly using wi-fi:
 - Start HB launcher.
@@ -49,7 +51,7 @@ If you want to play homebrews on your console (or test your own builds) easily, 
 - Start a FTP client on your desktop, and use these credentials to connect to your console. You should see your SD card's filesystem and be able to drag&drop files and folders in the 3ds folder.
 - Press B to quit ftPONY and launch your new apps.
 
-![FileZilla connected to ftPONY](http://img.ctrlv.in/img/14/11/22/54709afe2f047.png)
+<img src="http://img.ctrlv.in/img/14/11/22/54709afe2f047.png" width=700>
 
 
 
