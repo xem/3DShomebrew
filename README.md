@@ -8,9 +8,9 @@ This project has two purposes:
 - Explain how to make your own homebrews for Nintendo 3DS / 2DS / New 3DS from scratch.
 - Provide some handy tools to ease your homebrew development.
 
-A basic knowledge of programmation is needed.
+A basic knowledge of programming is needed.
 It's in the public domain and all contributions / translations are welcome!<br>
-You can also discuss thos project on [reddit](https://github.com/xem/3DShomebrew) and [GBAtemp](https://gbatemp.net/threads/toolbox-and-tutorial-how-to-use-ninjhax-and-make-your-own-homebrews.374693/).
+You can also discuss thos project on [reddit](http://www.reddit.com/r/3DS/comments/2n3cia/a_complete_3ds_homebrew_tutorial/) and [GBAtemp](https://gbatemp.net/threads/toolbox-and-tutorial-how-to-use-ninjhax-and-make-your-own-homebrews.374693/).
 Thanks to [smealum](http://smealum.net) for his [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) and [hbmenu](https://github.com/xem/3ds_hb_menu) projects.<br>
 Authors: [xem](http://twitter.com/MaximeEuziere), octopuserectus.<br>
 Please note that this project is still in a very early stage.
@@ -41,9 +41,9 @@ Here are the tools being developed for this project:
 
 ##Is it legal?
 
-Yes, reverse-engineering a video game console and make homebrew software for it is 100% legal.<br>
+Yes, reverse-engineering a video game console and making homebrew software for it is 100% legal.<br>
 The only thing that is illegal is piracy.<br>
-This project doesn't encourage you to pirate 3DS games (which is impossible using Ninjhack), or use it to emulate older consoles like NES or SNES (unless you have a copy of the games you emulate).<br>
+This project doesn't encourage you to pirate 3DS games (which is impossible using NINJHAX), or use it to emulate older consoles like NES or SNES (unless you have a copy of the games you emulate).<br>
 This project is only here to help you develop homebrews, so don't worry and have fun!
 
 ##Setup
@@ -58,7 +58,7 @@ or <br>
 - An SD / microSD card reader.
 - A copy of the 3DS game "Cubic Ninja" (new or used). 
 
-Note: Gateway 3DS can also play homebrews, but only in .3ds and .cia formats. This tutorial will focus on .3dsx homebrews, playable with Ninjhack + hbmenu.
+Note: Gateway 3DS can also launch homebrews, but only in .3ds and .cia formats. This tutorial will focus on .3dsx homebrews, launchable with Ninjhack + hbmenu.
 
 
 ###Computer setup
@@ -91,9 +91,9 @@ To uninstall Ninjhack (or install it on another console), you need to delete you
 
 ###Homebrew installation
 
-Two files are needed for a 3DS homebrew to be playable with Ninjhack: a *.3dsx file and a *.smdh file.
+Two files are needed for a 3DS homebrew to be launchable with Ninjhack: a *.3dsx file and a *.smdh file.
 
-If you want to play homebrews on your console, or test your own builds easily, you can use your computer to place them in the "3ds" folder of your SD / microSD card.
+If you want to launch homebrews on your console, or test your own builds easily, you can use your computer to place them in the "3ds" folder of your SD / microSD card.
 
 Note: you can create subfolders in your 3ds folder to organize your homebrews.
 
@@ -110,7 +110,7 @@ You can also upload them directly using wi-fi:
 
 ###Where can we find 3DS homebrews?
 
-Here are some sites listing 3DS homebrews. Most of them will need to be built with ctrulib to be playable with hbmenu.
+Here are some sites listing 3DS homebrews. Most of them will need to be built with ctrulib to be launchable with hbmenu.
 
 - [3Dbrew](http://www.3dbrew.org/wiki/Homebrew_Applications)
 - [Nintendomax](http://www.nintendomax.com/portal.php?&page_id=3)
