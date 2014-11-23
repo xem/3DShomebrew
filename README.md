@@ -1,6 +1,21 @@
 #3DS Homebrew tools and tutorial
 
+##Introduction
+
+Hello everyone,<br>
+This project has two purposes:
+
+- Explain how to make your own homebrews for Nintendo 3DS / 2DS / New 3DS from scratch.
+- Provide some handy tools to ease your homebrew development.
+
+It's in the public domain and all contributions / translations are welcome!<br>
+You can also discuss thos project on [reddit]() and [GBAtemp](https://gbatemp.net/forums/3ds-hacking-homebrew.201/).
+Thanks to [smealum](http://smealum.net) for his [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) and [hbmenu](https://github.com/xem/3ds_hb_menu) projects.<br>
+Authors: [xem](http://twitter.com/MaximeEuziere), octopuserectus.<br>
+Please note that this project is still in a very early stage.
+
 ##Tools
+
 Here are the tools being developed for this project:
 - [Image to BIN converter](http://xem.github.io/3DShomebrew/image-to-bin.html)
 - [BIN to PNG converter](http://xem.github.io/3DShomebrew/image-to-bin.html)
@@ -22,26 +37,6 @@ Here are the tools being developed for this project:
   - [New project](New project)
 - [Homebrew development](https://github.com/xem/3DShomebrew#homebrew-development)
   - ...
-  - ...
-  - ...
-  - ...
-  - ...
-  - ...
-  - ...
-
-##Introduction
-
-Hello everyone,<br>
-This project has two purposes:
-
-- Explain how to make your own homebrews for Nintendo 3DS / 2DS / New 3DS from scratch.
-- Provide some handy tools to ease your homebrew development.
-
-It's in the public domain and all contributions / translations are welcome!<br>
-You can also discuss thos project on [reddit]() and [GBAtemp](https://gbatemp.net/forums/3ds-hacking-homebrew.201/).
-Thanks to [smealum](http://smealum.net) for his [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) and [hbmenu](https://github.com/xem/3ds_hb_menu) projects.<br>
-Authors: [xem](http://twitter.com/MaximeEuziere), octopuserectus.<br>
-Please note that this project is still in a very early stage.
 
 ##Is it legal?
 
