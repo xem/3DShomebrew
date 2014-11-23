@@ -1,13 +1,42 @@
-#3DS Homebrew tutorial
+#3DS Homebrew tutorial and tools
 
 
 ##Introduction
 
+Hello everyone,<br>
+This project has two purposes:
 
-This document explains how to make your own homebrew software on Nintendo 3DS / 2DS / New 3DS.
+- Explain how to make your own homebrews for Nintendo 3DS / 2DS / New 3DS from scratch.
+- Provide some handy tools to ease your homebrew development.
+
 It's in the public domain and all contributions / translations are welcome!<br>
-Authors: xem, octopuserectus.<br>
-Thanks to [smealum](http://smealum.net) for his [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) and [hbmenu](https://github.com/xem/3ds_hb_menu) projects.
+Thanks to [smealum](http://smealum.net) for his [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) and [hbmenu](https://github.com/xem/3ds_hb_menu) projects.<br>
+Authors: xem, octopuserectus.
+
+
+##Summary
+
+- [Setup](https://github.com/xem/3DShomebrew#setup)
+  - [Hardware](https://github.com/xem/3DShomebrew#hardware)
+  - [Software](https://github.com/xem/3DShomebrew#software)
+  - [Homebrew launcher (hbmenu) setup](https://github.com/xem/3DShomebrew#homebrew-launcher-hbmenu-setup)
+  - [Homebrew installation](https://github.com/xem/3DShomebrew#homebrew-installation)
+  - [Where can we find 3DS homebrews?](https://github.com/xem/3DShomebrew#where-can-we-find-3ds-homebrews)
+- [Anatomy of a homebrew project](https://github.com/xem/3DShomebrew#anatomy-of-a-homebrew-project)
+  - [Basics](https://github.com/xem/3DShomebrew#basics)
+  - [Build procedure](https://github.com/xem/3DShomebrew#build-procedure)
+  - [New project](New project)
+- [Homebrew development](https://github.com/xem/3DShomebrew#homebrew-development)
+  - ...
+  - ...
+  - ...
+  - ...
+  - ...
+  - ...
+  - ...
+  
+
+
 
 ##Setup
 
