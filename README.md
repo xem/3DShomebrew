@@ -6,8 +6,8 @@
 - [Is it legal?](https://github.com/xem/3DShomebrew#is-it-legal)
 - [Setup](https://github.com/xem/3DShomebrew#setup)
   - [Hardware](https://github.com/xem/3DShomebrew#hardware)
-  - [Software](https://github.com/xem/3DShomebrew#software)
-  - [Homebrew launcher (hbmenu) setup](https://github.com/xem/3DShomebrew#homebrew-launcher-hbmenu-setup)
+  - [Computer setup](https://github.com/xem/3DShomebrew#computer-setup)
+  - [3DS setup](https://github.com/xem/3DShomebrew#3ds-setup)
   - [Homebrew installation](https://github.com/xem/3DShomebrew#homebrew-installation)
   - [Where can we find 3DS homebrews?](https://github.com/xem/3DShomebrew#where-can-we-find-3ds-homebrews)
 - [Anatomy of a homebrew project](https://github.com/xem/3DShomebrew#anatomy-of-a-homebrew-project)
@@ -33,7 +33,7 @@ This project has two purposes:
 
 It's in the public domain and all contributions / translations are welcome!<br>
 Thanks to [smealum](http://smealum.net) for his [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) and [hbmenu](https://github.com/xem/3ds_hb_menu) projects.<br>
-Authors: xem, octopuserectus.
+Authors: [xem](http://twitter.com/MaximeEuziere), octopuserectus.
 
 ##Is it legal?
 
@@ -42,9 +42,7 @@ The only thing that is illegal is piracy.<br>
 This project doesn't encourage you to pirate 3DS games (which is impossible using Ninjhack), or use it to emulate older consoles like NES or SNES (unless you have a copy of the games you emulate).<br>
 This project is only here to help you develop homebrews, so don't worry and have fun!
 
-
 ##Setup
-
 
 ###Hardware
 
@@ -59,35 +57,39 @@ or <br>
 Note: Gateway 3DS can also play homebrews, but only in .3ds and .cia formats. This tutorial will focus on .3dsx homebrews, playable with Ninjhack + hbmenu.
 
 
-###Software
+###Computer setup
 
 Here's what you need to download and install:
 
 - The latest version of [DevkitPro](http://devkitpro.org). During setup, you can choose to install devkitARM only.
-- [Ninjhack's homebrew starter kit](http://smealum.net/ninjhax/dl/starter.zip). Unzip this at the root of your SD card and place the SD card in your console.
 - A C++ compatible IDE like [Netbeans](https://netbeans.org/downloads), or a code editor, like [notepad++](http://notepad-plus-plus.org).
 - A FTP client like [FileZilla](https://filezilla-project.org) or [WinSCP](http://winscp.net) to upload homebrews directly on your 3DS using wi-fi connection. (optional)
+- An image editor like [GIMP](http://www.gimp.org/), to create images for your homebrews. (optional)
 - Latest version of [Python 3.x.x](https://www.python.org), to use advanced features in your homebrews. (optional)
 - Note that [ctrulib](https://github.com/smealum/ctrulib) is automatically installed by DevkitPro, in the libctru folder. You can get the latest version [here](https://github.com/smealum/ctrulib/archive/master.zip). (optional)
 
-###Homebrew launcher (hbmenu) setup
+###3DS setup
 
-Follow these steps to install the hbmenu on your 3DS (this needs to be done only once):
+Follow these steps to install the homebrew launcher (hbmenu) on your 3DS (this needs to be done only once):
 
+- Download [Ninjhack's homebrew starter kit](http://smealum.net/ninjhax/dl/starter.zip) and unzip it at the root of your SD / microSD card.
+- Insert the SD / microSD card in your console.
 - Go on Ninjhax's website and [generate the QR code corresponding to your console's firmware](http://smealum.net/ninjhax/#qrcode). (you can find your firmware version in the "Settings" app, on the upper screen.)
 - Enable your 3DS' wi-fi connexion.
 - Start the game Cubic Ninja, choose "Create", then "QR code", and finally "Scan QR code". 
-- Scan the QR Code, then follow on-screen instructions to start hbmenu.
+- Scan the QR Code, then follow on-screen instructions to enable the exploit and start hbmenu.
 
 The next time you turn your console on, just launch Cubic Ninja, choose "Create", then "QR code" and hbmenu will start directly.
 
 <img src="http://img.ctrlv.in/img/14/11/22/54709c512ae72.png" width=400>
 
+To uninstall Ninjhack (or install it on another console), you need to delete your save file. (go to Cubic Ninja's main menu and press L+R+X+Y)
+
 ###Homebrew installation
 
 Two files are needed for a 3DS homebrew to be playable with Ninjhack: a *.3dsx file and a *.smdh file.
 
-If you want to play homebrews on your console, or test your own builds easily, you can use your computer to place them in the "3ds" folder of your SD card.
+If you want to play homebrews on your console, or test your own builds easily, you can use your computer to place them in the "3ds" folder of your SD / microSD card.
 
 Note: you can create subfolders in your 3ds folder to organize your homebrews.
 
@@ -97,7 +99,7 @@ You can also upload them directly using wi-fi:
 - Note the IP and port displayed on the upper screen (for example: "IP: 192.168.0.128 port 5000")
 - Start a FTP client on your desktop, and use these credentials to get connected.
 - If asked, choose "anonymous connection".
-- You should now see your SD card's filesystem and be able to drag & drop files and folders in the "3ds" folder of your SD card.
+- You should now see your SD / microSD card's filesystem and be able to drag & drop files and folders in the "3ds" folder of your card.
 - Press B to quit ftPONY and launch your new apps.
 
 <img src="http://img.ctrlv.in/img/14/11/22/54709afe2f047.png" width=700>
@@ -154,3 +156,7 @@ This part will detail how to develop a 3DS homebrew by covering all the features
 Chapters will include: display (stereoscopic or not, using bitmap or GPU, ...), sound, input, SD card access, HTTP internet access, microphone, battery, gyroscop, NFC and ... God knows what.
 
 Coming soon!
+
+<br><br><br><br><br><br><br><br><br>
+
+<img src="http://counter2.allfreecounter.com/private/freecounterstat.php?c=a27b0d262d446ce34138027e7b961653">
