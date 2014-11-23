@@ -1,6 +1,12 @@
-#3DS Homebrew tutorial and tools
+#3DS Homebrew tools and tutorial
 
-##Summary
+##Tools
+Here are the tools being developed for this project:
+- [Image to BIN converter](http://xem.github.io/3DShomebrew/image-to-bin.html)
+- [BIN to PNG converter](http://xem.github.io/3DShomebrew/image-to-bin.html)
+- more soon!
+
+##Tutorial summary
 
 - [Introduction](https://github.com/xem/3DShomebrew#introduction)
 - [Is it legal?](https://github.com/xem/3DShomebrew#is-it-legal)
@@ -43,13 +49,6 @@ Yes, reverse-engineering a video game console and make homebrew software for it 
 The only thing that is illegal is piracy.<br>
 This project doesn't encourage you to pirate 3DS games (which is impossible using Ninjhack), or use it to emulate older consoles like NES or SNES (unless you have a copy of the games you emulate).<br>
 This project is only here to help you develop homebrews, so don't worry and have fun!
-
-##Tools
-
-Here are the tools being developed for this project:
-- [Image to BIN converter](http://xem.github.io/3DShomebrew/image-to-bin.html)
-- [BIN to PNG converter](http://xem.github.io/3DShomebrew/image-to-bin.html)
-- more soon!
 
 ##Setup
 
