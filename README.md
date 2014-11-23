@@ -148,7 +148,7 @@ You can try to build all ctrulib examples and run them on your 3DS.
 
 To start developing your own homebrew:
 
-- Make a copy of the template folder, place it where you want, and give it a name. I'll use "toto" (it is advisable to only use letters, numbers, -, or _ just to avoid problems with the build tools.
+- Make a copy of the template folder, place it where you want, and give it a name. I'll use "tuto" (it is advisable to only use letters, numbers, -, or _ just to avoid problems with the build tools.
 - Add a 48x48px icon.png file. Here's an example that you can download, use and edit freely:
 
 <a href="http://img.ctrlv.in/img/14/11/22/5470cab56bf39.png"><img src="http://img.ctrlv.in/img/14/11/22/5470cab56bf39.png"></a>
