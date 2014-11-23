@@ -1,0 +1,68 @@
+<!doctype html>
+<meta charset=utf-8>
+<a href=//github.com/xem/3DShomebrew><img style="position:absolute;top:0;right:0;border:0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+<style>
+body { width: 800px; margin: 0 auto; font-family: arial }
+</style>
+
+<body>
+
+<h1>3DS Homebrew tool: image to BIN converter</h1>
+
+
+This tool is made to generate a .bin file from any image.
+<br>
+Note that GIMP can do the same job (File > Export as > Raw image data).
+<br>
+You can convert BIN files in PNG with <a href="bin-to-png.html">BIN-to-PNG converter</a>.
+<br>
+These BIN files use 3 bytes for each pixel: Red, Green, Blue. No alpha transparency.
+<br>
+Read the <a href=".">3DS homebrew tutorial</a> to use these BIN files in your homebrews.
+
+
+<br>
+<br>
+<br>
+
+1) Choose an image file (.bmp, .png, .jpg, .gif) <input type=file id=f>
+<br>
+(your file will not be sent on a server)
+
+<br>
+<br>
+
+2) Press this button: <button id=b>convert</button>
+
+
+<br>
+<br>
+
+4) Click here to download your BIN file: <a href=# id=a download="image.bin">Download</a>
+
+<br>
+
+<canvas id=c hidden></canvas>
+
+<script>
+b.onclick=function(){
+  with(new FileReader){
+    readAsDataURL(f.files[0]);
+    onload=function(){
+      z=new Image;
+      z.src=result;
+      W=c.width=z.width;
+      H=c.height=z.height;
+      x=c.getContext("2d");
+      x.drawImage(z,0,0);
+      d=x.getImageData(0,0,W,H).data;
+      b='';
+      for(i=0;i<d.length;i++){
+        if(i%4<3)b+=String.fromCharCode(d[i]);
+      }
+      a.href="data:application/octet-stream;base64,"+btoa(b);
+    }
+  }
+}
+</script>

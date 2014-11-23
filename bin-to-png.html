@@ -1,0 +1,71 @@
+<!doctype html>
+<meta charset=utf-8>
+<a href=//github.com/xem/3DShomebrew><img style="position:absolute;top:0;right:0;border:0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+<style>
+body { width: 800px; margin: 0 auto; font-family: arial }
+canvas { outline: 3px dotted yellow }
+</style>
+
+<body>
+
+<h1>3DS Homebrew tool: BIN to PNG converter</h1>
+
+
+This tool is made to work with BIN files made with <a href="image-to-bin.html">image-to-BIN converter</a>.
+<br>
+These BIN file use 3 bytes for each pixel: Red, Green, Blue. No alpha transparency.
+<br>
+Read the <a href=".">3DS homebrew tutorial</a> to use these BIN files in your homebrews.
+
+<br>
+<br>
+<br>
+
+1) Choose a .bin file: <input type=file id=f> (your file will not be sent on a server)
+
+<br>
+<br>
+
+2) Set you image's width here: <input id=w value=32 type=number>
+
+<br>
+<br>
+
+3) Press this button: <button id=b>convert</button>
+
+
+<br>
+<br>
+
+4) Right-click on the image and download it:
+
+<br>
+<br>
+
+<canvas id=c width=16 height=16></canvas>
+
+<script>
+b.onclick=w.onchange=w.oninput=function(){
+  with(new FileReader){
+    readAsArrayBuffer(f.files[0]);
+    onload=function(){
+      u=new Uint8Array(result);
+      c.width=W=w.value;
+      c.height=H=(u.length/3)/W;
+      x=c.getContext("2d");
+      d=x.createImageData(W,H);
+      j=0;
+      for(i=0;i<u.length;i+=3){
+        d.data[j]=u[i];
+        d.data[j+1]=u[i+1];
+        d.data[j+2]=u[i+2];
+        d.data[j+3]=255;
+        j+=4;
+      }
+      console.log(d);
+      x.putImageData(d,0,0);
+    }
+  }
+}
+</script>

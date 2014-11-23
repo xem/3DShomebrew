@@ -32,8 +32,10 @@ This project has two purposes:
 - Provide some handy tools to ease your homebrew development.
 
 It's in the public domain and all contributions / translations are welcome!<br>
+You can also discuss thos project on [reddit]() and [GBAtemp](https://gbatemp.net/forums/3ds-hacking-homebrew.201/).
 Thanks to [smealum](http://smealum.net) for his [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) and [hbmenu](https://github.com/xem/3ds_hb_menu) projects.<br>
-Authors: [xem](http://twitter.com/MaximeEuziere), octopuserectus.
+Authors: [xem](http://twitter.com/MaximeEuziere), octopuserectus.<br>
+Please note that this project is still in a very early stage.
 
 ##Is it legal?
 
@@ -41,6 +43,13 @@ Yes, reverse-engineering a video game console and make homebrew software for it 
 The only thing that is illegal is piracy.<br>
 This project doesn't encourage you to pirate 3DS games (which is impossible using Ninjhack), or use it to emulate older consoles like NES or SNES (unless you have a copy of the games you emulate).<br>
 This project is only here to help you develop homebrews, so don't worry and have fun!
+
+##Tools
+
+Here are the tools being developed for this project:
+- [Image to BIN converter](http://xem.github.io/3DShomebrew/image-to-bin.html)
+- [BIN to PNG converter](http://xem.github.io/3DShomebrew/image-to-bin.html)
+- more soon!
 
 ##Setup
 
@@ -131,7 +140,7 @@ In many projects, like [3dscraft](https://github.com/smealum/3dscraft) you can f
 ###Build procedure
 
 Let's go back to our ctrulib/template folder.
-- Open a CLI (command line invite). If you're on Windows, press Shift + right click on the template folder and choose "Open a CLI here".
+- Open a CLI (command line interface). If you're on Windows, press Shift + right click on the template folder and choose "Open a CLI here".
 - type ````make```` and press enter.
 - After a few seconds, the process finishes and you can find a build folder (you can ignore it) and two new files .3dsx and .smdh. You can send them on your SD card to test the homebrew on real hardware.
 - You can rebuild those files anytyme after editing your source code.
