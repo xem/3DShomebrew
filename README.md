@@ -1,21 +1,9 @@
 #3DS Homebrew tutorial and tools
 
-
-##Introduction
-
-Hello everyone,<br>
-This project has two purposes:
-
-- Explain how to make your own homebrews for Nintendo 3DS / 2DS / New 3DS from scratch.
-- Provide some handy tools to ease your homebrew development.
-
-It's in the public domain and all contributions / translations are welcome!<br>
-Thanks to [smealum](http://smealum.net) for his [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) and [hbmenu](https://github.com/xem/3ds_hb_menu) projects.<br>
-Authors: xem, octopuserectus.
-
-
 ##Summary
 
+- [Introduction](https://github.com/xem/3DShomebrew#introduction)
+- [Is it legal?](https://github.com/xem/3DShomebrew#is-it-legal)
 - [Setup](https://github.com/xem/3DShomebrew#setup)
   - [Hardware](https://github.com/xem/3DShomebrew#hardware)
   - [Software](https://github.com/xem/3DShomebrew#software)
@@ -34,8 +22,25 @@ Authors: xem, octopuserectus.
   - ...
   - ...
   - ...
-  
 
+##Introduction
+
+Hello everyone,<br>
+This project has two purposes:
+
+- Explain how to make your own homebrews for Nintendo 3DS / 2DS / New 3DS from scratch.
+- Provide some handy tools to ease your homebrew development.
+
+It's in the public domain and all contributions / translations are welcome!<br>
+Thanks to [smealum](http://smealum.net) for his [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) and [hbmenu](https://github.com/xem/3ds_hb_menu) projects.<br>
+Authors: xem, octopuserectus.
+
+##Is it legal?
+
+Yes, reverse-engineering a video game console and make homebrew software for it is 100% legal.<br>
+The only thing that is illegal is piracy.<br>
+This project doesn't encourage you to pirate 3DS games (which is impossible using Ninjhack), or use it to emulate older consoles like NES or SNES (unless you have a copy of the games you emulate).<br>
+This project is only here to help you develop homebrews, so don't worry and have fun!
 
 
 ##Setup
@@ -45,8 +50,8 @@ Authors: xem, octopuserectus.
 
 Here's what you need to buy to get started:
 
-- A Nintendo 3DS / 2DS console with a firmware version between 4.0.0-7 and 9.2.0-20 + a SD card.
-or 
+- A Nintendo 3DS / 2DS console with a firmware version between 4.0.0-7 and 9.2.0-20 + a SD card.<br>
+or <br>
 - A New 3DS with a firmware between 9.0.0-20 and 9.2.0-20 + a micro SD card.
 - An SD / microSD card reader.
 - A copy of the 3DS game "Cubic Ninja" (new or used). 
