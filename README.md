@@ -1,18 +1,18 @@
-3DS Homebrew tutorial
-=====================
+#3DS Homebrew tutorial
 
-Introduction
-------------
+
+##Introduction
+
 
 This document explains how to make your own homebrew software on Nintendo 3DS / 2DS / New 3DS.
 It's in the public domain and all contributions / translations are welcome!<br>
 Authors: xem, octopuserectus.<br>
 Thanks to [smealum](http://smealum.net) for his [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) and [hbmenu](https://github.com/xem/3ds_hb_menu) projects.
 
-Setup
------
+##Setup
 
-**Hardware**
+
+###Hardware
 
 Here's what you need to buy to get started:
 
@@ -25,7 +25,7 @@ or
 Note: Gateway 3DS can also play homebrews, but only in .3ds and .cia formats. This tutorial will focus on .3dsx homebrews, playable with Ninjhack + hbmenu.
 
 
-**Software**
+###Software
 
 Here's what you need to download and install:
 
@@ -36,7 +36,7 @@ Here's what you need to download and install:
 - Latest version of [Python 3.x.x](https://www.python.org), to use advanced features in your homebrews. (optional)
 - Note that [ctrulib](https://github.com/smealum/ctrulib) is automatically installed by DevkitPro, in the libctru folder. You can get the latest version [here](https://github.com/smealum/ctrulib/archive/master.zip). (optional)
 
-**Homebrew launcher (hbmenu) setup**
+###Homebrew launcher (hbmenu) setup
 
 Follow these steps to install the hbmenu on your 3DS (this needs to be done only once):
 
@@ -49,7 +49,7 @@ The next time you turn your console on, just launch Cubic Ninja, choose "Create"
 
 <img src="http://img.ctrlv.in/img/14/11/22/54709c512ae72.png" width=400>
 
-**Homebrew installation**
+###Homebrew installation
 
 Two files are needed for a 3DS homebrew to be playable with Ninjhack: a *.3dsx file and a *.smdh file.
 
@@ -68,7 +68,7 @@ You can also upload them directly using wi-fi:
 
 <img src="http://img.ctrlv.in/img/14/11/22/54709afe2f047.png" width=700>
 
-**Where can we find 3DS homebrews?**
+###Where can we find 3DS homebrews?
 
 Here are some sites listing 3DS homebrews. Most of them will need to be built with ctrulib to be playable with hbmenu.
 
@@ -76,9 +76,9 @@ Here are some sites listing 3DS homebrews. Most of them will need to be built wi
 - [Nintendomax](http://www.nintendomax.com/portal.php?&page_id=3)
 - [GBAtemp](https://gbatemp.net/threads/homebrew-development.360646/)
 
+##Anatomy of a homebrew project
 
-Anatomy of a homebrew project
-==
+###Basics
 
 Let's take a look at our template default, in ctrulib/template. It's a minimal project that does nothing else than printing a white pixel on the upper screen.
 
@@ -92,8 +92,7 @@ Let's see how bigger projects are made, for example [Yeti3DS](https://github.com
 
 In many projects, like [3dscraft](https://github.com/smealum/3dscraft) you can find a data folder containing .bin files. Those are images, and we'll explain later how to make and how to use them.
 
-Build procedure
---
+###Build procedure
 
 Let's go back to our ctrulib/template folder.
 - Open a CLI (command line invite). If you're on Windows, press Shift + right click on the template folder and choose "Open a CLI here".
@@ -105,10 +104,7 @@ You can try to build all ctrulib examples and run them on your 3DS.
 
 ***Sadly, I can't manage to build the "gpu" example (it says "python: command not found") nor the "httpd" example ("implicit declaration of function"). If someone knows how to fix that... :)***
 
-
-
-New project
---
+###New project
 
 To start developing your own homebrew:
 
@@ -117,11 +113,9 @@ To start developing your own homebrew:
 
 <a href="http://img.ctrlv.in/img/14/11/22/5470cab56bf39.png"><img src="http://img.ctrlv.in/img/14/11/22/5470cab56bf39.png"></a>
 
+##Homebrew development
 
-Homebrew development
-==
-
-This part will detail how to develop a homebrew by covering all the features in ctrulib and all the technical details of the console.
+This part will detail how to develop a 3DS homebrew by covering all the features in ctrulib and all the technical details of the console. 
 
 Chapters will include: display (stereoscopic or not, using bitmap or GPU, ...), sound, input, SD card access, HTTP internet access, microphone, battery, gyroscop, NFC and ... God knows what.
 
