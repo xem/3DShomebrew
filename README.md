@@ -144,6 +144,15 @@ You can try to build all ctrulib examples and run them on your 3DS.
 
 ***Sadly, I can't manage to build the "gpu" example (it says "python: command not found") nor the "httpd" example ("implicit declaration of function"). If someone knows how to fix that... :)***
 
+If you are getting the "python: command not found" error, the make sure you've added python to your PATH. 
+You can verify this by right-clicking 'This PC' in the windows explorer sidebar, clicking 'Properties'. 
+Then click 'Advanced system settings' on the left in the window that shows up. 
+Click the button under the three sections, called 'Environment Variables...'. 
+Then 'Edit...' the PATH variable and make sure that the path to the folder where you've installed Python to is in there. 
+For me that's 'C:\Python27'. 
+Here is what my PATH looks like:
+C:\Program Files (x86)\CMake\bin;C:\Python27;C:\MinGW\bin
+
 ###New project
 
 To start developing your own homebrew:
