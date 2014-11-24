@@ -8,7 +8,7 @@ This project has two purposes:
 - Explain how to make your own homebrews for Nintendo 3DS / 2DS / New 3DS from scratch.
 - Provide some handy tools to ease your homebrew development.
 
-A basic knowledge of programming is needed.
+A basic knowledge of programming is needed.<br>
 It's in the public domain and all contributions / translations are welcome!<br>
 You can also discuss this project on [reddit](http://www.reddit.com/r/3DS/comments/2n3cia/a_complete_3ds_homebrew_tutorial/) and [GBAtemp](https://gbatemp.net/threads/toolbox-and-tutorial-how-to-use-ninjhax-and-make-your-own-homebrews.374693/).
 Thanks to [smealum](http://smealum.net) for his [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) and [hbmenu](https://github.com/xem/3ds_hb_menu) projects.<br>
@@ -65,12 +65,21 @@ Note: Gateway 3DS can also launch homebrews, but only in .3ds and .cia formats. 
 
 Here's what you need to download and install:
 
-- The latest version of [DevkitPro](http://devkitpro.org). During setup, you can choose to install devkitARM only.
+- The latest version of [DevkitPro](http://devkitpro.org). During setup, you can choose to install devkitARM and ctrulib only, or go for a full install.
 - A C++ compatible IDE like [Netbeans](https://netbeans.org/downloads), or a code editor, like [notepad++](http://notepad-plus-plus.org).
 - An FTP client like [FileZilla](https://filezilla-project.org) or [WinSCP](http://winscp.net) to upload homebrews directly on your 3DS using wi-fi connection. (optional)
 - An image editor like [GIMP](http://www.gimp.org/), to create images for your homebrews. (optional)
 - Latest version of [Python 3.x.x](https://www.python.org), to use advanced features in your homebrews. (optional)
-- Note that [ctrulib](https://github.com/smealum/ctrulib) is automatically installed by DevkitPro, in the libctru folder. You can get the latest version [here](https://github.com/smealum/ctrulib/archive/master.zip). (optional)
+
+Windows users: check your environment variables:
+
+- Right-click "This PC" and select "Properties".
+- Click "Advanced system settings" (on the left).
+- Click "Environment Variables..." (on the bottom).
+- Highlight the "PATH" variable (on top), click "Edit..." and check that your DevkitARM and Python install folders are present in the text field. (ex: "C:\DevkitPro\DevkitARM\bin", "C:\Python34")
+- If one (or both) are not present, add them at the end, saparated by ";". Save and quit.
+
+Linux users: you'll find more setup info on [3Dbrew](http://3dbrew.org/wiki/Setting_up_Development_Environment) 
 
 ###3DS setup
 
@@ -138,17 +147,9 @@ Let's go back to our ctrulib/template folder.
 - Open a CLI (command line interface). If you're on Windows, press Shift + right click on the template folder and choose "Open a CLI here".
 - type ````make```` and press enter.
 - After a few seconds, the process finishes and you can find a build folder (you can ignore it) and two new files .3dsx and .smdh. You can copy them to your SD card to test the homebrew on real hardware.
-- You can rebuild those files at any time after editing your source code.
+- You can rebuild those files at any time after editing your source code. You'll need to run ````make clean```` before rebuilding your project.
 
-You can try to build all ctrulib examples and run them on your 3DS.
-
-If you are getting the "python: command not found" error, the make sure you've added python to your PATH.<br>
-You can verify this by right-clicking 'This PC' in the windows explorer sidebar, and selecting 'Properties'.<br>
-Then click 'Advanced system settings' on the left in the window that shows up.<br>
-Click the button under the three sections, called 'Environment Variables...'.<br>
-Then 'Edit...' the PATH variable and make sure that the path to the folder where you've installed Python to is in there.<br>
-For example: ````'...;C:\Python27;...'````.
-  
+You can now try to build all ctrulib examples (or other open source homebrew projects) and run them on your 3DS.
 
 ###New project
 
