@@ -1,0 +1,58 @@
+var svc_8h =
+[
+    [ "MemInfo", "struct_mem_info.html", "struct_mem_info" ],
+    [ "PageInfo", "struct_page_info.html", "struct_page_info" ],
+    [ "ArbitrationType", "svc_8h.html#a00f5b708129ef172b59197a775b533ec", [
+      [ "ARBITER_FREE", "svc_8h.html#a00f5b708129ef172b59197a775b533ecadaf35a59391da51f8d5c99ec81bcf532", null ],
+      [ "ARBITER_ACQUIRE", "svc_8h.html#a00f5b708129ef172b59197a775b533ecaf5f4e915c89a646afe11ec95d6a95b8d", null ],
+      [ "ARBITER_KERNEL2", "svc_8h.html#a00f5b708129ef172b59197a775b533ecaf45a949ea41bf549d24737015b3c5024", null ],
+      [ "ARBITER_ACQUIRE_TIMEOUT", "svc_8h.html#a00f5b708129ef172b59197a775b533eca2202dcbbab9ce98dbb3f15ea3d13e7a9", null ],
+      [ "ARBITER_KERNEL4", "svc_8h.html#a00f5b708129ef172b59197a775b533eca006750b73868005286f929d5d2043242", null ]
+    ] ],
+    [ "MemOp", "svc_8h.html#a754721841a571940880975d2191f3e0f", [
+      [ "MEMOP_FREE", "svc_8h.html#a754721841a571940880975d2191f3e0fa0277897bdb24ec61ebe721b6e2213393", null ],
+      [ "MEMOP_ALLOC", "svc_8h.html#a754721841a571940880975d2191f3e0fa204affee42a49e0da0c743a910e9ebed", null ],
+      [ "MEMOP_MAP", "svc_8h.html#a754721841a571940880975d2191f3e0fad3419008fb719308be57a96f7dbc1a07", null ],
+      [ "MEMOP_UNMAP", "svc_8h.html#a754721841a571940880975d2191f3e0faebba281d2e3a26717e803b22cb4f6951", null ],
+      [ "MEMOP_PROT", "svc_8h.html#a754721841a571940880975d2191f3e0fa19d01531a81ab0476a6977ea5c4f8eb1", null ],
+      [ "MEMOP_FREE_LINEAR", "svc_8h.html#a754721841a571940880975d2191f3e0fa77bf1f483a2e09b5f83920d46c5806af", null ],
+      [ "MEMOP_ALLOC_LINEAR", "svc_8h.html#a754721841a571940880975d2191f3e0fac0a3b46ec2c6ead43fb1de9772729595", null ]
+    ] ],
+    [ "MemPerm", "svc_8h.html#a933c1284d3be96f93a10a06f9c13aef8", [
+      [ "MEMPERM_READ", "svc_8h.html#a933c1284d3be96f93a10a06f9c13aef8a94982bf2da2aa85b256d272073d8a3b2", null ],
+      [ "MEMPERM_WRITE", "svc_8h.html#a933c1284d3be96f93a10a06f9c13aef8a1cd211ea237b7a2f9d79784ad80381ef", null ],
+      [ "MEMPERM_EXECUTE", "svc_8h.html#a933c1284d3be96f93a10a06f9c13aef8a95166c88c977b8f6621cc3fddfbef097", null ],
+      [ "MEMPERM_MAX", "svc_8h.html#a933c1284d3be96f93a10a06f9c13aef8a64a241743691f28eb93552dcc4a99d12", null ]
+    ] ],
+    [ "__attribute__", "svc_8h.html#ad45562eb801d9ac4de5ec07c596f1479", null ],
+    [ "getThreadCommandBuffer", "svc_8h.html#a5906e906e3266e01cb9e0b390d00b833", null ],
+    [ "svcArbitrateAddress", "svc_8h.html#a1a2724a8c3f22d65f94ac03dd7944fbf", null ],
+    [ "svcCancelTimer", "svc_8h.html#aa879db8100afbff865060b72b82b63f3", null ],
+    [ "svcClearEvent", "svc_8h.html#a94956903add7971a58aca41a32367a15", null ],
+    [ "svcClearTimer", "svc_8h.html#a49251844ac67fb29baba6c1b4c465347", null ],
+    [ "svcCloseHandle", "svc_8h.html#a41a6ce4679144b7cb1d701c58c0e1b7a", null ],
+    [ "svcConnectToPort", "svc_8h.html#a17fffc42772c309467ba5971a50a2ba3", null ],
+    [ "svcControlMemory", "svc_8h.html#ab699d4fc5808d03819fb4c8d7b5d2e5d", null ],
+    [ "svcCreateAddressArbiter", "svc_8h.html#a18d7d7c0aa62587ade6b1989d955b713", null ],
+    [ "svcCreateEvent", "svc_8h.html#a9df018e7d6a14fb3c49a74854567df61", null ],
+    [ "svcCreateMemoryBlock", "svc_8h.html#a1ce9d55b54abaeb9e9964e0c442c07af", null ],
+    [ "svcCreateMutex", "svc_8h.html#a293cbf361c5987c9c5a101423f3c4eae", null ],
+    [ "svcCreateThread", "svc_8h.html#ad975c8558cb053bab3771f0f7b7d1e63", null ],
+    [ "svcCreateTimer", "svc_8h.html#ad4d5f8164347a875385d3a153a06eee0", null ],
+    [ "svcDuplicateHandle", "svc_8h.html#a94be8e64b94f93647ef57b4adf3f8785", null ],
+    [ "svcGetProcessId", "svc_8h.html#a1d23d99250781ec61645af339725bf69", null ],
+    [ "svcGetProcessInfo", "svc_8h.html#a0e7e2ce55f88121a0c41f8b3d74f754f", null ],
+    [ "svcGetSystemInfo", "svc_8h.html#ac2e007db2ff703469a2f1818aaec8c7e", null ],
+    [ "svcGetSystemTick", "svc_8h.html#a381106c88c29aca24faa07c9b7cbb97d", null ],
+    [ "svcMapMemoryBlock", "svc_8h.html#a71eed330481041215560e1b01a6ffe1f", null ],
+    [ "svcOutputDebugString", "svc_8h.html#a7074a1af34448e2f280f628ed30fe97b", null ],
+    [ "svcQueryMemory", "svc_8h.html#a6a6203db2d760deeec31a1b84e850615", null ],
+    [ "svcReleaseMutex", "svc_8h.html#adcdf3a19f016ee34005b9d85fcb82d42", null ],
+    [ "svcSendSyncRequest", "svc_8h.html#a7b1fa344f03f64eb32e752106e8793a1", null ],
+    [ "svcSetTimer", "svc_8h.html#a96c765f0bde623de71f45799567849f0", null ],
+    [ "svcSignalEvent", "svc_8h.html#ad507d4d5b0b5dfab5e173e2a67f89801", null ],
+    [ "svcSleepThread", "svc_8h.html#ae1fad9317c81076e1394a376ab27c720", null ],
+    [ "svcUnmapMemoryBlock", "svc_8h.html#a63141249bafc39b4af54ae8bcf9116dc", null ],
+    [ "svcWaitSynchronization", "svc_8h.html#a8791f66c2c700d2f9293ba5fc0b726df", null ],
+    [ "svcWaitSynchronizationN", "svc_8h.html#a13438b0647d18e682c95ba704b37461f", null ]
+];

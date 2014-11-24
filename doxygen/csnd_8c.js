@@ -1,0 +1,26 @@
+var csnd_8c =
+[
+    [ "CSND_cmd1", "csnd_8c.html#a6e35356e182158221cedb6b1340cdf24", null ],
+    [ "CSND_cmd2", "csnd_8c.html#a6ab9a8d69ecd712958964fc5f345f7e8", null ],
+    [ "CSND_cmd3", "csnd_8c.html#aba0281822c0ebcf20840903b6419b7e3", null ],
+    [ "CSND_cmd5", "csnd_8c.html#a23e4c8c0bbb2ea2967c6424b5a4c835d", null ],
+    [ "CSND_convertsamplerate", "csnd_8c.html#af58a8d2acc17fa0a6fa3ef5a29658d46", null ],
+    [ "CSND_getchannelstate", "csnd_8c.html#af6fc355bce080a2a8f474ff7fed5e9cd", null ],
+    [ "CSND_getchannelstate_isplaying", "csnd_8c.html#ad75f95ab1aaa62ead0a184cfd7444838", null ],
+    [ "CSND_initialize", "csnd_8c.html#a199a9055cc4cb9e930015b1218914798", null ],
+    [ "CSND_playsound", "csnd_8c.html#af23b6241d628e97d909d1a0429a50201", null ],
+    [ "CSND_processtype0cmds", "csnd_8c.html#a8aaa3c403ca8ddd55da11cd435ae750d", null ],
+    [ "CSND_setchannel_playbackstate", "csnd_8c.html#a23bb54e722261d4fe394c6a8a565ae8b", null ],
+    [ "CSND_sharedmemtype0_cmd0", "csnd_8c.html#a6028969f982ec8a0aa6cda68a50d92de", null ],
+    [ "CSND_sharedmemtype0_cmd3", "csnd_8c.html#ae6588bcd1a2aec9f06d6f5df5aa1026c", null ],
+    [ "CSND_sharedmemtype0_cmd8", "csnd_8c.html#a3da172a90bb16d1e4f8700952a29d96a", null ],
+    [ "CSND_sharedmemtype0_cmd9", "csnd_8c.html#a6be1c45d86f85b9fe88a407727ca81b1", null ],
+    [ "CSND_sharedmemtype0_cmde", "csnd_8c.html#af208076480586c778195e3f125f52954", null ],
+    [ "CSND_sharedmemtype0_cmdupdatestate", "csnd_8c.html#aef9d757715731aaf4482a88d7c2088b4", null ],
+    [ "CSND_shutdown", "csnd_8c.html#aa89a919e67692ff6aba6c2d4c9cb1d3f", null ],
+    [ "CSND_writesharedmem_cmdtype0", "csnd_8c.html#ad14aa66de1b56ecc333a4d15c2fbe8bf", null ],
+    [ "CSND_handle", "csnd_8c.html#a068dcb31984ed2c31d76cb6804cc278b", null ],
+    [ "CSND_mutexhandle", "csnd_8c.html#a64998511c1eb9ce3308bc6faea1375ce", null ],
+    [ "CSND_sharedmem", "csnd_8c.html#acc3a6c5a7d7c6445c8ed496c6d25cf8a", null ],
+    [ "CSND_sharedmemhandle", "csnd_8c.html#a2ae2c7b52a64c86bd50946545780fb59", null ]
+];

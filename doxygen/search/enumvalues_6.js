@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['mediatype_5fgamecard',['mediatype_GAMECARD',['../types_8h.html#a7a67b7ba2b5b494eadbe1089ade6fe80a37ad92093fdd33cecf7ca88544262ef5',1,'types.h']]],
+  ['mediatype_5fnand',['mediatype_NAND',['../types_8h.html#a7a67b7ba2b5b494eadbe1089ade6fe80a8c077ce32091cb40f5d930b4fd3fa595',1,'types.h']]],
+  ['mediatype_5fsdmc',['mediatype_SDMC',['../types_8h.html#a7a67b7ba2b5b494eadbe1089ade6fe80a675a15dd29605ab2089c8d939c9b6b7b',1,'types.h']]],
+  ['memop_5falloc',['MEMOP_ALLOC',['../svc_8h.html#a754721841a571940880975d2191f3e0fa204affee42a49e0da0c743a910e9ebed',1,'svc.h']]],
+  ['memop_5falloc_5flinear',['MEMOP_ALLOC_LINEAR',['../svc_8h.html#a754721841a571940880975d2191f3e0fac0a3b46ec2c6ead43fb1de9772729595',1,'svc.h']]],
+  ['memop_5ffree',['MEMOP_FREE',['../svc_8h.html#a754721841a571940880975d2191f3e0fa0277897bdb24ec61ebe721b6e2213393',1,'svc.h']]],
+  ['memop_5ffree_5flinear',['MEMOP_FREE_LINEAR',['../svc_8h.html#a754721841a571940880975d2191f3e0fa77bf1f483a2e09b5f83920d46c5806af',1,'svc.h']]],
+  ['memop_5fmap',['MEMOP_MAP',['../svc_8h.html#a754721841a571940880975d2191f3e0fad3419008fb719308be57a96f7dbc1a07',1,'svc.h']]],
+  ['memop_5fprot',['MEMOP_PROT',['../svc_8h.html#a754721841a571940880975d2191f3e0fa19d01531a81ab0476a6977ea5c4f8eb1',1,'svc.h']]],
+  ['memop_5funmap',['MEMOP_UNMAP',['../svc_8h.html#a754721841a571940880975d2191f3e0faebba281d2e3a26717e803b22cb4f6951',1,'svc.h']]],
+  ['memperm_5fexecute',['MEMPERM_EXECUTE',['../svc_8h.html#a933c1284d3be96f93a10a06f9c13aef8a95166c88c977b8f6621cc3fddfbef097',1,'svc.h']]],
+  ['memperm_5fmax',['MEMPERM_MAX',['../svc_8h.html#a933c1284d3be96f93a10a06f9c13aef8a64a241743691f28eb93552dcc4a99d12',1,'svc.h']]],
+  ['memperm_5fread',['MEMPERM_READ',['../svc_8h.html#a933c1284d3be96f93a10a06f9c13aef8a94982bf2da2aa85b256d272073d8a3b2',1,'svc.h']]],
+  ['memperm_5fwrite',['MEMPERM_WRITE',['../svc_8h.html#a933c1284d3be96f93a10a06f9c13aef8a1cd211ea237b7a2f9d79784ad80381ef',1,'svc.h']]],
+  ['mvdmode_5fcolorformatconv',['MVDMODE_COLORFORMATCONV',['../mvd_8h.html#a7727fc7f0cd8323ea3441e3c2c6b1312a60d87a7f2151cd67f8b0710ec39f7583',1,'mvd.h']]],
+  ['mvdmode_5fvideoprocessing',['MVDMODE_VIDEOPROCESSING',['../mvd_8h.html#a7727fc7f0cd8323ea3441e3c2c6b1312a4a87a822d91b28e9468c0147c90be30f',1,'mvd.h']]],
+  ['mvdtypein_5fh264',['MVDTYPEIN_H264',['../mvd_8h.html#a13f3a4ebf72d9e2627f01f07e55c1e28a0d61beddadb49d120fcc93fef7c26963',1,'mvd.h']]],
+  ['mvdtypein_5fyuyv422',['MVDTYPEIN_YUYV422',['../mvd_8h.html#a13f3a4ebf72d9e2627f01f07e55c1e28a895555ac70dc1917bc4222ac32eb260a',1,'mvd.h']]],
+  ['mvdtypeout_5frgb565',['MVDTYPEOUT_RGB565',['../mvd_8h.html#aa869ba1b2c74bdbde19b33c6f7b9a54fa1044c8269f043c3289f46b48ed413e33',1,'mvd.h']]]
+];
