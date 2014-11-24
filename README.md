@@ -3,17 +3,18 @@
 ##Introduction
 
 Hello everyone,<br>
-This project has two purposes:
+This project has many purposes:
 
-- Explain how to make your own homebrews for Nintendo 3DS / 2DS / New 3DS from scratch.
+- Explain how to make your own homebrews for Nintendo 3DS / 2DS / New 3DS from scratch.<br>
+- Document all the features of ctrulib and the role of each function.<br>
 - Provide some handy tools to ease your homebrew development.
 
 A basic knowledge of programming is needed.<br>
 It's in the public domain and all contributions / translations are welcome!<br>
-You can also discuss this project on [reddit](http://www.reddit.com/r/3DS/comments/2n3cia/a_complete_3ds_homebrew_tutorial/) and [GBAtemp](https://gbatemp.net/threads/toolbox-and-tutorial-how-to-use-ninjhax-and-make-your-own-homebrews.374693/).
+You can also discuss this project on [reddit](http://www.reddit.com/r/3DS/comments/2n3cia/a_complete_3ds_homebrew_tutorial/) and [GBAtemp](https://gbatemp.net/threads/toolbox-and-tutorial-how-to-use-ninjhax-and-make-your-own-homebrews.374693/).<br>
 Thanks to [smealum](http://smealum.net) for his [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) and [hbmenu](https://github.com/xem/3ds_hb_menu) projects.<br>
 Authors: [xem](http://twitter.com/MaximeEuziere), octopuserectus.<br>
-Please note that this project is still in a very early stage.
+Please note that this project is still in a very early stage. You can follow its updates by visiting [this page](https://github.com/xem/3DShomebrew/commits/gh-pages) or by adding it to your RSS feed reader.
 
 ##Tools
 
@@ -52,11 +53,11 @@ This project is only here to help you develop homebrews, so don't worry and have
 
 Here's what you need to buy to get started:
 
-- A Nintendo 3DS / 2DS console with a firmware version between 4.0.0-7 and 9.2.0-20 + a SD card.<br>
+- A Nintendo 3DS / 2DS with a firmware version between 4.0.0-7 and 9.2.0-20 + a SD card.<br>
 or <br>
 - A New 3DS with a firmware between 9.0.0-20 and 9.2.0-20 + a micro SD card.
 - An SD / microSD card reader.
-- A copy of the 3DS game "Cubic Ninja" (new or used). 
+- A copy of the 3DS game "Cubic Ninja" (new or used). It has in the same region as your 3DS (Europe, USA or Japan).
 
 Note: Gateway 3DS can also launch homebrews, but only in .3ds and .cia formats. This tutorial will focus on .3dsx homebrews, launchable with Ninjhack + hbmenu.
 
@@ -65,19 +66,20 @@ Note: Gateway 3DS can also launch homebrews, but only in .3ds and .cia formats. 
 
 Here's what you need to download and install:
 
-- The latest version of [DevkitPro](http://devkitpro.org). During setup, you can choose to install devkitARM and ctrulib only, or go for a full install.
+- The latest version of [DevkitPro](http://devkitpro.org). You can do a full install, or install only DevkitARM + ctrulib.
+- Download [Aemstro](https://github.com/smealum/aemstro) and place its content "msys", inside your devkitPro install folder. (ex: ````C:\devkitPro\msys````)
 - A C++ compatible IDE like [Netbeans](https://netbeans.org/downloads), or a code editor, like [notepad++](http://notepad-plus-plus.org).
-- An FTP client like [FileZilla](https://filezilla-project.org) or [WinSCP](http://winscp.net) to upload homebrews directly on your 3DS using wi-fi connection. (optional)
-- An image editor like [GIMP](http://www.gimp.org/), to create images for your homebrews. (optional)
+- An FTP client like [FileZilla](https://filezilla-project.org) or [WinSCP](http://winscp.net) to upload homebrews  on your 3DS using wi-fi. (optional)
+- An image editor like [GIMP](http://www.gimp.org/) to create images for your homebrews. (optional)
 - Latest version of [Python 3.x.x](https://www.python.org)
-- Download [Aemstro](https://github.com/smealum/aemstro) and place its content in the "msys" folder, inside your devkitPro install folder. (ex: C:\devkitPro\msys)
 
 Windows users: check your environment variables:
 
 - Right-click "This PC" and select "Properties".
 - Click "Advanced system settings" (on the left).
 - Click "Environment Variables..." (on the bottom).
-- Highlight the "PATH" variable (on top), click "Edit..." and check that your DevkitARM and Python install folders are present in the text field. (ex: "C:\DevkitPro\DevkitARM\bin", "C:\Python34")
+- Highlight the "PATH" variable (on top), click "Edit...".
+- Check that your DevkitARM and Python install folders are present (ex: "C:\DevkitPro\DevkitARM\bin", "C:\Python34").
 - If one (or both) are not present, add them at the end, saparated by ";". Save and quit.
 
 Linux users: you'll find more setup info on [3Dbrew](http://3dbrew.org/wiki/Setting_up_Development_Environment) 
@@ -97,11 +99,12 @@ The next time you turn your console on, just launch Cubic Ninja, choose "Create"
 
 <img src="http://img.ctrlv.in/img/14/11/22/54709c512ae72.png" width=400>
 
-To uninstall Ninjhack (or install it on another console), you need to delete your save file. (go to Cubic Ninja's main menu and press L+R+X+Y)
+To uninstall Ninjhack (or install it on another console), you need to delete your save file.<br>
+(go to Cubic Ninja's main menu and press L+R+X+Y)
 
 ###Homebrew installation
 
-Two files are needed for a 3DS homebrew to be launchable with Ninjhack: a *.3dsx file and a *.smdh file.
+Two files are needed for a 3DS homebrew to be run with Ninjhack: a .3dsx file and a .smdh file.
 
 If you want to launch homebrews on your console, or test your own builds easily, you can use your computer to place them in the "3ds" folder of your SD / microSD card.
 
@@ -133,14 +136,16 @@ Here are some sites listing 3DS homebrews. Most of them will need to be built wi
 Let's take a look at our template default, in ctrulib/template. It's a minimal project that does nothing else than printing a white pixel on the upper screen.
 
 It contains:
-- a source folder, containing a main.c file. (this contains the source code of your homebrew)
-- a makefile file (this contains the instructions to build our homebrew for hbmenu)
+- a source folder, containing a main.c file. (the source code of your homebrew)
+- a makefile file (allowing to build your homebrew for hbmenu)
 
 Let's see how bigger projects are made, for example [Yeti3DS](https://github.com/smealum/yeti3DS). You can notice a few other things:
-- an icon.png file (This is a 48x48px image displayed on hbmenu alongside your homebrew. Optional but preferable.) 
+- an icon.png file (a 48x48px image displayed on hbmenu with the homebrew. Optional but preferable.) 
 - the source folder contains more .c files and .h files. (this is a common way to structure and organize a C/C++ project. Note that the main function ````int main()```` remains in main.c, the other C files are used to store additional code and data).
 
-In many projects, like [3dscraft](https://github.com/smealum/3dscraft) you can find a data folder containing .bin files. Those are images, and we'll explain how to make and how to use them later.
+In many projects, like [3dscraft](https://github.com/smealum/3dscraft) you can find a data folder containing .bin files. Those are used to store image data. The tutorial will explain how to use them in your projects.
+
+Reminder: [the tools](https://github.com/xem/3DShomebrew#tools) present in this project allow to convert image files in BIN and BIN files in PNG.
 
 ###Build procedure
 
