@@ -1,6 +1,7 @@
 #3DS Homebrew tools and tutorial
 
-Hello everyone,<br>
+Hello everyone!
+
 This project has many purposes:
 
 - Explain how to make your own homebrews for Nintendo 3DS / 2DS / New 3DS from scratch.<br>
@@ -9,14 +10,18 @@ This project has many purposes:
 - Document all the features of ctrulib and the role of each function.<br>
   See [3DS and ctrulib documentation](https://github.com/xem/3DShomebrew/blob/gh-pages/README.md)
   
-- Provide some handy tools to ease your homebrew development.
+- Provide some handy tools to ease your homebrew development.<br>
   See [the tools](https://github.com/xem/3DShomebrew/blob/gh-pages/tools.md)
 
+  
+----------
+
+
 This project is in the public domain and all contributions and ideas are welcome!<br>
-You can discuss this project on [reddit](http://www.reddit.com/r/3DS/comments/2n3cia/a_complete_3ds_homebrew_tutorial/) and [GBAtemp](https://gbatemp.net/threads/toolbox-and-tutorial-how-to-use-ninjhax-and-make-your-own-homebrews.374693/).<br>
+You can discuss this project on [reddit](http://www.reddit.com/r/3DS/comments/2n3cia/a_complete_3ds_homebrew_tutorial/) and [GBAtemp](https://gbatemp.net/threads/toolbox-and-tutorial-how-to-use-ninjhax-and-make-your-own-homebrews.374693/),<br>
+find useful information on [3Dbrew](http://www.3dbrew.org/), [GBAtemp](https://gbatemp.net/forums/3ds-hacking-homebrew.201/), [/r/3DS](http://www.reddit.com/r/3DS)<br>
+and download 3DS homebrews on [3Dbrew](http://www.3dbrew.org/wiki/Homebrew_Applications), [GBAtemp](https://gbatemp.net/threads/homebrew-development.360646/) and [Nintendomax](http://www.nintendomax.com/portal.php?&page_id=3)<br>
 Thanks to [smealum](http://smealum.net) for his projects, especially [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) and [hbmenu](https://github.com/xem/3ds_hb_menu).<br>
-Here are some useful links: [3Dbrew](http://www.3dbrew.org/), [GBAtemp](https://gbatemp.net/forums/3ds-hacking-homebrew.201/), [/r/3DS](http://www.reddit.com/r/3DS)<br>
-And here are some lists of 3DS homebrews: [3Dbrew](http://www.3dbrew.org/wiki/Homebrew_Applications), [GBAtemp](https://gbatemp.net/threads/homebrew-development.360646/) and [Nintendomax](http://www.nintendomax.com/portal.php?&page_id=3)<br>
 
 Authors: [xem](http://twitter.com/MaximeEuziere), octopuserectus, capz.<br>
 Please note that this project is still in a very early stage. You can follow its updates by visiting [this page](https://github.com/xem/3DShomebrew/commits/gh-pages) or adding it to your RSS feed reader.
