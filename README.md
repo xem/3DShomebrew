@@ -69,7 +69,8 @@ Here's what you need to download and install:
 - A C++ compatible IDE like [Netbeans](https://netbeans.org/downloads), or a code editor, like [notepad++](http://notepad-plus-plus.org).
 - An FTP client like [FileZilla](https://filezilla-project.org) or [WinSCP](http://winscp.net) to upload homebrews directly on your 3DS using wi-fi connection. (optional)
 - An image editor like [GIMP](http://www.gimp.org/), to create images for your homebrews. (optional)
-- Latest version of [Python 3.x.x](https://www.python.org), to use advanced features in your homebrews. (optional)
+- Latest version of [Python 3.x.x](https://www.python.org)
+- Download [Aemstro](https://github.com/smealum/aemstro) and place its content in the "msys" folder, inside your devkitPro install folder. (ex: C:\devkitPro\msys)
 
 Windows users: check your environment variables:
 
@@ -150,6 +151,8 @@ Let's go back to our ctrulib/template folder.
 - You can rebuild those files at any time after editing your source code. You'll need to run ````make clean```` before rebuilding your project.
 
 You can now try to build all ctrulib examples (or other open source homebrew projects) and run them on your 3DS.
+
+***(TODO: figure out how to build the http example without "implicit declaration of function" errors)***
 
 ###New project
 
