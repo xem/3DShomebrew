@@ -34,7 +34,7 @@ or <br>
 - A copy of the 3DS game "Cubic Ninja" (new or used). It has in the same region as your 3DS (Europe, USA or Japan).
 
 Note: the Gateway 3DS flashcard can also launch homebrews, but only in .3ds and .cia formats.<br>
-This tutorial will focus on .3dsx homebrews, compatible with Ninjhack + hbmenu.
+This tutorial will focus on .3dsx homebrews, compatible with Ninjhax + hbmenu.
 
 ###Computer setup
 
@@ -62,7 +62,7 @@ Linux users: you'll find more setup info on [3Dbrew](http://3dbrew.org/wiki/Sett
 
 Follow these steps to install the homebrew launcher (hbmenu) on your 3DS (this needs to be done only once):
 
-- Download [Ninjhack's homebrew starter kit](http://smealum.net/ninjhax/dl/starter.zip) and unzip it at the root of your SD / microSD card.
+- Download [Ninjhax's homebrew starter kit](http://smealum.net/ninjhax/dl/starter.zip) and unzip it at the root of your SD / microSD card.
 - Insert the SD / microSD card in your console.
 - Go on Ninjhax's website and [generate the QR code corresponding to your console's firmware](http://smealum.net/ninjhax/#qrcode). (you can find your firmware version in the "Settings" app, on the upper screen.)
 - Enable your 3DS' wi-fi connection.
@@ -73,12 +73,12 @@ The next time you turn your console on, just launch Cubic Ninja, choose "Create"
 
 <img src="http://img.ctrlv.in/img/14/11/22/54709c512ae72.png" width=400>
 
-To uninstall Ninjhack (or install it on another console), you need to delete your save file.<br>
+To uninstall Ninjhax (or install it on another console), you need to delete your save file.<br>
 (go to Cubic Ninja's main menu and press L+R+X+Y)
 
 ###Homebrew installation
 
-Two files are needed for a 3DS homebrew to be run with Ninjhack: a .3dsx file and a .smdh file.
+Two files are needed for a 3DS homebrew to be run with Ninjhax: a .3dsx file and a .smdh file.
 
 If you want to launch homebrews on your console, or test your own builds easily, you can use your computer to place them in the "3ds" folder of your SD / microSD card.
 

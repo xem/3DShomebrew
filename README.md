@@ -7,7 +7,7 @@ This project was made to:
 - Explain how to make your own homebrews for Nintendo 3DS / 2DS / New 3DS from scratch.<br>
   See [the tutorial](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md). (a basic knowledge of programming is needed)
 
-- Document all the features of ctrulib and the role of each function, as well as .<br>
+- Document all the features of ctrulib and the role of each function, as well as the 3DS inner workings.<br>
   See [3DS and ctrulib documentation](https://github.com/xem/3DShomebrew/blob/gh-pages/documentation.md).
   
 - Provide some handy tools to ease your homebrew development.<br>
