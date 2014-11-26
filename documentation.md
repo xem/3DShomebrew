@@ -7,7 +7,31 @@ The following document was made by studying the [doxygen build of ctrulib](http:
 ##Summary
 - ctrulib documentation
   - Variables
-- 3DS internals
+  - Memory allocator
+  - GPU
+  - Networking / Sockets
+  - AC
+  - AM
+  - APT
+  - CFGNOR
+  - CFGU
+  - Audio subsystem
+  - Filesystem / IO
+  - GSP
+  - GX
+  - User Input / HID
+  - HTTPC
+  - Infrared Communication
+  - IRRST
+  - Microphone / Audio capture
+  - mvd
+  - NS
+  - PM
+  - PS
+  - PTM
+  - GFX
+  - Srv
+  
 
 ##ctrulib documentation
 
@@ -107,7 +131,7 @@ void 	GPU_DrawElements (GPU_Primitive_t primitive, u32 *indexArray, u32 n)
 void 	GPU_FinishDrawing ()
 
 DVLB_s * 	SHDR_ParseSHBIN (u32 *shbinData, u32 shbinSize)
-s8 	SHDR_GetUniformRegister (DVLB_s *dvlb, const char *name, u8 programID)
+s8 	  SHDR_GetUniformRegister (DVLB_s *dvlb, const char *name, u8 programID)
 void 	DVLP_SendCode (DVLP_s *dvlp)
 void 	DVLP_SendOpDesc (DVLP_s *dvlp)
 void 	DVLE_SendOutmap (DVLE_s *dvle)
@@ -414,7 +438,7 @@ Result 	HIDUSER_DisableGyroscope ()
 
 ````
 Result 	httpcInit ()
-void 	httpcExit ()
+void 	  httpcExit ()
 Result 	httpcOpenContext (httpcContext *context, char *url, u32 use_defaultproxy)
 Result 	httpcCloseContext (httpcContext *context)
 Result 	httpcAddRequestHeaderField (httpcContext *context, char *name, char *value)
@@ -502,8 +526,8 @@ Result 	MIC_IsRecoding (u8 *value)
 ####Functions
 
 ````
-Result 	mvdstdSetConfig (mvdstdConfig *config)
-void 	  mvdstdGenerateDefaultConfig (mvdstdConfig *config, u32 input_width, u32 input_height, u32 output_width, u32 output_height, u32 *vaddr_colorconv_indata, u32 *vaddr_outdata0, u32 *vaddr_outdata1_colorconv)
+Result  mvdstdSetConfig (mvdstdConfig *config)
+void    mvdstdGenerateDefaultConfig (mvdstdConfig *config, u32 input_width, u32 input_height, u32 output_width, u32 output_height, u32 *vaddr_colorconv_indata, u32 *vaddr_outdata0, u32 *vaddr_outdata1_colorconv)
 Result 	mvdstdInit (mvdstdMode mode, mvdstdTypeInput input_type, mvdstdTypeOutput output_type, u32 size)
 Result 	mvdstdShutdown ()
 Result 	mvdstdProcessFrame (mvdstdConfig *config, u32 *h264_vaddr_inframe, u32 h264_inframesize, u32 h264_frameid)
@@ -583,7 +607,7 @@ void 	gfxSwapBuffersGpu ()
 
 ````
 Handle 	__get_handle_from_list (const char *name)
-void 	__destroy_handle_list (void)
+void 	  __destroy_handle_list (void)
 Result 	srvInit ()
 Result 	srvExit ()
 Result 	srvRegisterClient ()
