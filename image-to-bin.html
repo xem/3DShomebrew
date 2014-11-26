@@ -45,6 +45,7 @@ Read the <a href=".">3DS homebrew tutorial</a> to use these BIN files in your ho
 
 <canvas id=c hidden></canvas>
 
+
 <script>
 b.onclick=function(){
   with(new FileReader){
@@ -58,10 +59,12 @@ b.onclick=function(){
       x.drawImage(z,0,0);
       d=x.getImageData(0,0,W,H).data;
       b='';
-      for(i=0;i<d.length;i++){
-        if(i%4<3)b+=String.fromCharCode(d[i]);
+      for(i=0;i<d.length-4;i+=4){
+        b+=String.fromCharCode(d[i+2]);
+        b+=String.fromCharCode(d[i+1]);
+        b+=String.fromCharCode(d[i]);
       }
-      a.href="data:application/octet-stream;,"+btoa(b);
+      a.href="data:application/octet-stream;base64,"+btoa(b);
     }
   }
 }
