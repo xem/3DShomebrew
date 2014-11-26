@@ -3,32 +3,32 @@
 <a href=//github.com/xem/3DShomebrew><img style="position:absolute;top:0;right:0;border:0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
 <style>
-body { width: 800px; margin: 0 auto; font-family: arial }
+body { width: 700px; margin: 0 auto; font-family: arial }
+p { background: #f5faff; padding: 30px; }
 </style>
 
 <body>
 
 <h1>3DS Homebrew tool: image to BIN converter</h1>
 
-
+<p>
 This tool is made to generate a .bin file from any image.
 <br>
-Note that GIMP can do the same job (File > Export as > Raw image data).
+You can convert BIN files back into PNG with <a href="bin-to-png.html">BIN-to-PNG converter</a>.
 <br>
-You can convert BIN files in PNG with <a href="bin-to-png.html">BIN-to-PNG converter</a>.
+These BIN files use 3 bytes for each pixel: Blue, Green, Red. No alpha transparency.
 <br>
-These BIN files use 3 bytes for each pixel: Red, Green, Blue. No alpha transparency.
+It's recommended to rotate your images 90 degrees on the left before converting them.
 <br>
-Read the <a href=".">3DS homebrew tutorial</a> to use these BIN files in your homebrews.
+(3DS screens are considered vertical in the console's memory).
+<br>
+Read the <a href=".">3DS homebrew tutorial</a> to learn how to use these BIN files in your homebrews.
+</p>
 
 
+1) Choose an image file <input type=file id=f>
 <br>
-<br>
-<br>
-
-1) Choose an image file (.bmp, .png, .jpg, .gif) <input type=file id=f>
-<br>
-(your file will not be sent on a server)
+(.bmp, .png, .jpg or .gif - your file will not be sent on a server)
 
 <br>
 <br>
@@ -58,8 +58,10 @@ b.onclick=function(){
       x.drawImage(z,0,0);
       d=x.getImageData(0,0,W,H).data;
       b='';
-      for(i=0;i<d.length;i++){
-        if(i%4<3)b+=String.fromCharCode(d[i]);
+      for(i=0;i<d.length-4;i+=4){
+        b+=String.fromCharCode(d[i+2]);
+        b+=String.fromCharCode(d[i+1]);
+        b+=String.fromCharCode(d[i]);
       }
       a.href="data:application/octet-stream;base64,"+btoa(b);
     }
