@@ -1,0 +1,135 @@
+<!doctype html>
+<meta charset=utf-8>
+<title>3DS emulator</title>
+<style>
+body { text-align: center }
+canvas { background: #000; transform: rotate(-90deg); margin: -70px 100px 0; }
+</style>
+<body>
+<canvas id=topleft width=240 height=400></canvas> 
+<canvas id=topright width=240 height=400></canvas>
+<br>
+<canvas id=bottom width=240 height=320></canvas>
+
+
+<script type=c id=source>
+#include <3ds.h>
+
+int main()
+{
+	// Initialize services
+	srvInit();
+	aptInit();
+	hidInit(NULL);
+	gfxInit();
+	//gfxSet3D(true); // uncomment if using stereoscopic 3D
+
+	// Main loop
+	while (aptMainLoop())
+	{
+		gspWaitForVBlank();
+		hidScanInput();
+
+		// Your code goes here
+
+		u32 kDown = hidKeysDown();
+		if (kDown & KEY_START)
+			break; // break in order to return to hbmenu
+
+		// Example rendering code that displays a white pixel
+		// Please note that the 3DS screens are sideways (thus 240x400 and 240x320)
+		u8* fb = gfxGetFramebuffer(GFX_TOP, GFX_LEFT, NULL, NULL);
+		//u8* fb = gfxGetFramebuffer(GFX_TOP, GFX_RIGHT, NULL, NULL);
+		//u8* fb = gfxGetFramebuffer(GFX_BOTTOM, GFX_LEFT, NULL, NULL);
+		memset(fb, 0, 240*400*3);
+    
+		fb[10000] = 0xFF;
+		fb[10001] = 0xFF;
+		fb[10002] = 0xFF;
+		fb[10003] = 0xFF;
+    
+		//fb[3*(10+10*240)] = 0xFF;
+		//fb[3*(10+10*240)+1] = 0xFF;
+		//fb[3*(10+10*240)+2] = 0xFF;
+
+		// Flush and swap framebuffers
+		gfxFlushBuffers();
+		gfxSwapBuffers();
+	}
+
+	// Exit services
+	gfxExit();
+	hidExit();
+	aptExit();
+	srvExit();
+	return 0;
+}
+</script>
+
+<script>
+// Emulator
+
+ctxtopleft = topleft.getContext("2d");
+ctxtopright = topright.getContext("2d");
+ctxbottom = bottom.getContext("2d");
+
+datatopleft = ctxtopleft.getImageData(0,0,240,400);
+datatopright = ctxtopright.getImageData(0,0,240,400);
+databottom = ctxbottom.getImageData(0,0,240,320);
+
+loops = 10;
+
+code = source.textContent;
+code = code.replace(/($|\n)#include/g, "//#include");
+code = code.replace(/int main/g, "function main");
+code = code.replace(/NULL/g, "null");
+code = code.replace(/u32 /g, "var ");
+code = code.replace(/u8\* /g, "var ");
+
+KEY_START = 0x1000;
+GFX_TOP = 0;
+GFX_BOTTOM = 1;
+GFX_LEFT = 0;
+GFX_RIGHT = 1;
+
+function srvInit(){}
+function aptInit(){}
+function hidInit(){}
+function gfxInit(){}
+function gfxSet3D(){}
+function aptMainLoop(){
+  ctxtopleft.putImageData(datatopleft, 0, 0);
+  ctxtopright.putImageData(datatopright, 0, 0);
+  ctxbottom.putImageData(databottom, 0, 0);
+  return loops--;
+}
+function gspWaitForVBlank(){}
+function hidScanInput(){}
+function hidKeysDown(){}
+function gfxGetFramebuffer(topbottom, leftright, a, b){
+  console.log(1);
+  if(topbottom == 0 && leftright == 0){
+    return datatopleft.data;
+  }
+  
+  if(topbottom == 0 && leftright == 1){
+    return datatopright.data;
+  }
+  
+  if(topbottom == 1){
+    return databottom.data;
+  }
+}
+function memset(){}
+function gfxFlushBuffers(){}
+function gfxSwapBuffers(){}
+function gfxExit(){}
+function hidExit(){}
+function aptExit(){}
+function srvExit(){}
+
+console.log(code);
+eval(code);
+
+main();
+</script>
