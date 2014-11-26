@@ -14,35 +14,32 @@ The following document was made by studying the [doxygen build of ctrulib](http:
 - GFX
 - Srv
 
-##Numbers
+##Variables
 
 ###Types
 
-16 types of numbers can be created, according to the numbers you want to store.
-unsigned means that the number is strictly positive
-signed means that the number can be positive or negative
-volatila means that the number can be edited by other programs (i.e. "public")
-non-volatile numbers are optimized during compilation.
+In addition to the standard C/C++ types, the following short-hand types have been provided for you to use. They are all types of integers (no decimal numbers), though this doesn't mean that you can't use floating point numbers
+
+Some notes for new programmers:
+* u means unsigned; the number is strictly positive
+* s means signed; the number can be positive or negative
+* v means volatile; he number can be changed from outside of your code, such as 
+the 3D effect slider value non-volatile numbers are optimized during compilation.
+
+The above designations are followed by the amount of bits in memory the variable type uses. It is important to note that on a desktop PC, there is no difference between the amount of memory an u8 or an u32 take. However, on hardware with limited resources such as a 3DS, this difference does exist, and choosing the proper size variable will save you valuable memory capacity.
+
+For detailed information about the types available, visit [this page](http://en.cppreference.com/w/cpp/language/types)
+
+The short-hand type definitions provided by this library are:
 
 ````
-u8    // unsigned 8-bit integer (0 to 256)
-u16   // unsigned 16-bit integer (0 to 65536)
-u32   // unsigned 32-bit integer (0 to 4294967296)
-u64   // unsigned 64-bit integer (0 to ~1.8e19)
-s8    // signed 8-bit integer (-127 to 128)
-s16   // signed 16-bit integer (-32767 to 32768)
-s32   // signed 32-bit integer (-214748364è to 2147483648)
-s64   // signed 64-bit integer (~ -9.2e18 to ~9.2e18)
-vu8   // volatile unsigned 8-bit integer
-vu16  // volatile unsigned 16-bit integer
-vu32  // volatile unsigned 32-bit integer
-vu64  // volatile unsigned 64-bit integer
-vs8   // volatile signed 8-bit integer
-vs16  // volatile signed 16-bit integer
-vs32  // volatile signed 32-bit integer
-vs64  // volatile signed 64-bit integer
-````
+Unsigned int types:
+u8, u16, u32, s64 / vu8, vu16, vu32, vu64
 
+Signed int types:
+s8, s16, s32, s64 / vs8, vs16, vs32, vs64
+
+````
 ###Constants / macros
 
 ````
@@ -98,8 +95,11 @@ FS_ATTRIBUTE_DIRECTORY = 0x01000000 // create a directory
 ````
 (used in FSUSER_OpenFile() and FSUSER_OpenFileDirectly())
 
-File writing
+File writing parameters
 
+When writing to the filesystem, usually the operating system will wait with actually writing the file data to the storage medium until a certain amount of data has been 'written'. You can specify that you want to write+flush, or just write. 
+Meaning; you can let the OS decide when to do the writing, or you can force the data to be 
+written to the file immediately. In most cases, you will not need to force flushing.
 ````
 FS_WRITE_NOFLUSH = 0x00000000 // write without flush
 FS_WRITE_FLUSH = 0x00010001   // write with flush
@@ -162,7 +162,7 @@ void 	SHDR_FreeDVLB (DVLB_s *dvlb)
 
 ###Soc
 
-Socket
+Networking/Sockets
 
 ####Functions
 
@@ -289,7 +289,7 @@ Result 	CFGU_GetCountryCodeString (u16 code, u16 *string)
 Result 	CFGU_GetCountryCodeID (u16 string, u16 *code)
 ````
 
-###CSND
+###Audio subsystem
 
 ####Functions
 
@@ -315,7 +315,7 @@ Result 	CSND_getchannelstate (u32 entryindex, u32 *out)
 Result 	CSND_getchannelstate_isplaying (u32 entryindex, u8 *status)
 ````
 
-###FS
+###Filesystem/IO
 
 ##Functions
 
@@ -400,7 +400,7 @@ Result 	GX_SetTextureCopy (u32 *gxbuf, u32 *inadr, u32 indim, u32 *outadr, u32 o
 Result 	GX_SetCommandList_First (u32 *gxbuf, u32 *buf0a, u32 buf0s, u32 *buf1a, u32 buf1s, u32 *buf2a, u32 buf2s)
 ````
 
-###HID
+###User Input/HID
 
 ####Functions
 
@@ -453,7 +453,7 @@ Result 	HTTPC_GetDownloadSizeState (Handle handle, Handle contextHandle, u32 *do
 Result 	HTTPC_GetResponseStatusCode (Handle handle, Handle contextHandle, u32 *out)
 ````
 
-###IR
+###Infrared Communication
 
 ####Functions
 
@@ -492,7 +492,7 @@ Result 	IRRST_Initialize (u32 unk1, u8 unk2)
 Result 	IRRST_Shutdown (void)
 ````
 
-###MIC
+###Microphone/Audio capture
 
 ####Functions
 
