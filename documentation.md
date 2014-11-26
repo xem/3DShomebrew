@@ -11,7 +11,7 @@ The following document was made by studying the [doxygen build of ctrulib](http:
   - GPU
   - Networking / Sockets
   - AC
-  - AM
+  - Application Management
   - APT
   - CFGNOR
   - CFGU
@@ -199,7 +199,7 @@ Result 	ACU_GetWifiStatus (Handle *servhandle, u32 *out)
 Result 	ACU_WaitInternetConnection ()
 ````
 
-###AM
+###Application Management
 
 #### Functions
 
