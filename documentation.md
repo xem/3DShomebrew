@@ -558,7 +558,7 @@ Result 	PM_GetFIRMLaunchParams (u32 size, u8 *out)
 Result 	PM_LaunchFIRMSetParams (u32 firm_titleid_low, u32 size, u8 *in)
 ````
 
-### PS
+### Process Services
 
 ####Functions
 
