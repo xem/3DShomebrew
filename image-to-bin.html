@@ -17,7 +17,7 @@ Note that GIMP can do the same job (File > Export as > Raw image data).
 <br>
 You can convert BIN files in PNG with <a href="bin-to-png.html">BIN-to-PNG converter</a>.
 <br>
-These BIN files use 3 bytes for each pixel: Red, Green, Blue. No alpha transparency.
+These BIN files use 4 bytes for each pixel: Red, Green, Blue and Alpha transparency.
 <br>
 Read the <a href=".">3DS homebrew tutorial</a> to use these BIN files in your homebrews.
 
@@ -39,7 +39,7 @@ Read the <a href=".">3DS homebrew tutorial</a> to use these BIN files in your ho
 <br>
 <br>
 
-4) Click here to download your BIN file: <a href=# id=a download="image.bin">Download</a>
+3) Click here to download your BIN file: <a href=# id=a download="image.bin">Download</a>
 
 <br>
 
@@ -60,6 +60,7 @@ b.onclick=function(){
       d=x.getImageData(0,0,W,H).data;
       b='';
       for(i=0;i<d.length-4;i+=4){
+        b+=String.fromCharCode(d[i+3]);
         b+=String.fromCharCode(d[i+2]);
         b+=String.fromCharCode(d[i+1]);
         b+=String.fromCharCode(d[i]);
