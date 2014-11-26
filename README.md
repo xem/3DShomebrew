@@ -25,8 +25,9 @@ and download 3DS homebrews on [3Dbrew](http://www.3dbrew.org/wiki/Homebrew_Appli
 
 Thanks to [smealum](http://smealum.net) for his projects, especially [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) and [hbmenu](https://github.com/xem/3ds_hb_menu).<br>
 
-Authors: [xem](http://twitter.com/MaximeEuziere), octopuserectus, capz.<br>
+Authors: [xem](http://twitter.com/MaximeEuziere), capz, octopuserectus<br>
 
-Please note that this project is still in a very early stage.<br>You can follow its updates by visiting [this page](https://github.com/xem/3DShomebrew/commits/gh-pages) or adding it to your RSS feed reader.
+Please note that this project is still in a very early stage.<br>
+You can follow its updates by visiting [this page](https://github.com/xem/3DShomebrew/commits/gh-pages) or adding it to your RSS feed reader.
 
 Have fun!

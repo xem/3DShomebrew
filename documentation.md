@@ -4,114 +4,72 @@ WIP.
 
 The following document was made by studying the [doxygen build of ctrulib](http://xem.github.io/3DShomebrew/doxygen) and ctrulib's sourcecode.
 
-
 ##Summary
-- Numbers
-- Network
-- Memory allocator
-- GPU
-- Services
-- GFX
-- Srv
+- ctrulib documentation
+  - Variables
+- 3DS internals
 
-##Variables
+##ctrulib documentation
 
-###Types
+###Variables
 
-In addition to the standard C/C++ types, the following short-hand types have been provided for you to use. They are all types of integers (no decimal numbers), though this doesn't mean that you can't use floating point numbers
-
-Some notes for new programmers:
-* u means unsigned; the number is strictly positive
-* s means signed; the number can be positive or negative
-* v means volatile; he number can be changed from outside of your code, such as 
-the 3D effect slider value non-volatile numbers are optimized during compilation.
-
-The above designations are followed by the amount of bits in memory the variable type uses. It is important to note that on a desktop PC, there is no difference between the amount of memory an u8 or an u32 take. However, on hardware with limited resources such as a 3DS, this difference does exist, and choosing the proper size variable will save you valuable memory capacity.
-
-For detailed information about the types available, visit [this page](http://en.cppreference.com/w/cpp/language/types)
-
-The short-hand type definitions provided by this library are:
+In addition to [the standard C/C++ types](http://en.cppreference.com/w/cpp/language/types), ctrulib provides the following short-hand types.<br>
+They are all types of integers (no decimal numbers), but of course you can use native floating point numbers (with decimals), booleans (true/false) and chars.
 
 ````
 Unsigned int types:
-u8, u16, u32, s64 / vu8, vu16, vu32, vu64
+u8, u16, u32, s64,
+vu8, vu16, vu32, vu64
 
 Signed int types:
-s8, s16, s32, s64 / vs8, vs16, vs32, vs64
-
-````
-###Constants / macros
-
-````
-U64_MAX // max u64 value (~1.8e19)
-BIT(n)  // returns the nth bit of a number (TODO: confirm that)
+s8, s16, s32, s64,
+vs8, vs16, vs32, vs64
 ````
 
-##Network
+* u means unsigned; the number is strictly positive
+* s means signed; the number can be positive or negative
+* v means volatile; he number can be changed from outside of your code, such as the 3D effect slider value
 
-TODO: define arpa / inet / netinet / ioctl / select / netdb / poll, then document them.
-TODO: document socket's macros, types, functions
+non-volatile numbers are optimized during compilation.
 
-##Memory allocator
+The above designations are followed by the amount of bits in memory the variable type uses.
+<br>
+It is important to note that on a desktop PC, there is no difference between the amount of memory an u8 or an u32 take.
+<br>
+However, on hardware with limited resources such as a 3DS, this difference does exist, and choosing the proper size variable will save you valuable memory capacity.
 
-###Functions
+ctrulib also defines the following constants and macros:
+
+````
+U64_MAX // max u64 value (about 1.8e19)
+BIT(n)  // returns the nth bit of a number (TODO: confirm that, and explain how to use it)
+````
+
+###Memory allocator
+
+####Functions
 ````
 void * 	linearMemAlign (size_t size, size_t alignment)
 void * 	linearAlloc (size_t size)
 void * 	linearRealloc (void *mem, size_t size)
-void 	linearFree (void *mem)
-u32 	linearSpaceFree ()
+void 	  linearFree (void *mem)
+u32 	  linearSpaceFree ()
 
-bool 	Ready ()
-void 	AddBlock (MemBlock *blk)
-void 	DelBlock (MemBlock *b)
-void 	InsertBefore (MemBlock *b, MemBlock *p)
-void 	InsertAfter (MemBlock *b, MemBlock *n)
-void 	CoalesceRight (MemBlock *b)
-bool 	Allocate (MemChunk &chunk, u32 size, int align)
-void 	Deallocate (const MemChunk &chunk)
-void 	Destroy ()
-u32 	GetFreeSpace ()
+bool 	  Ready ()
+void 	  AddBlock (MemBlock *blk)
+void 	  DelBlock (MemBlock *b)
+void 	  InsertBefore (MemBlock *b, MemBlock *p)
+void 	  InsertAfter (MemBlock *b, MemBlock *n)
+void 	  CoalesceRight (MemBlock *b)
+bool 	  Allocate (MemChunk &chunk, u32 size, int align)
+void 	  Deallocate (const MemChunk &chunk)
+void 	  Destroy ()
+u32 	  GetFreeSpace ()
 ````
 
-###Macros / constants
+###GPU
 
-File opening
-
-````
-FS_OPEN_READ = 1    // open a file to read it
-FS_OPEN_WRITE = 2   // open a file to write in it
-FS_OPEN_CREATE = 4  // create a file if it doesn't exist, and open it
-````
-(used in FSUSER_OpenFile() and FSUSER_OpenFileDirectly())
-
-File creation
-````
-FS_ATTRIBUTE_NONE = 0x00000000      // create a file without special attributes
-FS_ATTRIBUTE_READONLY = 0x00000001  // create an readonly file
-FS_ATTRIBUTE_ARCHIVE = 0x00000100   // create an archive
-FS_ATTRIBUTE_HIDDEN = 0x00010000    // create a hidden file
-FS_ATTRIBUTE_DIRECTORY = 0x01000000 // create a directory
-````
-(used in FSUSER_OpenFile() and FSUSER_OpenFileDirectly())
-
-File writing parameters
-
-When writing to the filesystem, usually the operating system will wait with actually writing the file data to the storage medium until a certain amount of data has been 'written'. You can specify that you want to write+flush, or just write. 
-Meaning; you can let the OS decide when to do the writing, or you can force the data to be 
-written to the file immediately. In most cases, you will not need to force flushing.
-````
-FS_WRITE_NOFLUSH = 0x00000000 // write without flush
-FS_WRITE_FLUSH = 0x00010001   // write with flush
-````
-
-(used in FSFILE_Write())
-
-TODO: define what flush means.
-
-##GPU
-
-###Functions
+####Functions
 
 ````
 void 	GPU_Init (Handle *gsphandle)
@@ -158,48 +116,44 @@ void 	SHDR_UseProgram (DVLB_s *dvlb, u8 id)
 void 	SHDR_FreeDVLB (DVLB_s *dvlb)
 ````
 
-##Services
-
-###Soc
-
-Networking/Sockets
+###Networking/Sockets
 
 ####Functions
 
 ````
-int 	accept (int sockfd, struct sockaddr *addr, socklen_t *addrlen)
-int 	bind (int sockfd, const struct sockaddr *addr, socklen_t addrlen)
-int 	closesocket (int sockfd)
-s32 	_net_convert_error (s32 sock_retval)
-int 	SOC_GetErrno (void)
-int 	connect (int sockfd, const struct sockaddr *addr, socklen_t addrlen)
-int 	fcntl (int fd, int cmd,...)
+int 	    accept (int sockfd, struct sockaddr *addr, socklen_t *addrlen)
+int 	    bind (int sockfd, const struct sockaddr *addr, socklen_t addrlen)
+int 	    closesocket (int sockfd)
+s32 	    _net_convert_error (s32 sock_retval)
+int 	    SOC_GetErrno (void)
+int 	    connect (int sockfd, const struct sockaddr *addr, socklen_t addrlen)
+int 	    fcntl (int fd, int cmd,...)
 struct hostent * 	gethostbyname (const char *name)
-long 	gethostid (void)
-int 	getpeername (int sockfd, struct sockaddr *addr, socklen_t *addrlen)
-int 	getsockname (int sockfd, struct sockaddr *addr, socklen_t *addrlen)
-int 	getsockopt (int sockfd, int level, int optname, void *optval, socklen_t *optlen)
-in_addr_t 	inet_addr (const char *cp)
-int 	inet_aton (const char *cp, struct in_addr *inp)
-char * 	inet_ntoa (struct in_addr in)
-Result 	SOC_Initialize (u32 *context_addr, u32 context_size)
-Result 	SOC_Shutdown (void)
-int 	ioctl (int fd, int request,...)
-int 	listen (int sockfd, int max_connections)
-int 	poll (struct pollfd *fds, nfds_t nfsd, int timeout)
+long 	    gethostid (void)
+int 	    getpeername (int sockfd, struct sockaddr *addr, socklen_t *addrlen)
+int 	    getsockname (int sockfd, struct sockaddr *addr, socklen_t *addrlen)
+int 	    getsockopt (int sockfd, int level, int optname, void *optval, socklen_t *optlen)
+in_addr_t inet_addr (const char *cp)
+int 	    inet_aton (const char *cp, struct in_addr *inp)
+char * 	  inet_ntoa (struct in_addr in)
+Result 	  SOC_Initialize (u32 *context_addr, u32 context_size)
+Result 	  SOC_Shutdown (void)
+int 	    ioctl (int fd, int request,...)
+int 	    listen (int sockfd, int max_connections)
+int 	    poll (struct pollfd *fds, nfds_t nfsd, int timeout)
 ssize_t 	recv (int sockfd, void *buf, size_t len, int flags)
 ssize_t 	socuipc_cmd7 (int sockfd, void *buf, size_t len, int flags, struct sockaddr *src_addr, socklen_t *addrlen)
 ssize_t 	socuipc_cmd8 (int sockfd, void *buf, size_t len, int flags, struct sockaddr *src_addr, socklen_t *addrlen)
 ssize_t 	recvfrom (int sockfd, void *buf, size_t len, int flags, struct sockaddr *src_addr, socklen_t *addrlen)
-int 	select (int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout)
+int 	    select (int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout)
 ssize_t 	send (int sockfd, const void *buf, size_t len, int flags)
 ssize_t 	socuipc_cmd9 (int sockfd, const void *buf, size_t len, int flags, const struct sockaddr *dest_addr, socklen_t addrlen)
 ssize_t 	socuipc_cmda (int sockfd, const void *buf, size_t len, int flags, const struct sockaddr *dest_addr, socklen_t addrlen)
 ssize_t 	sendto (int sockfd, const void *buf, size_t len, int flags, const struct sockaddr *dest_addr, socklen_t addrlen)
-int 	setsockopt (int sockfd, int level, int optname, const void *optval, socklen_t optlen)
-int 	shutdown (int sockfd, int shutdown_type)
-int 	sockatmark (int sockfd)
-int 	socket (int domain, int type, int protocol)
+int 	    setsockopt (int sockfd, int level, int optname, const void *optval, socklen_t optlen)
+int 	    shutdown (int sockfd, int shutdown_type)
+int 	    sockatmark (int sockfd)
+int 	    socket (int domain, int type, int protocol)
 ````
 
 ####Macros / constants
@@ -210,7 +164,6 @@ MAX_HOSTENT_RESULTS = 16
 ````
 
 ###AC
-TODO: define ac / ACU
 
 ####Functions
 ````
@@ -223,8 +176,6 @@ Result 	ACU_WaitInternetConnection ()
 ````
 
 ###AM
-
-TODO: define AM
 
 #### Functions
 
@@ -248,15 +199,15 @@ Result 	AM_InstallFIRM (u8 mediatype, u64 titleid)
 ####Functions
 
 ````
-void 	aptInitCaptureInfo (u32 *ns_capinfo)
-void 	aptWaitStatusEvent ()
-void 	aptAppletUtility_Exit_RetToApp ()
+void 	    aptInitCaptureInfo (u32 *ns_capinfo)
+void 	    aptWaitStatusEvent ()
+void 	    aptAppletUtility_Exit_RetToApp ()
 NS_APPID 	aptGetMenuAppID ()
-void 	aptReturnToMenu ()
-void 	aptAppletStarted ()
-void 	aptAppletClosed ()
-void 	aptEventHandler (u32 arg)
-Result 	aptInit (void)
+void 	    aptReturnToMenu ()
+void 	    aptAppletStarted ()
+void 	    aptAppletClosed ()
+void 	    aptEventHandler (u32 arg)
+Result 	  aptInit (void)
 ````
 
 ####Macros
@@ -300,24 +251,24 @@ Result 	CSND_cmd5 (u32 *bitmask)
 Result 	CSND_initialize (u32 *sharedMem)
 Result 	CSND_shutdown ()
 Result 	CSND_cmd3 (u32 offset)
-void 	CSND_writesharedmem_cmdtype0 (u16 cmdid, u8 *cmdparams)
+void 	  CSND_writesharedmem_cmdtype0 (u16 cmdid, u8 *cmdparams)
 Result 	CSND_processtype0cmds ()
-u32 	CSND_convertsamplerate (u32 samplerate)
-void 	CSND_sharedmemtype0_cmd0 (u32 channel, u32 value)
-void 	CSND_setchannel_playbackstate (u32 channel, u32 value)
-void 	CSND_sharedmemtype0_cmd3 (u32 channel, u32 physaddr, u32 size)
-void 	CSND_sharedmemtype0_cmd9 (u32 channel, u16 value)
-void 	CSND_sharedmemtype0_cmd8 (u32 channel, u32 samplerate)
-void 	CSND_sharedmemtype0_cmde (u32 channel, u32 looping, u32 encoding, u32 samplerate, u32 unk0, u32 unk1, u32 physaddr0, u32 physaddr1, u32 totalbytesize)
+u32 	  CSND_convertsamplerate (u32 samplerate)
+void 	  CSND_sharedmemtype0_cmd0 (u32 channel, u32 value)
+void 	  CSND_setchannel_playbackstate (u32 channel, u32 value)
+void 	  CSND_sharedmemtype0_cmd3 (u32 channel, u32 physaddr, u32 size)
+void 	  CSND_sharedmemtype0_cmd9 (u32 channel, u16 value)
+void 	  CSND_sharedmemtype0_cmd8 (u32 channel, u32 samplerate)
+void 	  CSND_sharedmemtype0_cmde (u32 channel, u32 looping, u32 encoding, u32 samplerate, u32 unk0, u32 unk1, u32 physaddr0, u32 physaddr1, u32 totalbytesize)
 Result 	CSND_sharedmemtype0_cmdupdatestate (int waitdone)
 Result 	CSND_playsound (u32 channel, u32 looping, u32 encoding, u32 samplerate, u32 *vaddr0, u32 *vaddr1, u32 totalbytesize, u32 unk0, u32 unk1)
 Result 	CSND_getchannelstate (u32 entryindex, u32 *out)
 Result 	CSND_getchannelstate_isplaying (u32 entryindex, u8 *status)
 ````
 
-###Filesystem/IO
+###Filesystem / IO
 
-##Functions
+####Functions
 
 ````
 Handle 	__get_handle_from_list (char *name)
@@ -351,6 +302,39 @@ Result 	FSDIR_Read (Handle handle, u32 *entriesRead, u32 entryCount, FS_dirent *
 Result 	FSDIR_Close (Handle handle)
 ````
 
+####Macros / constants
+
+File opening
+
+````
+FS_OPEN_READ = 1    // open a file to read it
+FS_OPEN_WRITE = 2   // open a file to write in it
+FS_OPEN_CREATE = 4  // create a file if it doesn't exist, and open it
+````
+(used in FSUSER_OpenFile() and FSUSER_OpenFileDirectly())
+
+File creation
+````
+FS_ATTRIBUTE_NONE = 0x00000000      // create a file without special attributes
+FS_ATTRIBUTE_READONLY = 0x00000001  // create an readonly file
+FS_ATTRIBUTE_ARCHIVE = 0x00000100   // create an archive
+FS_ATTRIBUTE_HIDDEN = 0x00010000    // create a hidden file
+FS_ATTRIBUTE_DIRECTORY = 0x01000000 // create a directory
+````
+(used in FSUSER_OpenFile() and FSUSER_OpenFileDirectly())
+
+File writing parameters
+
+When writing to the filesystem, usually the operating system will wait with actually writing the file data to the storage medium until a certain amount of data has been 'written'. You can specify that you want to write+flush, or just write. 
+Meaning; you can let the OS decide when to do the writing, or you can force the data to be 
+written to the file immediately. In most cases, you will not need to force flushing.
+````
+FS_WRITE_NOFLUSH = 0x00000000 // write without flush
+FS_WRITE_FLUSH = 0x00010001   // write with flush
+````
+
+(used in FSFILE_Write())
+
 ###GSP
 
 (screen capture?)
@@ -359,10 +343,10 @@ Result 	FSDIR_Close (Handle handle)
 
 ````
 Result 	gspInit ()
-void 	gspExit ()
+void 	  gspExit ()
 Result 	gspInitEventHandler (Handle _gspEvent, vu8 *_gspSharedMem, u8 gspThreadId)
-void 	gspExitEventHandler ()
-void 	gspWaitForEvent (GSP_Event id, bool nextEvent)
+void 	  gspExitEventHandler ()
+void 	  gspWaitForEvent (GSP_Event id, bool nextEvent)
 Result 	GSPGPU_WriteHWRegs (Handle *handle, u32 regAddr, u32 *data, u8 size)
 Result 	GSPGPU_WriteHWRegsWithMask (Handle *handle, u32 regAddr, u32 *data, u8 datasize, u32 *maskdata, u8 masksize)
 Result 	GSPGPU_ReadHWRegs (Handle *handle, u32 regAddr, u32 *data, u8 size)
@@ -406,17 +390,17 @@ Result 	GX_SetCommandList_First (u32 *gxbuf, u32 *buf0a, u32 buf0s, u32 *buf1a, 
 
 ````
 Result 	hidInit (u32 *sharedMem)
-void 	hidExit ()
-void 	hidWaitForEvent (HID_Event id, bool nextEvent)
-u32 	hidCheckSectionUpdateTime (vu32 *sharedmem_section, u32 id)
-void 	hidScanInput ()
-u32 	hidKeysHeld ()
-u32 	hidKeysDown ()
-u32 	hidKeysUp ()
-void 	hidTouchRead (touchPosition *pos)
-void 	hidCircleRead (circlePosition *pos)
-void 	hidAccelRead (accelVector *vector)
-void 	hidGyroRead (angularRate *rate)
+void 	  hidExit ()
+void 	  hidWaitForEvent (HID_Event id, bool nextEvent)
+u32 	  hidCheckSectionUpdateTime (vu32 *sharedmem_section, u32 id)
+void 	  hidScanInput ()
+u32 	  hidKeysHeld ()
+u32 	  hidKeysDown ()
+u32 	  hidKeysUp ()
+void 	  hidTouchRead (touchPosition *pos)
+void 	  hidCircleRead (circlePosition *pos)
+void 	  hidAccelRead (accelVector *vector)
+void 	  hidGyroRead (angularRate *rate)
 Result 	HIDUSER_GetHandles (Handle *outMemHandle, Handle *eventpad0, Handle *eventpad1, Handle *eventaccel, Handle *eventgyro, Handle *eventdebugpad)
 Result 	HIDUSER_EnableAccelerometer ()
 Result 	HIDUSER_DisableAccelerometer ()
@@ -481,12 +465,12 @@ Result 	IRU_RecvData (u8 *buf, u32 size, u8 flag, u32 *transfercount, u32 wait)
 
 ````
 Result 	irrstInit (u32 *sharedMem)
-void 	irrstExit ()
-void 	irrstWaitForEvent (bool nextEvent)
-u32 	irrstCheckSectionUpdateTime (vu32 *sharedmem_section, u32 id)
-void 	irrstScanInput ()
-u32 	irrstKeysHeld ()
-void 	irrstCstickRead (circlePosition *pos)
+void 	  irrstExit ()
+void 	  irrstWaitForEvent (bool nextEvent)
+u32 	  irrstCheckSectionUpdateTime (vu32 *sharedmem_section, u32 id)
+void 	  irrstScanInput ()
+u32 	  irrstKeysHeld ()
+void 	  irrstCstickRead (circlePosition *pos)
 Result 	IRRST_GetHandles (Handle *outMemHandle, Handle *outEventHandle)
 Result 	IRRST_Initialize (u32 unk1, u8 unk2)
 Result 	IRRST_Shutdown (void)
@@ -499,8 +483,8 @@ Result 	IRRST_Shutdown (void)
 ````
 Result 	MIC_Initialize (u32 *sharedmem, u32 sharedmem_size, u8 control, u8 recording, u8 unk0, u8 unk1, u8 unk2)
 Result 	MIC_Shutdown ()
-u32 	MIC_GetSharedMemOffsetValue ()
-u32 	MIC_ReadAudioData (u8 *outbuf, u32 readsize, u32 waitforevent)
+u32 	  MIC_GetSharedMemOffsetValue ()
+u32 	  MIC_ReadAudioData (u8 *outbuf, u32 readsize, u32 waitforevent)
 Result 	MIC_MapSharedMem (Handle handle, u32 size)
 Result 	MIC_UnmapSharedMem ()
 Result 	MIC_cmd3_Initialize (u8 unk0, u8 unk1, u32 sharedmem_baseoffset, u32 sharedmem_endoffset, u8 unk2)
@@ -519,7 +503,7 @@ Result 	MIC_IsRecoding (u8 *value)
 
 ````
 Result 	mvdstdSetConfig (mvdstdConfig *config)
-void 	mvdstdGenerateDefaultConfig (mvdstdConfig *config, u32 input_width, u32 input_height, u32 output_width, u32 output_height, u32 *vaddr_colorconv_indata, u32 *vaddr_outdata0, u32 *vaddr_outdata1_colorconv)
+void 	  mvdstdGenerateDefaultConfig (mvdstdConfig *config, u32 input_width, u32 input_height, u32 output_width, u32 output_height, u32 *vaddr_colorconv_indata, u32 *vaddr_outdata0, u32 *vaddr_outdata1_colorconv)
 Result 	mvdstdInit (mvdstdMode mode, mvdstdTypeInput input_type, mvdstdTypeOutput output_type, u32 size)
 Result 	mvdstdShutdown ()
 Result 	mvdstdProcessFrame (mvdstdConfig *config, u32 *h264_vaddr_inframe, u32 h264_inframesize, u32 h264_frameid)
@@ -577,9 +561,9 @@ Result 	PTMU_GetPedometerState (Handle *servhandle, u8 *out)
 Result 	PTMU_GetTotalStepCount (Handle *servhandle, u32 *steps)
 ````
 
-##GFX
+###GFX
 
-###Functions
+####Functions
 
 ````
 void 	gfxSet3D (bool enable)
@@ -593,9 +577,9 @@ void 	gfxSwapBuffers ()
 void 	gfxSwapBuffersGpu ()
 ````
 
-##Srv
+###Srv
 
-###Functions
+####Functions
 
 ````
 Handle 	__get_handle_from_list (const char *name)
