@@ -5,6 +5,7 @@
 <style>
 body { width: 700px; margin: 0 auto; font-family: arial }
 p { background: #f5faff; padding: 30px; }
+canvas { background: #000; }
 </style>
 
 <body>
@@ -16,49 +17,69 @@ This tool is made to generate a .bin file from any image.
 <br>
 You can convert BIN files back into PNG with <a href="bin-to-png.html">BIN-to-PNG converter</a>.
 <br>
-These BIN files use 3 bytes for each pixel: Blue, Green, Red. No alpha transparency.
-<br>
-It's recommended to rotate your images 90 degrees on the right (clockwise) before converting them.
-<br>
-(3DS screens are considered vertical in the console's memory).
+Output bin contains image data as BGR (blue, green, red) or ABGR (alpha + BGR).
 <br>
 Read the <a href=".">3DS homebrew tutorial</a> to learn how to use these BIN files in your homebrews.
 </p>
 
+<br>
 
-1) Choose an image file <input type=file id=f>
+<b>1) Choose an image file:</b>
+<br>
 <br>
 (.bmp, .png, .jpg or .gif - your file will not be sent on a server)
+<br>
+<br>
+<input type=file id=f> <button id=load>Load</button>
 
 <br>
 <br>
 
-2) Press this button: <button id=b>convert</button>
+<canvas id=c width=0 height=0></canvas>
 
+<br>
+<br>
+
+<b>2) Check your options:</b>
+<br>
+<br>
+<input type=checkbox id=rotate checked> rotate 90° - <input type=checkbox id=alpha> preserve alpha transparency
 
 <br>
 <br>
-
-4) Click here to download your BIN file: <a href=# id=a download="image.bin">Download</a>
-
 <br>
 
-<canvas id=c hidden></canvas>
+<b>3) <a id=a download="image.bin">Download your BIN file</a></b>
+
+<br>
+<br>
 
 <script>
-b.onclick=function(){
+f.onchange=load.onclick=rotate.onchange=alpha.onchange=function(){
   with(new FileReader){
     readAsDataURL(f.files[0]);
     onload=function(){
       z=new Image;
       z.src=result;
-      W=c.width=z.width;
-      H=c.height=z.height;
+      W=c.width=rotate.checked?z.height:z.width;
+      H=c.height=rotate.checked?z.width:z.height;
       x=c.getContext("2d");
-      x.drawImage(z,0,0);
+      if(rotate.checked){
+        x.save();
+        x.translate(c.width/2,c.height/2);
+        x.rotate(90*Math.PI/180);
+        x.drawImage(z,-z.width/2,-z.height/2);
+        x.restore();
+      }
+      else{
+        x.drawImage(z,0,0);
+      }
       d=x.getImageData(0,0,W,H).data;
       b='';
       for(i=0;i<d.length-4;i+=4){
+        if(alpha.checked){
+          b+=String.fromCharCode(d[i+3]);
+        }
         b+=String.fromCharCode(d[i+2]);
         b+=String.fromCharCode(d[i+1]);
         b+=String.fromCharCode(d[i]);
