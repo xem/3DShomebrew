@@ -10,8 +10,10 @@
 - [Anatomy of a homebrew project](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#anatomy-of-a-homebrew-project)
   - [Basics](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#basics)
   - [Build procedure](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#build-procedure)
-  - [New project](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#new-project)
 - [Homebrew development](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#homebrew-development)
+  - [Hello template](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#hello-template)
+  - ...
+  - ...
   - ...
 
 ##Is it legal?
@@ -97,56 +99,155 @@ You can also upload them directly using wi-fi:
 
 ##Anatomy of a homebrew project
 
+Please download (or clone) smea's [ctrulib project](https://github.com/smealum/ctrulib) on your computer. (For example in C:/3DS/ctrulib)
+
 ###Basics
 
-Let's take a look at our template default, in ctrulib/template. It's a minimal project that does nothing else than printing a white pixel on the upper screen.
+Let's take a look at ctrulib's project template (in the template folder).
+<br>It's a minimal project that does nothing else than printing a white pixel on the upper screen.
 
 It contains:
+
 - a source folder, containing a main.c file. (the source code of your homebrew)
 - a makefile file (allowing to build your homebrew for hbmenu)
 
 Let's see how bigger projects are made, for example [Yeti3DS](https://github.com/smealum/yeti3DS). You can notice a few other things:
+
 - an icon.png file (a 48x48px image to display on hbmenu instead of the default one) 
 - the source folder contains more .c files and .h files. (those files are used to organize big C/C++ project.<br>Note that the main function ````int main()```` remains in main.c, the other C files are used to store additional code and data called by ````main````).
 - The makefile contains [three optional lines](https://github.com/smealum/yeti3DS/blob/master/Makefile#L40-L42) to specify the game's author, title and description.
 
-In many projects, like [3dscraft](https://github.com/smealum/3dscraft) you can find a data folder containing .bin files. These files are used to store images data. The tutorial will explain how to use them in your projects.
-
-<!--Reminder: [the tools](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#tools) present in this project allow to convert image files in BIN and BIN files in PNG.-->
+In many projects, like [3dscraft](https://github.com/smealum/3dscraft) you can find a data folder containing .bin files.<br>These files are used to store images data. The tutorial will explain how to use them in your projects.
 
 ###Build procedure
 
 Let's go back to our ctrulib/template folder.
+
 - Open a CLI (command line interface). If you're on Windows, press Shift + right click on the template folder and choose "Open a CLI here".
 - type ````make```` and press enter.
 - After a few seconds, the process finishes and you can find a build folder (you can ignore it) and two new files .3dsx and .smdh. You can copy them to your SD card to test the homebrew on real hardware.
 - You can rebuild those files at any time after editing your source code. You'll need to run ````make clean```` before rebuilding your project.
 
 You can now try to build all ctrulib examples (or other open source homebrew projects) and run them on your 3DS.
+<br>
+Please note that some examples (like http) may not be buildable yet, and some others (like gpu) don't work on hbmenu yet.
 
-***(TODO: figure out how to build the http example without "implicit declaration of function" errors)***
-
-###New project
-
-To start developing your own homebrew:
-
-- Make a copy of the template folder, place it where you want, and give it a name, for example "tuto". (for example).<br>Do not use spaces in your projects names (this can cause build issues).
-- Edit the makefile file, and add those 3 lines under the line 33:
-
-````
-APP_TITLE := tuto
-APP_DESCRIPTION := 3DS homebrew tutorial
-APP_AUTHOR := me!
-````
-
-- Add a 48x48px icon.png file at the root of the tuto folder. Here's an example that you can download, use and edit freely:<br>
-
-<a href="http://img.ctrlv.in/img/14/11/22/5470cab56bf39.png"><img src="http://img.ctrlv.in/img/14/11/22/5470cab56bf39.png"></a>
 
 ##Homebrew development
 
-This part will detail how to develop a 3DS homebrew by covering all the features in ctrulib and all the technical details of the console. 
+Please download the following file: [project template](http://xem.github.io/3DShomebrew/tutorial/template.zip).
+<br>
+It's based on ctrulib's template project but cleaner and more complete. (logo, metadata)
+<br>
+Unzip it on your computer (For example in C:/3DS/template) and ton't touch it. It will be the model for our upcoming projects.
+<br>
+In this tutorial, we will develop small programs based on this template.
+<br>
+We won't start with an "Hello World!", but just a few steps earlier than that.
 
-Chapters will include: display (stereoscopic or not, using bitmap or GPU, ...), sound, input, SD card access, HTTP internet access, microphone, battery, gyroscope, NFC and ... God knows what.
+### Hello template!
+
+Let's open the source folder of our project template, and take a look at main.c's source code, as well as its comments (starting with ````//````)
+
+````C
+#include <3ds.h>
+
+int main()
+{
+	// Initialize services
+	srvInit();      // mandatory
+	aptInit();      // mandatory
+	hidInit(NULL);  // input (buttons, screen)
+	gfxInit();      // graphics
+  
+  // Uncomment next line to enable stereoscopic 3D
+  // gfxSet3D(true);
+  
+  // Initialize pressed keys data
+  u32 kDown;
+  
+	// Main loop
+	while (aptMainLoop())
+	{
+		// Wait next screen refresh
+    gspWaitForVBlank();
+
+    // Read which buttons are currently pressed 
+		hidScanInput();
+    kDown = hidKeysDown();
+    
+		// If START is pressed, break loop and quit
+		if (kDown & KEY_START){
+			break;
+    }
+
+		
+    
+    /** Your code goes here **/
+    
+    
+
+
+		// Flush and swap framebuffers
+		gfxFlushBuffers();
+		gfxSwapBuffers();
+	}
+
+	// Exit services
+  gfxExit();
+	hidExit();
+	aptExit();
+	srvExit();
+  
+  // Return to hbmenu
+	return 0;
+}
+````
+
+That's the minimal homebrew you could imagine. As you may have guessed, it does the following:
+- include 3ds.h (a library made to easily access 3DS's hardware with code),
+- initialize various things (screens, inputs, etc.). Homebrews could not do much without that,
+- Start an infinite loop (each iteration represents a frame, so unless your program is very slow, this loop will restart every ~1/60 seconds.
+- In each iteration:
+  - We wait for the screen to be ready (i.e. the end of the last 1/60 of a second),
+  - We "read" which buttons are currently pressed and exit the infinite loop if START is pressed.
+  <br>(NB: breaking the infinite loop with START is not mandatory, but it's becoming the standard way to quit homebrews),
+  - Swap and flush current framebuffers.
+- After the loop, un-iitialize all that and return 0, to get back to hbmenu.
+
+But what are frame buffers, and what does it mean to "flush" and "swap" hem at every frame? Answer soon!
+
+### Hello pixel!
+
+### Hello image!
+
+### "Hello world!"
+
+### Hello stereoscopy!
+
+### Hello animation!
+
+### Hello buttons!
+
+### Hello touchscreen!
+
+### Hello sound!
+
+### Hello microphone!
+
+### Hello filesystem!
+
+### Hello Internet!
+
+### Hello Gyroscope!
+
+### Hello Infrared communication!
+
+### Hello NFC!
+
+### Hello Camera(s)!
+
+### Hello Battery, 3D slider, luminosity, etc
+
 
 Coming soon!

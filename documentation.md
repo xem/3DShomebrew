@@ -2,7 +2,7 @@
 
 WIP.
 
-The following document was made by studying the [doxygen build of ctrulib](http://xem.github.io/3DShomebrew/doxygen) and ctrulib's sourcecode.
+The following document was made by studying the [doxygen build of ctrulib](http://xem.github.io/3DShomebrew/documentation/doxygen) and ctrulib's sourcecode.
 
 ##Summary
 - ctrulib documentation
