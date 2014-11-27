@@ -35,28 +35,15 @@ Read the <a href=".">3DS homebrew tutorial</a> to learn how to use these BIN fil
 <br>
 <br>
 
-<<<<<<< HEAD
-2) Does your image include transparency: <select id=hastrans><option value=1>yes</option><option value=0 selected>no</option></select> 
-
-<br>
-<br>
-3) Press this button: <button id=b>convert</button>
-
-=======
 <canvas id=c width=0 height=0></canvas>
->>>>>>> 7e95ac1ebcda6164fe4321e03a7df0637099299a
 
 <br>
 <br>
 
-<<<<<<< HEAD
-3) Click here to download your BIN file: <a href=# id=a download="image.bin">Download</a>
-=======
 <b>2) Check your options:</b>
 <br>
 <br>
 <input type=checkbox id=rotate checked> rotate 90° - <input type=checkbox id=alpha> preserve alpha transparency
->>>>>>> 7e95ac1ebcda6164fe4321e03a7df0637099299a
 
 <br>
 <br>
@@ -66,7 +53,6 @@ Read the <a href=".">3DS homebrew tutorial</a> to learn how to use these BIN fil
 
 <br>
 <br>
-
 
 <script>
 f.onchange=load.onclick=rotate.onchange=alpha.onchange=function(){
@@ -91,13 +77,9 @@ f.onchange=load.onclick=rotate.onchange=alpha.onchange=function(){
       d=x.getImageData(0,0,W,H).data;
       b='';
       for(i=0;i<d.length-4;i+=4){
-<<<<<<< HEAD
-        if (hastrans.value == 1){b+=String.fromCharCode(d[i+3]);}
-=======
         if(alpha.checked){
           b+=String.fromCharCode(d[i+3]);
         }
->>>>>>> 7e95ac1ebcda6164fe4321e03a7df0637099299a
         b+=String.fromCharCode(d[i+2]);
         b+=String.fromCharCode(d[i+1]);
         b+=String.fromCharCode(d[i]);
