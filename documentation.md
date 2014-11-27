@@ -11,7 +11,7 @@ The following document was made by studying the [doxygen build of ctrulib](http:
   - GPU
   - Networking / Sockets
   - AC
-  - AM
+  - Application Management
   - APT
   - CFGNOR
   - CFGU
@@ -199,7 +199,7 @@ Result 	ACU_GetWifiStatus (Handle *servhandle, u32 *out)
 Result 	ACU_WaitInternetConnection ()
 ````
 
-###AM
+###Application Management
 
 #### Functions
 
@@ -558,7 +558,7 @@ Result 	PM_GetFIRMLaunchParams (u32 size, u8 *out)
 Result 	PM_LaunchFIRMSetParams (u32 firm_titleid_low, u32 size, u8 *in)
 ````
 
-### PS
+### Process Services
 
 ####Functions
 
