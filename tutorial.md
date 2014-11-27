@@ -10,8 +10,10 @@
 - [Anatomy of a homebrew project](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#anatomy-of-a-homebrew-project)
   - [Basics](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#basics)
   - [Build procedure](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#build-procedure)
-  - [New project](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#new-project)
 - [Homebrew development](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#homebrew-development)
+  - [Hello template](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#hello-template)
+  - ...
+  - ...
   - ...
 
 ##Is it legal?
@@ -131,7 +133,7 @@ You can now try to build all ctrulib examples (or other open source homebrew pro
 Please note that some examples (like http) may not be buildable yet, and some others (like gpu) don't work on hbmenu yet.
 
 
-##Homebrew development tutorial
+##Homebrew development
 
 Please download the following file: [project template](http://xem.github.io/3DShomebrew/tutorial/template.zip).
 <br>
@@ -208,10 +210,12 @@ That's the minimal homebrew you could imagine. As you may have guessed, it does 
 - Start an infinite loop (each iteration represents a frame, so unless your program is very slow, this loop will restart every ~1/60 seconds.
 - In each iteration:
   - We wait for the screen to be ready (i.e. the end of the last 1/60 of a second),
-  - We "read" which buttons are currently pressed and rxit the infinite loop if START is pressed.
-  <br>(NB: breaking the infinite loop if START is pressed is not mandatory, but it's becoming the standard way to quit homebrews, so we'll stick with that),
+  - We "read" which buttons are currently pressed and exit the infinite loop if START is pressed.
+  <br>(NB: breaking the infinite loop with START is not mandatory, but it's becoming the standard way to quit homebrews),
   - Swap and flush current framebuffers.
 - After the loop, un-iitialize all that and return 0, to get back to hbmenu.
+
+But what are frame buffers, and what does it mean to "flush" and "swap" hem at every frame? Answer soon!
 
 ### Hello pixel!
 
