@@ -101,7 +101,7 @@ If you are running linux (or have cat and netcat on windows/mac) you can also us
 2. Press the Y button<br>
 3. On your PC open a terminal (or command promt when using Windows)<br>
 4. Browse to the directory your .3dsx file is located in. (using cd foldername to go into a folder and cd.. to go back from a subfolder)<br>
-5. use the command: 'cat name.3dsx | nc ip 9000' Where you replace "name.3dsx" with your .3dsx file and ip with the IP displayed on the 3DS' bottom screen.<br>
+5. use the command: ````cat name.3dsx | nc ip 9000```` Where you replace "name.3dsx" with your .3dsx file and ip with the IP displayed on the 3DS' bottom screen.<br>
 6. After a little bit of time (depending on the filesize of your .3dsx) it will automaticly boot your homebrew.<br>
 Note: Both the PC and 3DS have to be connected in the same network for this to work! This is only useful for testing as the file won't stay on the 3DS after it is closed. (External files your homebrew might try to load has to already be on the SD card!)<br>
 
