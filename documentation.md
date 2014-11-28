@@ -26,8 +26,8 @@ The following document was made by studying the [doxygen build of ctrulib](http:
   - Microphone / Audio capture
   - mvd
   - NS
-  - PM
-  - PS
+  - Process/Program management service
+  - Process service
   - PTM
   - GFX
   - Srv
@@ -544,7 +544,7 @@ Result 	NS_LaunchTitle (u64 titleid, u32 launch_flags, u32 *procid)
 Result 	NS_RebootToTitle (u8 mediatype, u64 titleid)
 ````
 
-###PM
+###Process/Program management service
 
 ####Functions
 
