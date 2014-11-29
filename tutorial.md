@@ -246,7 +246,7 @@ Finaly at the end of our int main() function add this to close the hid service:
 ````
 hidExit();
 ````
-To check if a button is pressed you can use an if statement like this one: 
+Now that we have every thing ready we can start to check if a button is pressed you can use if statements like these: 
 ````
 if (kDown & KEY_A){
 	//code for when A is pressed
