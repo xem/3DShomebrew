@@ -253,6 +253,57 @@ But it's not that simple:
 
 To sum up, on each screen, both framebuffers use 3 bytes to store Blue, Green and Red components of each pixel, starting from the bottom-left pixel and storing each column of pixels until it reaches the top-right pixel.
 
+### Hello buttons!
+Buttons are obviously very important for most homebrew applications, and luckily for us it pretty simple to use!
+You'll already have included 3ds.h but if you haven't add ````#include <3ds.h>```` to the top of your main.c file.
+
+We first have to initialise the hid (Human Input Device) service, to do this we add this of code to our int main() function: 
+````
+hidInit(NULL);
+````
+Then you want to add this into your main loop: 
+````
+hidScanInput(); //Scans hid Input
+u32 kDown = hidKeysDown(); //Key pressed byt wasn't last time checked
+u32 kHeld = hidKeysHeld(); //Key is currently held
+u32 kUp = hidKeysUp(); //Key not pressed anymore but was last time checked
+````
+Finaly at the end of our int main() function add this to close the hid service:
+````
+hidExit();
+````
+Now that we have every thing ready we can start to check if a button is pressed you can use if statements like these: 
+````
+if (kDown & KEY_A){
+  //code for when A is pressed
+}
+if (kHeld & KEY_B){
+  //Code for when B is being held
+}
+if (kUp & KEY_START){
+  //Code for when start is released
+}
+````
+Here is a list of names for each of the 3DS' buttons:
+````
+KEY_SELECT    //Select Button
+KEY_START     //Start Button
+KEY_DRIGHT    //Right key on D-Pad
+KEY_DLEFT     //Left key on D-Pad
+KEY_DUP       //Up key on D-Pad
+KEY_DDOWN     //Down key on D-Pad
+KEY_R         //R Button
+KEY_L         //L Button
+KEY_A         //A Button
+KEY_B         //B Button
+KEY_X         //X Button
+KEY_Y         //Y Button
+KEY_ZL        //ZL Button (new 3DS only)
+KEY_ZR        //ZR Button (new 3DS only)
+KEY_TOUCH //touch screen pressed
+````
+That's all there is to it!
+
 ### Hello pixel!
 
 ### Hello image!
@@ -262,8 +313,6 @@ To sum up, on each screen, both framebuffers use 3 bytes to store Blue, Green an
 ### Hello stereoscopy!
 
 ### Hello animation!
-
-### Hello buttons!
 
 ### Hello touchscreen!
 
