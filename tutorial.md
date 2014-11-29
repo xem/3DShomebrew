@@ -138,8 +138,10 @@ Please note that some examples (like http) may not be buildable yet, and some ot
 Please download the following file: [project template](http://xem.github.io/3DShomebrew/tutorial/template.zip).
 <br>
 It's based on ctrulib's template project but cleaner and more complete. (logo, metadata)
-<br>
-Unzip it on your computer (For example in C:/3DS/template) and ton't touch it. It will be the model for our upcoming projects.
+
+Note: unless you want to edit the makefile by hand, you should put all of your source and header files in the source folder. The makefile does not account for subfolders, and will not compile code that reside in one.
+
+Unzip the template on your computer (For example in C:/3DS/template) and ton't touch it. It will be the model for our upcoming projects.
 <br>
 In this tutorial, we will develop small programs based on this template.
 <br>
