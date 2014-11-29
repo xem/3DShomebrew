@@ -149,7 +149,7 @@ It's based on ctrulib's template project but cleaner and more complete. (logo, m
 
 Note: unless you want to edit the makefile by hand, you should put all of your source and header files in the source folder. The makefile does not account for subfolders, and will not compile code that reside in one.
 
-Unzip the template on your computer (For example in C:/3DS/template) and ton't touch it. It will be the model for our upcoming projects.
+Unzip the template on your computer (For example in C:/3DS/template) and don't touch it. It will be the model for our upcoming projects.
 <br>
 In this tutorial, we will develop small programs based on this template.
 <br>
