@@ -155,7 +155,7 @@ We won't do an "Hello World!" text printer yet; we'll start with a few more basi
 
 ### Hello template!
 
-Let's open the source folder of our project template, and take a look at main.c's source code, as well as its comments (starting with ````//````)
+Let's open the source folder of our project template, and take a look at main.c's source code.
 
 ````C
 #include <3ds.h>
@@ -211,11 +211,11 @@ That's the minimal homebrew you could imagine.
 <br>As you may have guessed, it does the following things:
 - include 3ds.h (a library made to easily access 3DS's hardware with code).
 - initialize various things (services, applets, inputs, graphics...). Homebrews could not do much without those.
-- Start an infinite loop (each iteration represents a frame, so unless your program is very slow, this loop will do an iteration every ~1/60 seconds.
+- Start an infinite loop (each iteration represents a frame, and up to 60 frames are displayed per second.
 - In each iteration:
   - We wait for the screen to be ready.
   - We "read" which buttons are currently pressed. If START is pressed, we quit the infinite loop.
-  <br>(NB: pressing START is becoming the standard way to quit homebrews, but of course you can remove those lines to change this behavior),
+  <br>(NB: pressing START is becoming the standard way to quit homebrews, but of course you can change this behavior),
   - Swap and flush current framebuffers.
 - After the loop, we unload everything and ````return 0````, to get back to hbmenu.
 
@@ -224,31 +224,34 @@ That's the minimal homebrew you could imagine.
 Let's take a look to the 3DS memory, and how it is mapped to the screens.
 <br>The 3DS VRAM (video memory) holds the image information of three screens:
 
-- The top-left screen (the image sent to your left eye in stereoscopic (3D) mode; it's also the only image used in 2D mode).
+- The top-left screen (the image sent to your left eye in stereoscopic (3D) mode; also used in 2D mode).
 - The top-right screen (the image sent to your right eye in stereoscopic mode; unused in 2D mode).
 - The bottom screen (2D only)
 
-For each screen, there is room in the VRAM for two images, called "framebuffers", of "fb" for short.
+For each screen, there is room in the VRAM for two images, called "framebuffers", of "fb0 / fb1" for short.
 <br>The two framebuffers replace each other at each frame (60 times per second):
-- when fb 0 is displayed on a screen, fb 1 is pre-rendered for the next frame.
-- on the next frame, fb 0 is reset, pre-rendered fb1 is displayed on screen and fb0 gets pre-rendered for the next frame.
-- on the next frame, fb 1 is reset, pre-rendered fb0 is displayed on screen and fb1 getis pre-rendered for the next frame.
-etc, etc... to vulgarize, let's just say that the 3DS does this under the hood, at each frame and for each screen:
+- when fb 0 is displayed on a screen, fb1 is pre-rendered for the next frame.
+- on the next frame, fb0 is reset, fb1 is displayed on screen and fb0 is pre-rendered for next frame.
+- on the next frame, fb1 is reset, fb0 is displayed on screen and fb1 is pre-rendered for next frame.
+
+etc, etc...
+<br>
+to vulgarize, let's just say that the 3DS does this under the hood, at each frame and for each screen, while your code puts the ink on the next paper :)
 
 <img src="http://i1238.photobucket.com/albums/ff492/machineking0011/1235471162_duckrabbitseason.gif">
 
-That's why we flush (reset) and swap the buffers at the end of the main loop. It allows the preceding code to always draw the next frame without risking to alter what is currently on screen.
+That's why we flush (reset) and swap the buffers at the end of the main loop. It allows the homebrew's code to always draw the next frame without risking to alter what is currently on screen.
 
 In the VRAM, framebuffers store the color information of each pixel of the screen.
-<br>Each pixel is a mix of Red, Green and Blue (the primary colors for screens).
-<br>Each color is stored on one byte (its value goes from 0 to 255).
-<br>Top screens framebuffers take 400 x 240 x 3 bytes, and the bottom screen's framebuffers take 320 x 240 x 3 bytes.
+<br>Each pixel color is a mix of Red, Green and Blue (the primary colors for screens).
+<br>Each primary color is stored on one byte (its value goes from 0 to 255).
+<br>Top screens' framebuffers take 400 x 240 x 3 bytes, and the bottom screen's framebuffers take 320 x 240 x 3 bytes.
 
 But it's not that simple:
-- The colors of each pixel are stored sequencially, but in a different order than ordinary: B,G,R.
-- In the VRAM, all the screens are rotated by -90 degrees, as if you were looking to your 3DS from the right side.
+- By default, the pixels colors are stored in reverse order (B,G,R instead of R,G,B).
+- In the VRAM, all the screens are rotated by -90 degrees, as if you turned your 3DS to look at it from the right side.
 
-To sum up, the framebuffers use 3 bytes to store Blue, Green and Red components of each pixel, starting from the bottom-left pixel and storing each column of pixel until ti reaches the top-right pixel.
+To sum up, on each screen, both framebuffers use 3 bytes to store Blue, Green and Red components of each pixel, starting from the bottom-left pixel and storing each column of pixels until it reaches the top-right pixel.
 
 ### Hello pixel!
 
