@@ -216,10 +216,10 @@ That's the minimal homebrew you could imagine.
   - We wait for the screen to be ready.
   - We "read" which buttons are currently pressed. If START is pressed, we quit the infinite loop.
   <br>(NB: pressing START is becoming the standard way to quit homebrews, but of course you can change this behavior),
-  - Swap and flush current framebuffers.
+  - Swap and flush current framebuffers (see next chapter).
 - After the loop, we unload everything and ````return 0````, to get back to hbmenu.
 
-#### Screens, VRAM and framebuffers
+#### Hello Screens, VRAM and framebuffers!
 
 Let's take a look to the 3DS memory, and how it is mapped to the screens.
 <br>The 3DS VRAM (video memory) holds the image information of three screens:
