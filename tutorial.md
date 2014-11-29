@@ -231,10 +231,9 @@ But what are frame buffers, and what does it mean to "flush" and "swap" hem at e
 Buttons are obviously very important for most homebrew applications, and luckily for us it pretty simple to use!
 You'll already have included 3ds.h but if you haven't add ````#include <3ds.h>```` to the top of your main.c file.
 
-We first have to initialise the hid (Human Input Device), to do this we add this of code to our int main() function: 
+We first have to initialise the hid (Human Input Device) service, to do this we add this of code to our int main() function: 
 ````
-hidInit(NULL); //At the begining of int main()
-hidExit(); //At the end of int main()
+hidInit(NULL);
 ````
 Then you want to add this into your main loop: 
 ````
@@ -242,6 +241,10 @@ hidScanInput(); //Scans hid Input
 u32 kDown = hidKeysDown(); //Key pressed byt wasn't last time checked
 u32 kHeld = hidKeysHeld(); //Key is currently held
 u32 kUp = hidKeysUp(); //Key not pressed anymore but was last time checked
+````
+Finaly at the end of our int main() function add this to close the hid service:
+````
+hidExit();
 ````
 To check if a button is pressed you can use an if statement like this one: 
 ````
