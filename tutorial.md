@@ -227,16 +227,6 @@ That's the minimal homebrew you could imagine. As you may have guessed, it does 
 
 But what are frame buffers, and what does it mean to "flush" and "swap" hem at every frame? Answer soon!
 
-### Hello pixel!
-
-### Hello image!
-
-### "Hello world!"
-
-### Hello stereoscopy!
-
-### Hello animation!
-
 ### Hello buttons!
 Buttons are obviously very important for most homebrew applications, and luckily for us it pretty simple to use!
 You'll already have included 3ds.h but if you haven't add ````#include <3ds.h>```` to the top of your main.c file.
@@ -284,6 +274,16 @@ KEY_ZR      	//ZR Button (new 3DS only)
 KEY_TOUCH	//touch screen pressed
 ````
 That's all there is to it!
+
+### Hello pixel!
+
+### Hello image!
+
+### "Hello world!"
+
+### Hello stereoscopy!
+
+### Hello animation!
 
 ### Hello touchscreen!
 
