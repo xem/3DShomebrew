@@ -145,87 +145,121 @@ Please note that some examples (like http) may not be buildable yet, and some ot
 
 Please download the following file: [project template](http://xem.github.io/3DShomebrew/tutorial/template.zip).
 <br>
+<<<<<<< HEAD
 It's based on ctrulib's template project but cleaner and more complete. (logo, metadata)
 
 Note: unless you want to edit the makefile by hand, you should put all of your source and header files in the source folder. The makefile does not account for subfolders, and will not compile code that reside in one.
 
 Unzip the template on your computer (For example in C:/3DS/template) and don't touch it. It will be the model for our upcoming projects.
+=======
+It's based on ctrulib's template project but cleaner and more complete. (it contains a logo, hbmenu metadata and comments)
+<br>
+Unzip it on your computer (For example in C:/3DS/template).
+>>>>>>> e6fa8cc70ee23620052f0bfe30aba42b14efddee
 <br>
 In this tutorial, we will develop small programs based on this template.
 <br>
-We won't start with an "Hello World!", but just a few steps earlier than that.
+We won't do an "Hello World!" text printer yet; we'll start with a few more basic things.
 
 ### Hello template!
 
-Let's open the source folder of our project template, and take a look at main.c's source code, as well as its comments (starting with ````//````)
+Let's open the source folder of our project template, and take a look at main.c's source code.
 
 ````C
 #include <3ds.h>
 
 int main()
 {
-	// Initialize services
-	srvInit();      // mandatory
-	aptInit();      // mandatory
-	hidInit(NULL);  // input (buttons, screen)
-	gfxInit();      // graphics
-  
-  // Uncomment next line to enable stereoscopic 3D
-  // gfxSet3D(true);
-  
-  // Initialize pressed keys data
-  u32 kDown;
-  
-	// Main loop
-	while (aptMainLoop())
-	{
-		// Wait next screen refresh
+  // Initializations
+  srvInit();        // services
+  aptInit();        // applets
+  hidInit(NULL);    // input
+  gfxInit();        // graphics
+  gfxSet3D(false);  // stereoscopy (true: enabled / false: disabled)
+  u32 kDown;        // pressed keys data
+
+  // Main loop
+  while (aptMainLoop())
+  {
+
+    // Wait for next frame
     gspWaitForVBlank();
 
     // Read which buttons are currently pressed 
-		hidScanInput();
+    hidScanInput();
     kDown = hidKeysDown();
-    
-		// If START is pressed, break loop and quit
-		if (kDown & KEY_START){
-			break;
+
+    // If START is pressed, break loop and quit
+    if (kDown & KEY_START){
+      break;
     }
 
-		
-    
+
     /** Your code goes here **/
-    
-    
 
 
-		// Flush and swap framebuffers
-		gfxFlushBuffers();
-		gfxSwapBuffers();
-	}
+    // Flush and swap framebuffers
+    gfxFlushBuffers();
+    gfxSwapBuffers();
+  }
 
-	// Exit services
+  // Exit
   gfxExit();
-	hidExit();
-	aptExit();
-	srvExit();
-  
+  hidExit();
+  aptExit();
+  srvExit();
+
   // Return to hbmenu
-	return 0;
+  return 0;
 }
 ````
 
-That's the minimal homebrew you could imagine. As you may have guessed, it does the following:
-- include 3ds.h (a library made to easily access 3DS's hardware with code),
-- initialize various things (screens, inputs, etc.). Homebrews could not do much without that,
-- Start an infinite loop (each iteration represents a frame, so unless your program is very slow, this loop will restart every ~1/60 seconds.
+That's the minimal homebrew you could imagine.
+<br>It's not very useful yet (it just keeps the screens black until we press START to exit.) but it will be soon!
+<br>As you may have guessed, it does the following things:
+- include 3ds.h (a library made to easily access 3DS's hardware with code).
+- initialize various things (services, applets, inputs, graphics...). Homebrews could not do much without those.
+- Start an infinite loop (each iteration represents a frame, and up to 60 frames are displayed per second.
 - In each iteration:
-  - We wait for the screen to be ready (i.e. the end of the last 1/60 of a second),
-  - We "read" which buttons are currently pressed and exit the infinite loop if START is pressed.
-  <br>(NB: breaking the infinite loop with START is not mandatory, but it's becoming the standard way to quit homebrews),
-  - Swap and flush current framebuffers.
-- After the loop, un-iitialize all that and return 0, to get back to hbmenu.
+  - We wait for the screen to be ready.
+  - We "read" which buttons are currently pressed. If START is pressed, we quit the infinite loop.
+  <br>(NB: pressing START is becoming the standard way to quit homebrews, but of course you can change this behavior),
+  - Swap and flush current framebuffers (see next chapter).
+- After the loop, we unload everything and ````return 0````, to get back to hbmenu.
 
-But what are frame buffers, and what does it mean to "flush" and "swap" hem at every frame? Answer soon!
+#### Hello Screens, VRAM and framebuffers!
+
+Let's take a look to the 3DS memory, and how it is mapped to the screens.
+<br>The 3DS VRAM (video memory) holds the image information of three screens:
+
+- The top-left screen (the image sent to your left eye in stereoscopic (3D) mode; also used in 2D mode).
+- The top-right screen (the image sent to your right eye in stereoscopic mode; unused in 2D mode).
+- The bottom screen (2D only)
+
+For each screen, there is room in the VRAM for two images, called "framebuffers", of "fb0 / fb1" for short.
+<br>The two framebuffers replace each other at each frame (60 times per second):
+- when fb 0 is displayed on a screen, fb1 is pre-rendered for the next frame.
+- on the next frame, fb0 is reset, fb1 is displayed on screen and fb0 is pre-rendered for next frame.
+- on the next frame, fb1 is reset, fb0 is displayed on screen and fb1 is pre-rendered for next frame.
+
+etc, etc...
+<br>
+to vulgarize, let's just say that the 3DS does this under the hood, at each frame and for each screen, while your code puts the ink on the next paper :)
+
+<img src="http://i1238.photobucket.com/albums/ff492/machineking0011/1235471162_duckrabbitseason.gif">
+
+That's why we flush (reset) and swap the buffers at the end of the main loop. It allows the homebrew's code to always draw the next frame without risking to alter what is currently on screen.
+
+In the VRAM, framebuffers store the color information of each pixel of the screen.
+<br>Each pixel color is a mix of Red, Green and Blue (the primary colors for screens).
+<br>Each primary color is stored on one byte (its value goes from 0 to 255).
+<br>Top screens' framebuffers take 400 x 240 x 3 bytes, and the bottom screen's framebuffers take 320 x 240 x 3 bytes.
+
+But it's not that simple:
+- By default, the pixels colors are stored in reverse order (B,G,R instead of R,G,B).
+- In the VRAM, all the screens are rotated by -90 degrees, as if you turned your 3DS to look at it from the right side.
+
+To sum up, on each screen, both framebuffers use 3 bytes to store Blue, Green and Red components of each pixel, starting from the bottom-left pixel and storing each column of pixels until it reaches the top-right pixel.
 
 ### Hello buttons!
 Buttons are obviously very important for most homebrew applications, and luckily for us it pretty simple to use!
