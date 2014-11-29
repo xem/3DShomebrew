@@ -26,8 +26,8 @@ The following document was made by studying the [doxygen build of ctrulib](http:
   - Microphone / Audio capture
   - mvd
   - NS
-  - PM
-  - PS
+  - Process/Program management service
+  - Process service
   - PTM
   - GFX
   - Srv
@@ -409,9 +409,29 @@ Result 	GX_SetCommandList_First (u32 *gxbuf, u32 *buf0a, u32 buf0s, u32 *buf1a, 
 ````
 
 ###User Input/HID
+####Button constants
+````
+KEY_A, KEY_B, KEY_X, KEY_Y
+KEY_L, KEY_R, KEY_ZL, KEY_ZR 	                                    
+KEY_SELECT, KEY_START 	
+KEY_DRIGHT, KEY_DLEFT, KEY_DUP, KEY_DDOWN 	
+KEY_TOUCH 	
+KEY_CSTICK_RIGHT, KEY_CSTICK_LEFT, KEY_CSTICK_UP, KEY_CSTICK_DOWN
+KEY_CPAD_RIGHT, KEY_CPAD_LEFT, KEY_CPAD_UP, KEY_CPAD_DOWN
+KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT                              
+````
+Notes: 
+* ZL+ZR and CSTICK are New3DS-Only
+* KEY_UP and friends respond to both the Circle pad and the D-pad
 
+You can use these constants to check if certain buttons are pressed, held, or released like so:
+````
+hidScanInput();
+if(hidKeysHeld() & KEY_A) {
+   //your code when A button is held down
+}
+````
 ####Functions
-
 ````
 Result 	hidInit (u32 *sharedMem)
 void 	  hidExit ()
@@ -544,7 +564,7 @@ Result 	NS_LaunchTitle (u64 titleid, u32 launch_flags, u32 *procid)
 Result 	NS_RebootToTitle (u8 mediatype, u64 titleid)
 ````
 
-###PM
+###Process/Program management service
 
 ####Functions
 
