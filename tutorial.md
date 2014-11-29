@@ -51,12 +51,12 @@ Here's what you need to install on your computer:
 
 Windows users: check your environment variables:
 
-1. Right-click "This PC" and select "Properties".
-2. Click "Advanced system settings" (on the left).
-3. Click "Environment Variables..." (on the bottom).
-4. Highlight the "PATH" variable (on top), click "Edit...".
-5. Check that your DevkitARM and Python install folders are present (ex: "C:\DevkitPro\DevkitARM\bin", "C:\Python34").
-6. If one (or both) are not present, add them at the end, saparated by ";". Save and quit.
+- Right-click "This PC" and select "Properties".
+- Click "Advanced system settings" (on the left).
+- Click "Environment Variables..." (on the bottom).
+- Highlight the "PATH" variable (on top), click "Edit...".
+- Check that your DevkitARM and Python install folders are present (ex: "C:\DevkitPro\DevkitARM\bin", "C:\Python34").
+- If one (or both) are not present, add them at the end, saparated by ";". Save and quit.
 
 Linux users: you'll find more setup info on [3Dbrew](http://3dbrew.org/wiki/Setting_up_Development_Environment) 
 
@@ -64,12 +64,12 @@ Linux users: you'll find more setup info on [3Dbrew](http://3dbrew.org/wiki/Sett
 
 Follow these steps to install the homebrew launcher (hbmenu) on your 3DS (this needs to be done only once):
 
-1. Download [Ninjhax's homebrew starter kit](http://smealum.net/ninjhax/dl/starter.zip) and unzip it at the root of your SD / microSD card.
-2. Insert the SD / microSD card in your console.
-3. Go on Ninjhax's website and [generate the QR code corresponding to your console's firmware](http://smealum.net/ninjhax/#qrcode). (you can find your firmware version in the "Settings" app, on the upper screen.)
-4. Enable your 3DS' wi-fi connection.
-5. Start the game Cubic Ninja, choose "Create", then "QR code", and finally "Scan QR code". 
-6. Scan the QR Code, then follow on-screen instructions to enable the exploit and start hbmenu.
+- Download [Ninjhax's homebrew starter kit](http://smealum.net/ninjhax/dl/starter.zip) and unzip it at the root of your SD / microSD card.
+- Insert the SD / microSD card in your console.
+- Go on Ninjhax's website and [generate the QR code corresponding to your console's firmware](http://smealum.net/ninjhax/#qrcode). (you can find your firmware version in the "Settings" app, on the upper screen.)
+- Enable your 3DS' wi-fi connection.
+- Start the game Cubic Ninja, choose "Create", then "QR code", and finally "Scan QR code". 
+- Scan the QR Code, then follow on-screen instructions to enable the exploit and start hbmenu.
 
 The next time you turn your console on, just launch Cubic Ninja, choose "Create", then "QR code" and hbmenu will start directly.
 
@@ -131,10 +131,10 @@ In many projects, like [3dscraft](https://github.com/smealum/3dscraft) you can f
 
 Let's go back to our ctrulib/template folder.
 
-1. Open a CLI (command line interface). If you're on Windows, press Shift + right click on the template folder and choose "Open a CLI here".
-2. type ````make```` and press enter.
-3. After a few seconds, the process finishes and you can find a build folder (you can ignore it) and two new files .3dsx and .smdh. You can copy them to your SD card to test the homebrew on real hardware.
-4. You can rebuild those files at any time after editing your source code. You'll need to run ````make clean```` before rebuilding your project.
+- Open a CLI (command line interface). If you're on Windows, press Shift + right click on the template folder and choose "Open a CLI here".
+- type ````make```` and press enter.
+- After a few seconds, the process finishes and you can find a build folder (you can ignore it) and two new files .3dsx and .smdh. You can copy them to your SD card to test the homebrew on real hardware.
+- You can rebuild those files at any time after editing your source code. You'll need to run ````make clean```` before rebuilding your project.
 
 You can now try to build all ctrulib examples (or other open source homebrew projects) and run them on your 3DS.
 <br>
@@ -145,17 +145,9 @@ Please note that some examples (like http) may not be buildable yet, and some ot
 
 Please download the following file: [project template](http://xem.github.io/3DShomebrew/tutorial/template.zip).
 <br>
-<<<<<<< HEAD
-It's based on ctrulib's template project but cleaner and more complete. (logo, metadata)
-
-Note: unless you want to edit the makefile by hand, you should put all of your source and header files in the source folder. The makefile does not account for subfolders, and will not compile code that reside in one.
-
-Unzip the template on your computer (For example in C:/3DS/template) and don't touch it. It will be the model for our upcoming projects.
-=======
 It's based on ctrulib's template project but cleaner and more complete. (it contains a logo, hbmenu metadata and comments)
 <br>
 Unzip it on your computer (For example in C:/3DS/template).
->>>>>>> e6fa8cc70ee23620052f0bfe30aba42b14efddee
 <br>
 In this tutorial, we will develop small programs based on this template.
 <br>
@@ -283,32 +275,32 @@ hidExit();
 Now that we have every thing ready we can start to check if a button is pressed you can use if statements like these: 
 ````
 if (kDown & KEY_A){
-	//code for when A is pressed
+  //code for when A is pressed
 }
 if (kHeld & KEY_B){
-	//Code for when B is being held
+  //Code for when B is being held
 }
 if (kUp & KEY_START){
-	//Code for when start is released
+  //Code for when start is released
 }
 ````
 Here is a list of names for each of the 3DS' buttons:
 ````
-KEY_SELECT  	//Select Button
-KEY_START   	//Start Button
-KEY_DRIGHT  	//Right key on D-Pad
-KEY_DLEFT   	//Left key on D-Pad
-KEY_DUP     	//Up key on D-Pad
-KEY_DDOWN   	//Down key on D-Pad
-KEY_R       	//R Button
-KEY_L       	//L Button
-KEY_A       	//A Button
-KEY_B       	//B Button
-KEY_X       	//X Button
-KEY_Y       	//Y Button
-KEY_ZL      	//ZL Button (new 3DS only)
-KEY_ZR      	//ZR Button (new 3DS only)
-KEY_TOUCH	//touch screen pressed
+KEY_SELECT    //Select Button
+KEY_START     //Start Button
+KEY_DRIGHT    //Right key on D-Pad
+KEY_DLEFT     //Left key on D-Pad
+KEY_DUP       //Up key on D-Pad
+KEY_DDOWN     //Down key on D-Pad
+KEY_R         //R Button
+KEY_L         //L Button
+KEY_A         //A Button
+KEY_B         //B Button
+KEY_X         //X Button
+KEY_Y         //Y Button
+KEY_ZL        //ZL Button (new 3DS only)
+KEY_ZR        //ZR Button (new 3DS only)
+KEY_TOUCH //touch screen pressed
 ````
 That's all there is to it!
 
