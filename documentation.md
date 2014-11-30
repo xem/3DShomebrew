@@ -22,9 +22,9 @@ The following document was made by studying the [doxygen build of ctrulib](http:
   - User Input / HID
   - HTTPC
   - Infrared Communication
-  - IRRST
+  - Hardware expansion services/IRRST
   - Microphone / Audio capture
-  - mvd
+  - Hardware Video Decoder
   - NS
   - Process/Program management service
   - Process service
@@ -503,7 +503,8 @@ Result 	IRU_SendData (u8 *buf, u32 size, u32 wait)
 Result 	IRU_RecvData (u8 *buf, u32 size, u8 flag, u32 *transfercount, u32 wait)
 ````
 
-###IRRST
+###Hardware expansion services/IRRST
+Used to communicate with any new hardware that was added to the New3DS. This is effectively only used to talk to the C-stick as far as we know. 
 
 ####Functions
 
@@ -541,7 +542,7 @@ Result 	MIC_SetRecording (u8 value)
 Result 	MIC_IsRecoding (u8 *value)
 ````
 
-###mvd
+###Hardware Video Decoder
 
 ####Functions
 
@@ -598,10 +599,10 @@ Result 	PS_GetDeviceId (u32 *device_id)
 ````
 Result 	ptmInit ()
 Result 	ptmExit ()
-Result 	PTMU_GetShellState (Handle *servhandle, u8 *out)
-Result 	PTMU_GetBatteryLevel (Handle *servhandle, u8 *out)
-Result 	PTMU_GetBatteryChargeState (Handle *servhandle, u8 *out)
-Result 	PTMU_GetPedometerState (Handle *servhandle, u8 *out)
+Result 	PTMU_GetShellState (Handle *servhandle, u8 *out)  //out = 1 means screen is opened
+Result 	PTMU_GetBatteryLevel (Handle *servhandle, u8 *out) //out = 4 means mostly full, 5 = full, rest undocumented
+Result 	PTMU_GetBatteryChargeState (Handle *servhandle, u8 *out) //out = 1 means charging
+Result 	PTMU_GetPedometerState (Handle *servhandle, u8 *out) //out = 1 means counting steps is enabled
 Result 	PTMU_GetTotalStepCount (Handle *servhandle, u32 *steps)
 ````
 

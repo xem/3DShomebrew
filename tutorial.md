@@ -1,6 +1,15 @@
 #3DS homebrew development tutorial
 
+##Introduction
+
+This document will explain in detail how to develop homebrews (applications, games, ...) for Nintendo 3DS, 2DS and New 3DS.
+<br>We will code them in C/C++. Basic notions of programmation are required, even if they come from another language (Java, PHP, JS, ...).
+<br>Remember that the 3DS homebrew scene is very young, and many things are still difficult or impossible to do. (see our [limitations](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md/blob/gh-pages/tutorial/limitations.md) page).
+<br>Thanks to [smealum](http://smealum.net) for his projects, especially [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) and [hbmenu](https://github.com/xem/3ds_hb_menu) that we will use all along this tutorial.
+
+
 ##Summary
+
 - [Is it legal?](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md/blob/gh-pages/tutorial.md#is-it-legal)
 - [Setup](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md/blob/gh-pages/tutorial.md#setup)
   - [Hardware](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#hardware)
@@ -20,16 +29,16 @@
 
 Yes, reverse-engineering a video game console and making homebrew software for it is 100% legal.<br>
 The only thing that is illegal is piracy.<br>
-This project doesn't encourage you to pirate 3DS games (which is impossible using NINJHAX).<br>
+This project doesn't encourage you to pirate 3DS games (which is impossible using Ninjhax).<br>
 It is only here to help you develop homebrews, so don't worry and have fun!
 
 ##Setup
 
 ###Hardware
 
-Here's what you need to buy to get started:
+Here's what you need to get started:
 
-- A Nintendo 3DS / 2DS with a firmware version between 4.0.0-7 and 9.2.0-20 + a SD card.<br>
+- A Nintendo 3DS / 3DS XL / 2DS with a firmware version between 4.0.0-7 and 9.2.0-20 + a SD card.<br>
 or <br>
 - A New 3DS with a firmware between 9.0.0-20 and 9.2.0-20 + a micro SD card.
 - An SD / microSD card reader.
@@ -43,11 +52,10 @@ This tutorial will focus on .3dsx homebrews, compatible with Ninjhax + hbmenu.
 Here's what you need to install on your computer:
 
 - The latest version of [DevkitPro](http://devkitpro.org). You can do a full install, or install only DevkitARM + ctrulib.
-- Download [Aemstro](https://github.com/smealum/aemstro) and place its content "msys", inside your devkitPro install folder. (ex: ````C:\devkitPro\msys````)
-- A C++ compatible IDE like [Netbeans](https://netbeans.org/downloads), or a code editor, like [notepad++](http://notepad-plus-plus.org).
-- An FTP client like [FileZilla](https://filezilla-project.org) or [WinSCP](http://winscp.net) to upload homebrews  on your 3DS using wi-fi. (optional)
-- An image editor like [GIMP](http://www.gimp.org/) to create images for your homebrews. (optional)
-- Latest version of [Python 3.x.x](https://www.python.org)
+- Download [Aemstro](https://github.com/smealum/aemstro) and place its content in "msys", inside your devkitPro install folder. (ex: ````C:\devkitPro\msys````)
+- A C++ compatible IDE like [Netbeans](https://netbeans.org/downloads), or a code editor like [notepad++](http://notepad-plus-plus.org).
+- An FTP client like [FileZilla](https://filezilla-project.org) or [WinSCP](http://winscp.net) to upload homebrews  on your 3DS using wi-fi.
+- Latest version of [Python 3.x.x](https://www.python.org).
 
 Windows users: check your environment variables:
 
@@ -62,7 +70,7 @@ Linux users: you'll find more setup info on [3Dbrew](http://3dbrew.org/wiki/Sett
 
 ###3DS setup
 
-Follow these steps to install the homebrew launcher (hbmenu) on your 3DS (this needs to be done only once):
+Follow these steps to install the homebrew launcher (or "hbmenu") on your 3DS. This needs to be done only once:
 
 - Download [Ninjhax's homebrew starter kit](http://smealum.net/ninjhax/dl/starter.zip) and unzip it at the root of your SD / microSD card.
 - Insert the SD / microSD card in your console.
@@ -82,28 +90,31 @@ To uninstall Ninjhax (or install it on another console), you need to delete your
 
 Two files are needed for a 3DS homebrew to be run with Ninjhax: a .3dsx file and a .smdh file.
 
-If you want to launch homebrews on your console, or test your own builds easily, you can use your computer to place them in the "3ds" folder of your SD / microSD card.
+If you want to run homebrews on your console, you can use your computer to place them in the "3ds" folder of your SD / microSD card.<br>
+Note: you can organize your homebrews into subfolders.
 
-Note: you can create subfolders in your 3ds folder to organize your homebrews.
+You can also upload them directly using wi-fi, if your PC and 3DS are connected to the same local network:
 
-You can also upload them directly using wi-fi:
-1. Start hbmenu.<br>
-2. Start the ftPONY homebrew.<br>
-3. Note the IP and port displayed on the upper screen (for example: "IP: 192.168.0.128 port 5000")<br>
-4. Start a FTP client on your desktop, and use these credentials to get connected.<br>
-5. If asked, choose "anonymous connection".<br>
-6. You should now see your SD / microSD card's filesystem and be able to drag & drop files and folders in the "3ds" folder of your card.<br>
+1. Start hbmenu.
+2. Start the ftPONY homebrew.
+3. Note the IP and port displayed on the upper screen (for example: "IP: 192.168.0.128 port 5000")
+4. Start a FTP client on your desktop, and use these credentials to get connected.
+5. If asked, choose "anonymous connection".
+6. You should now see your SD / microSD card's filesystem and be able to drag & drop files and folders in the "3ds" folder of your card.
 7. Press B to quit ftPONY and launch your new apps.
+
 <img src="http://img.ctrlv.in/img/14/11/22/54709afe2f047.png" width=700>
 
-If you are running linux (or have cat and netcat on windows/mac) you can also use NetLoader:<br>
-1. Start hbmenu<br>
-2. Press the Y button<br>
-3. On your PC open a terminal (or command promt when using Windows)<br>
-4. Browse to the directory your .3dsx file is located in. (using cd foldername to go into a folder and cd.. to go back from a subfolder)<br>
-5. use the command: ````cat name.3dsx | nc ip 9000```` Where you replace "name.3dsx" with your .3dsx file and ip with the IP displayed on the 3DS' bottom screen.<br>
-6. After a little bit of time (depending on the filesize of your .3dsx) it will automaticly boot your homebrew.<br>
-Note: Both the PC and 3DS have to be connected in the same network for this to work! This is only useful for testing as the file won't stay on the 3DS after it is closed. (External files your homebrew might try to load has to already be on the SD card!)<br>
+For linux users, or Windows / Mac users using cat or netcat:
+
+1. Start hbmenu
+2. Press the Y button
+3. On your PC open a terminal (or command promt when using Windows)
+4. Browse to the directory your .3dsx file is located in. (using cd foldername to go into a folder and cd.. to go back from a subfolder).
+5. use the command: ````cat name.3dsx | nc ip 9000```` Where you replace "name.3dsx" with your .3dsx file and ip with the IP displayed on the 3DS' bottom screen.
+6. After a little bit of time (depending on the filesize of your .3dsx) it will automaticly boot your homebrew.
+
+Note: This is only useful for testing as the file won't stay on the 3DS after it is closed.
 
 ##Anatomy of a homebrew project
 
@@ -122,10 +133,12 @@ It contains:
 Let's see how bigger projects are made, for example [Yeti3DS](https://github.com/smealum/yeti3DS). You can notice a few other things:
 
 - an icon.png file (a 48x48px image to display on hbmenu instead of the default one) 
-- the source folder contains more .c files and .h files. (those files are used to organize big C/C++ project.<br>Note that the main function ````int main()```` remains in main.c, the other C files are used to store additional code and data called by ````main````).
+- the source folder contains more .c files and .h files. (those files are used to organize big C/C++ project.<br>
+  Note that the main function ````int main()```` remains in main.c, the other C files are used to store additional code and data called by ````main````).
 - The makefile contains [three optional lines](https://github.com/smealum/yeti3DS/blob/master/Makefile#L40-L42) to specify the game's author, title and description.
 
-In many projects, like [3dscraft](https://github.com/smealum/3dscraft) you can find a data folder containing .bin files.<br>These files are used to store images data. The tutorial will explain how to use them in your projects.
+In many projects, like [3dscraft](https://github.com/smealum/3dscraft) you can find a data folder containing .bin files.
+<br>These files are used to store images data. The tutorial will explain how to use them in your projects.
 
 ###Build procedure
 
@@ -219,7 +232,7 @@ That's the minimal homebrew you could imagine.
   - Swap and flush current framebuffers (see next chapter).
 - After the loop, we unload everything and ````return 0````, to get back to hbmenu.
 
-#### Hello Screens, VRAM and framebuffers!
+### Hello Screens, VRAM and framebuffers!
 
 Let's take a look to the 3DS memory, and how it is mapped to the screens.
 <br>The 3DS VRAM (video memory) holds the image information of three screens:
@@ -251,7 +264,7 @@ But it's not that simple:
 - By default, the pixels colors are stored in reverse order (B,G,R instead of R,G,B).
 - In the VRAM, all the screens are rotated by -90 degrees, as if you turned your 3DS to look at it from the right side.
 
-To sum up, on each screen, both framebuffers use 3 bytes to store Blue, Green and Red components of each pixel, starting from the bottom-left pixel and storing each column of pixels until it reaches the top-right pixel.
+To sum up, on each screen, both framebuffers use 3 bytes to store Blue, Green and Red components of each pixel, starting from the bottom-left pixel and going through each column from bottom to top until it reaches the top-right pixel.
 
 ### Hello buttons!
 Buttons are obviously very important for most homebrew applications, and luckily for us it pretty simple to use!
@@ -336,3 +349,13 @@ That's all there is to it!
 
 
 Coming soon!
+
+
+
+
+
+
+
+
+
+

@@ -13,9 +13,7 @@ This project was made to:
 - Provide some handy tools to ease your homebrew development.<br>
   See [the tools](https://github.com/xem/3DShomebrew/blob/gh-pages/tools.md).
 
-  
 ----------
-
 
 This project is in the public domain and all contributions and ideas are welcome!
 
