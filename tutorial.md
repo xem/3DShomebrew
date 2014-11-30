@@ -384,11 +384,11 @@ void gfxDrawSpriteAlpha(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u1
 		u8* data=&spriteData[(xOffset)*4];
 		for(i=xOffset; i<xOffset+widthDrawn; i++)
 		{
-			if(data[0])
+			if(data[3])
 			{
-				fbd[0]=data[1];
-				fbd[1]=data[2];
-				fbd[2]=data[3];
+				fbd[0]=data[0];
+				fbd[1]=data[1];
+				fbd[2]=data[2];
 			}
 			fbd+=3;
 			data+=4;
@@ -430,12 +430,12 @@ void gfxDrawSpriteAlphaBlend(gfxScreen_t screen, gfx3dSide_t side, u8* spriteDat
 		u8* data=&spriteData[(xOffset)*4];
 		for(i=xOffset; i<xOffset+widthDrawn; i++)
 		{
-			if(data[0])
+			if(data[3])
 			{
 				u8 alphaSource = data[3];
-				fbd[0] = ((data[1] * alphaSource)+(fbd[0] * (255 - alphaSource))) / 256;
-				fbd[1] = ((data[2] * alphaSource)+(fbd[1] * (255 - alphaSource))) / 256;
-				fbd[2] = ((data[3] * alphaSource)+(fbd[2] * (255 - alphaSource))) / 256;
+				fbd[0] = ((data[0] * alphaSource)+(fbd[0] * (255 - alphaSource))) / 256;
+				fbd[1] = ((data[1] * alphaSource)+(fbd[1] * (255 - alphaSource))) / 256;
+				fbd[2] = ((data[2] * alphaSource)+(fbd[2] * (255 - alphaSource))) / 256;
 			}
 			fbd+=3;
 			data+=4;
