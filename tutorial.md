@@ -144,6 +144,7 @@ We will now see how to build our project.
 - After a few seconds, the process finishes.
 - A "build" folder, and three files (.elf, .3dsx and .smdh) appear.
 - Copy the .3dsx and the .smdh files on your SD card to test the homebrew on real hardware.
+<<<<<<< HEAD
 
 When you will work on your own projects, note that you can rebuild them at any time to test your changes:
 
@@ -152,6 +153,16 @@ When you will work on your own projects, note that you can rebuild them at any t
 
 Similarly, you can build any homebrew open-source project by opening a CLI in the folder containing its "Makefile" and executing the command ````make````.
 
+=======
+
+When you will work on your own projects, note that you can rebuild them at any time to test your changes:
+
+- run the ````make clean```` command. (this will erase the build files)
+- run the ````make```` command again.
+
+Similarly, you can build any homebrew open-source project by opening a CLI in the folder containing its "Makefile" and executing the command ````make````.
+
+>>>>>>> bc8facf6dd465b0ad9e28488b18a858ccf84c536
 ### Hello source code!
 
 Let's open source/main.c and analyse its contents:
@@ -315,6 +326,7 @@ if (kUp & KEY_START){
   // Code for when start is released
 }
 ````
+<<<<<<< HEAD
 
 They compare the current key state vars with the constant of the button we want to check, using a bit mask.
 <br>
@@ -365,6 +377,14 @@ void gfxDrawSpriteAlpha(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u1
 
   u16 fbWidth, fbHeight;
   u8* fbAdr=gfxGetFramebuffer(screen, side, &fbWidth, &fbHeight);
+=======
+
+They compare the current key state vars with the constant of the button we want to check, using a bit mask.
+<br>
+If the corresponding button is down / held / up, the test succeeds, and the following code is executed.
+
+TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+>>>>>>> bc8facf6dd465b0ad9e28488b18a858ccf84c536
 
   if(x+width<0 || x>=fbWidth)return;
   if(y+height<0 || y>=fbHeight)return;
@@ -467,6 +487,8 @@ This is how we use the function: ````void gfxDrawSprite(GFX_TOP, GFX_LEFT, (u8*)
 
 So what is happening behind the scenes? We don't need to know this but it can be very useful for solving problems so here we go. The 3DS has it's next frame in memory, when rendering the image to the screen what we're realy doind is putting the image in the framebuffer (for more info read the tutorial about VRAM). When using transperancy the function looks at the transperancy and then chacnges what it puts into the framebuffer acordingly (meaning the alpha level is not saved in the framebuffer).
 
+TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+
 ### "Hello world!"
 
 TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
@@ -474,6 +496,7 @@ TODO: describe the subject and its API, then provide a full example with source 
 ### Hello stereoscopy!
 
 TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+<<<<<<< HEAD
 
 ### Hello animation!
 
@@ -518,3 +541,49 @@ TODO: describe the subject and its API, then provide a full example with source 
 ### Hello Battery, 3D slider, luminosity, etc
 
 Coming soon!
+=======
+
+### Hello animation!
+
+TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+
+### Hello touchscreen!
+
+TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+
+### Hello sound!
+
+TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+
+### Hello microphone!
+
+TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+
+### Hello filesystem!
+
+TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+
+### Hello Internet!
+
+TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+
+### Hello Gyroscope!
+
+TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+
+### Hello Infrared communication!
+
+TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+
+### Hello NFC!
+
+TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+
+### Hello Camera(s)!
+
+TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+
+### Hello Battery, 3D slider, luminosity, etc
+
+Coming soon!
+>>>>>>> bc8facf6dd465b0ad9e28488b18a858ccf84c536
