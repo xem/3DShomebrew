@@ -287,13 +287,13 @@ hidExit();
 ````
 Now that we have every thing ready we can start to check if a button is pressed you can use if statements like these: 
 ````
-if (kDown & KEY_A){
+if (kDown && KEY_A){
   //code for when A is pressed
 }
-if (kHeld & KEY_B){
+if (kHeld && KEY_B){
   //Code for when B is being held
 }
-if (kUp & KEY_START){
+if (kUp && KEY_START){
   //Code for when start is released
 }
 ````
