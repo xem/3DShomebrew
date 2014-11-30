@@ -598,10 +598,10 @@ Result 	PS_GetDeviceId (u32 *device_id)
 ````
 Result 	ptmInit ()
 Result 	ptmExit ()
-Result 	PTMU_GetShellState (Handle *servhandle, u8 *out)
-Result 	PTMU_GetBatteryLevel (Handle *servhandle, u8 *out)
-Result 	PTMU_GetBatteryChargeState (Handle *servhandle, u8 *out)
-Result 	PTMU_GetPedometerState (Handle *servhandle, u8 *out)
+Result 	PTMU_GetShellState (Handle *servhandle, u8 *out)  //out = 1 means screen is opened
+Result 	PTMU_GetBatteryLevel (Handle *servhandle, u8 *out) //out = 4 means mostly full, 5 = full, rest undocumented
+Result 	PTMU_GetBatteryChargeState (Handle *servhandle, u8 *out) //out = 1 means charging
+Result 	PTMU_GetPedometerState (Handle *servhandle, u8 *out) //out = 1 means counting steps is enabled
 Result 	PTMU_GetTotalStepCount (Handle *servhandle, u32 *steps)
 ````
 
