@@ -8,7 +8,9 @@ int main()
   hidInit(NULL);    // input
   gfxInit();        // graphics
   gfxSet3D(false);  // stereoscopy (true: enabled / false: disabled)
-  u32 kDown;        // pressed keys data
+  u32 kDown;        // keys down
+  u32 kHeld;        // keys pressed
+  u32 kUp;          // keys up
 
   // Main loop
   while (aptMainLoop())
@@ -17,11 +19,13 @@ int main()
     // Wait for next frame
     gspWaitForVBlank();
 
-    // Read which buttons are currently pressed 
+    // Read which buttons are currently pressed or not
     hidScanInput();
     kDown = hidKeysDown();
+    kHeld = hidKeysHeld();
+    kUp = hidKeysUp();
 
-    // If START is pressed, break loop and quit
+    // If START button is pressed, break loop and quit
     if (kDown & KEY_START){
       break;
     }
