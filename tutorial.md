@@ -8,14 +8,6 @@ This document will explain in detail how to develop homebrews (applications, gam
 <br>We will code them in C/C++, with [ctrulib](https://github.com/smealum/ctrulib)'s help, and play them with [Ninjax](http://smealum.net/ninjhaxç and [hbmenu](https://github.com/xem/3ds_hb_menu).
 <br>Basic notions of programmation are required, even if they come from another language (Java, PHP, JS, ...).
 <br>Remember that the 3DS homebrew scene is very young, and many things are still difficult or impossible to do. (see the [limitations page](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md/blob/gh-pages/tutorial/limitations.md)).
-=======
-##Introduction
-
-This document will explain in detail how to develop homebrews (applications, games, ...) for Nintendo 3DS, 2DS and New 3DS.
-<br>We will code them in C/C++. Basic notions of programmation are required, even if they come from another language (Java, PHP, JS, ...).
-<br>Remember that the 3DS homebrew scene is very young, and many things are still difficult or impossible to do. (see our [limitations](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md/blob/gh-pages/tutorial/limitations.md) page).
-<br>Thanks to [smealum](http://smealum.net) for his projects, especially [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) and [hbmenu](https://github.com/xem/3ds_hb_menu) that we will use all along this tutorial.
-
 
 ##Summary
 
@@ -34,10 +26,6 @@ This document will explain in detail how to develop homebrews (applications, gam
   - [Hello Buttons!](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#hello-buttons)
   - ...
   - ...
-=======
-  - [Hello template](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#hello-template)
-  - [Hello Screens, VRAM and framebuffers!]
-  - [Hello Buttons]
   - ...
 
 ##Is it legal?
@@ -45,10 +33,6 @@ This document will explain in detail how to develop homebrews (applications, gam
 Yes, reverse-engineering a video game console and making homebrew software for it is 100% legal.<br>
 The only thing that is illegal is piracy, but pirating 3DS retail or eShop games is impossible with Ninjhax.<br>
 This tutorial is only here to help you develop and play 3DS homebrews, so don't worry and have fun!
-=======
-The only thing that is illegal is piracy.<br>
-This project doesn't encourage you to pirate 3DS games (which is impossible using Ninjhax).<br>
-It is only here to help you develop homebrews, so don't worry and have fun!
 
 ##Setup
 
@@ -75,7 +59,6 @@ Here's what you need to install on your computer:
 - An FTP client like [FileZilla](https://filezilla-project.org) or [WinSCP](http://winscp.net) to upload homebrews  on your 3DS using wi-fi.
 - Latest version of [Python 3.x.x](https://www.python.org).
 - Create a working directory. (for example ````C:\3DS````). All our projects will go in here.
-=======
 
 Windows users: check your environment variables:
 
@@ -122,20 +105,6 @@ You can also upload them directly using wi-fi, if your PC and 3DS are connected 
 5. If asked, choose "anonymous connection".
 6. You should now see your SD / microSD card's filesystem and be able to drag & drop files and folders in the "3ds" folder of your card.
 7. Press B to quit ftPONY and launch your new apps.
-=======
-
-<img src="http://img.ctrlv.in/img/14/11/22/54709afe2f047.png" width=700>
-
-For linux users, or Windows / Mac users using cat or netcat:
-
-1. Start hbmenu
-2. Press the Y button
-3. On your PC open a terminal (or command promt when using Windows)
-4. Browse to the directory your .3dsx file is located in. (using cd foldername to go into a folder and cd.. to go back from a subfolder).
-5. use the command: ````cat name.3dsx | nc ip 9000```` Where you replace "name.3dsx" with your .3dsx file and ip with the IP displayed on the 3DS' bottom screen.
-6. After a little bit of time (depending on the filesize of your .3dsx) it will automaticly boot your homebrew.
-
-Note: This is only useful for testing as the file won't stay on the 3DS after it is closed.
 
 <img src="http://img.ctrlv.in/img/14/11/22/54709afe2f047.png" width=700>
 
@@ -164,14 +133,6 @@ The template folder, like most 3DS projects, contains:
 - a data folder, that will be used to store our program's assets (images, music, ...).
 - an icon.png file (a 48x48px image to display on hbmenu).
 - a makefile file (used to build our homebrew).
-=======
-- an icon.png file (a 48x48px image to display on hbmenu instead of the default one) 
-- the source folder contains more .c files and .h files. (those files are used to organize big C/C++ project.<br>
-  Note that the main function ````int main()```` remains in main.c, the other C files are used to store additional code and data called by ````main````).
-- The makefile contains [three optional lines](https://github.com/smealum/yeti3DS/blob/master/Makefile#L40-L42) to specify the game's author, title and description.
-
-In many projects, like [3dscraft](https://github.com/smealum/3dscraft) you can find a data folder containing .bin files.
-<br>These files are used to store images data. The tutorial will explain how to use them in your projects.
 
 ### Hello build procedure!
 
@@ -261,8 +222,6 @@ That's the minimal homebrew you could imagine.
   - Swap and flush current framebuffers (we'll explain that later).
 - After the loop, we unload everything and ````return 0````, to get back to hbmenu.
 
-=======
-### Hello Screens, VRAM and framebuffers!
 
 ### Hello Screens, VRAM and framebuffers!
 
@@ -301,7 +260,6 @@ To sum up, on each screen, both framebuffers use 3 bytes to store Blue, Green an
 ### Hello pixel!
 
 TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
-=======
 
 ### Hello buttons!
 
@@ -364,132 +322,6 @@ If the corresponding button is down / held / up, the test succeeds, and the foll
 
 TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
 
-### Hello image!
-Displaying images or sprites is a fital part of most 2D games and applications. The functions to render images to the screen can be hard to comprihend but luckily enough they've been made for us and the functions are easy to use.
-
-Images on the 3DS are usualy in a .bin format, you can get an image in this format by either exporting the image as raw data or using the <a href="http://xem.github.io/3DShomebrew/tools/image-to-bin.html">image to BIN</a> web tool. The web tool allows you to convert your image and also rotate it 90 degrees clockwise, that way it will look the right way up on the 3DS itself.
-
-This is the functions you'll be using for displaying images that <b>do not</b> have transperancy in them:
-````
-void gfxDrawSprite(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u16 width, u16 height, s16 x, s16 y)
-{
-//This function includes documantation so you might be able to figure out what the function is doing, you don't need to understand this to use it!
-  if(!spriteData)return; //check if the function has sprite data, if not stop!
-
-  u16 fbWidth, fbHeight; //set variables for width and height
-  u8* fbAdr=gfxGetFramebuffer(screen, side, &fbWidth, &fbHeight); //get framebuffer for the screen and side used.
-
-  if(x+width<0 || x>=fbWidth)return; //check invalid x cords
-  if(y+height<0 || y>=fbHeight)return; //check invalid y cords
-
-  u16 xOffset=0, yOffset=0; //set offset for x and y
-  u16 widthDrawn=width, heightDrawn=height; //set width/height vars that for drawing
-
-  if(x<0)xOffset=-x; //use offset
-  if(y<0)yOffset=-y; //use offset
-  if(x+width>=fbWidth)widthDrawn=fbWidth-x;
-  if(y+height>=fbHeight)heightDrawn=fbHeight-y;
-  widthDrawn-=xOffset;
-  heightDrawn-=yOffset;
-
-  int j;
-  for(j=yOffset; j<yOffset+heightDrawn; j++) //for loop for drawing image
-  {
-    memcpy(&fbAdr[((x+xOffset)+(y+j)*fbWidth)*3], &spriteData[((xOffset)+(j)*width)*3], widthDrawn*3); //copy imagedata into memory
-  }
-}
-````
-This is the function you'll be using for images with transperancy (you don't want to blend with the background):
-````
-void gfxDrawSpriteAlpha(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u16 width, u16 height, s16 x, s16 y)
-{
-  if(!spriteData)return;
-
-  u16 fbWidth, fbHeight;
-  u8* fbAdr=gfxGetFramebuffer(screen, side, &fbWidth, &fbHeight);
-
-  if(x+width<0 || x>=fbWidth)return;
-  if(y+height<0 || y>=fbHeight)return;
-
-  u16 xOffset=0, yOffset=0;
-  u16 widthDrawn=width, heightDrawn=height;
-
-  if(x<0)xOffset=-x;
-  if(y<0)yOffset=-y;
-  if(x+width>=fbWidth)widthDrawn=fbWidth-x;
-  if(y+height>=fbHeight)heightDrawn=fbHeight-y;
-  widthDrawn-=xOffset;
-  heightDrawn-=yOffset;
-
-  //TODO : optimize
-  fbAdr+=(y+yOffset)*fbWidth*3;
-  spriteData+=yOffset*width*4;
-  int j, i;
-  for(j=yOffset; j<yOffset+heightDrawn; j++)
-  {
-    u8* fbd=&fbAdr[(x+xOffset)*3];
-    u8* data=&spriteData[(xOffset)*4];
-    for(i=xOffset; i<xOffset+widthDrawn; i++)
-    {
-      if(data[3])
-      {
-        fbd[0]=data[0];
-        fbd[1]=data[1];
-        fbd[2]=data[2];
-      }
-      fbd+=3;
-      data+=4;
-    }
-    fbAdr+=fbWidth*3;
-    spriteData+=width*4;
-  }
-}
-````
-And this functions is for transperancy and blending with the background:
-````
-void gfxDrawSpriteAlphaBlend(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u16 width, u16 height, s16 x, s16 y)
-{
-  if(!spriteData)return;
-  u16 fbWidth, fbHeight;
-  u8* fbAdr=gfxGetFramebuffer(screen, side, &fbWidth, &fbHeight);
-
-  if(x+width<0 || x>=fbWidth)return;
-  if(y+height<0 || y>=fbHeight)return;
-
-  u16 xOffset=0, yOffset=0;
-  u16 widthDrawn=width, heightDrawn=height;
-
-  if(x<0)xOffset=-x;
-  if(y<0)yOffset=-y;
-  if(x+width>=fbWidth)widthDrawn=fbWidth-x;
-  if(y+height>=fbHeight)heightDrawn=fbHeight-y;
-  widthDrawn-=xOffset;
-  heightDrawn-=yOffset;
-
-  //TODO : optimize
-  fbAdr+=(y+yOffset)*fbWidth*3;
-  spriteData+=yOffset*width*4;
-  int j, i;
-  for(j=yOffset; j<yOffset+heightDrawn; j++)
-  {
-    u8* fbd=&fbAdr[(x+xOffset)*3];
-    u8* data=&spriteData[(xOffset)*4];
-    for(i=xOffset; i<xOffset+widthDrawn; i++)
-    {
-      if(data[3])
-      {
-        u8 alphaSource = data[3];
-        fbd[0] = ((data[0] * alphaSource)+(fbd[0] * (255 - alphaSource))) / 256;
-        fbd[1] = ((data[1] * alphaSource)+(fbd[1] * (255 - alphaSource))) / 256;
-        fbd[2] = ((data[2] * alphaSource)+(fbd[2] * (255 - alphaSource))) / 256;
-      }
-      fbd+=3;
-      data+=4;
-    }
-    fbAdr+=fbWidth*3;
-    spriteData+=width*4;
-  }
-=======
 ### Hello image!
 Displaying images or sprites is a fital part of most 2D games and applications. The functions to render images to the screen can be hard to comprihend but luckily enough they've been made for us and the functions are easy to use.
 
@@ -634,8 +466,6 @@ We now have the image ready to be rendered on the screen, to do this we will use
 This is how we use the function: ````void gfxDrawSprite(GFX_TOP, GFX_LEFT, (u8*)image_bin, 100, 100, 10, 10);````. This will render a image to the top screen, with a width and height of 100 and located 10 pixels from the bottom and left side of the screen. This will display an image to the screen and that it, you're now able to use images in your homebrews!
 
 So what is happening behind the scenes? We don't need to know this but it can be very useful for solving problems so here we go. The 3DS has it's next frame in memory, when rendering the image to the screen what we're realy doind is putting the image in the framebuffer (for more info read the tutorial about VRAM). When using transperancy the function looks at the transperancy and then chacnges what it puts into the framebuffer acordingly (meaning the alpha level is not saved in the framebuffer).
-=======
-### Hello pixel!
 
 ### "Hello world!"
 
@@ -687,6 +517,4 @@ TODO: describe the subject and its API, then provide a full example with source 
 
 ### Hello Battery, 3D slider, luminosity, etc
 
-Coming soon!
-=======
 Coming soon!
