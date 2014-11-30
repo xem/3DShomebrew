@@ -1,8 +1,16 @@
 #3DS homebrew development tutorial
 
+##Introduction
+
+This document will explain in detail how to develop homebrews (applications, games, ...) for Nintendo 3DS, 2DS and New 3DS.
+<br>We will code them in C/C++. Basic notions of programmation are required, even if they come from another language (Java, PHP, JS, ...).
+<br>Remember that the 3DS homebrew scene is very young, and many things are still difficult or impossible to do. (see our [limitations](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md/blob/gh-pages/tutorial/limitations.md) page).
+<br>Thanks to [smealum](http://smealum.net) for his projects, especially [Ninjhax](http://smealum.net/ninjhax), [ctrulib](https://github.com/smealum/ctrulib) and [hbmenu](https://github.com/xem/3ds_hb_menu) that we will use all along this tutorial.
+
+
 ##Summary
+
 - [Is it legal?](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md/blob/gh-pages/tutorial.md#is-it-legal)
-- [Limitations](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md/blob/gh-pages/tutorial.md#limitations)
 - [Setup](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md/blob/gh-pages/tutorial.md#setup)
   - [Hardware](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#hardware)
   - [Computer setup](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#computer-setup)
@@ -21,23 +29,14 @@
 
 Yes, reverse-engineering a video game console and making homebrew software for it is 100% legal.<br>
 The only thing that is illegal is piracy.<br>
-This project doesn't encourage you to pirate 3DS games (which is impossible using NINJHAX).<br>
+This project doesn't encourage you to pirate 3DS games (which is impossible using Ninjhax).<br>
 It is only here to help you develop homebrews, so don't worry and have fun!
-
-##Limitations
-
-Current limitations of homebrews powered by Ninjhax:
-
-- Ninjhax currently allows users to access only 64MB of RAM, even on the New 3DS.
-- As there is currently no good way to use the DSP (sound processing chip) from homebrew, sound output is not yet possible on the New 3DS.
-- There is also no known way to run code on the New 3DS's extra CPU cores under Ninjhax, but it's possible to use 80% of the system core's time using ````APT_SetAppCpuTimeLimit()```` rather than 30% (as it's the case on the old 3DS).
-- We're currently unable to detect "Home button" being pressed (nor the POWER button) with code. As soon as a solution is found, we'll update the corresponding chapter, and it will certainly become the sdandard way to return to hbmenu, instead of pressing START.
 
 ##Setup
 
 ###Hardware
 
-Here's what you need to buy to get started:
+Here's what you need to get started:
 
 - A Nintendo 3DS / 3DS XL / 2DS with a firmware version between 4.0.0-7 and 9.2.0-20 + a SD card.<br>
 or <br>
@@ -350,3 +349,13 @@ That's all there is to it!
 
 
 Coming soon!
+
+
+
+
+
+
+
+
+
+
