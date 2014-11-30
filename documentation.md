@@ -22,7 +22,7 @@ The following document was made by studying the [doxygen build of ctrulib](http:
   - User Input / HID
   - HTTPC
   - Infrared Communication
-  - IRRST
+  - Hardware expansion services/IRRST
   - Microphone / Audio capture
   - Hardware Video Decoder
   - NS
@@ -503,7 +503,8 @@ Result 	IRU_SendData (u8 *buf, u32 size, u32 wait)
 Result 	IRU_RecvData (u8 *buf, u32 size, u8 flag, u32 *transfercount, u32 wait)
 ````
 
-###IRRST
+###Hardware expansion services/IRRST
+Used to communicate with any new hardware that was added to the New3DS. This is effectively only used to talk to the C-stick as far as we know. 
 
 ####Functions
 
