@@ -24,7 +24,7 @@ The following document was made by studying the [doxygen build of ctrulib](http:
   - Infrared Communication
   - IRRST
   - Microphone / Audio capture
-  - mvd
+  - Hardware Video Decoder
   - NS
   - Process/Program management service
   - Process service
@@ -541,7 +541,7 @@ Result 	MIC_SetRecording (u8 value)
 Result 	MIC_IsRecoding (u8 *value)
 ````
 
-###mvd
+###Hardware Video Decoder
 
 ####Functions
 
