@@ -21,8 +21,8 @@ This document will explain in detail how to develop homebrews (applications, gam
   - [Build procedure](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#build-procedure)
 - [Homebrew development](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#homebrew-development)
   - [Hello template](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#hello-template)
-  - ...
-  - ...
+  - [Hello Screens, VRAM and framebuffers!]
+  - [Hello Buttons]
   - ...
 
 ##Is it legal?
@@ -317,9 +317,150 @@ KEY_TOUCH //touch screen pressed
 ````
 That's all there is to it!
 
-### Hello pixel!
-
 ### Hello image!
+Displaying images or sprites is a fital part of most 2D games and applications. The functions to render images to the screen can be hard to comprihend but luckily enough they've been made for us and the functions are easy to use.
+
+Images on the 3DS are usualy in a .bin format, you can get an image in this format by either exporting the image as raw data or using the <a href="http://xem.github.io/3DShomebrew/tools/image-to-bin.html">image to BIN</a> web tool. The web tool allows you to convert your image and also rotate it 90 degrees clockwise, that way it will look the right way up on the 3DS itself.
+
+This is the functions you'll be using for displaying images that <b>do not</b> have transperancy in them:
+````
+void gfxDrawSprite(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u16 width, u16 height, s16 x, s16 y)
+{
+//This function includes documantation so you might be able to figure out what the function is doing, you don't need to understand this to use it!
+	if(!spriteData)return; //check if the function has sprite data, if not stop!
+
+	u16 fbWidth, fbHeight; //set variables for width and height
+	u8* fbAdr=gfxGetFramebuffer(screen, side, &fbWidth, &fbHeight); //get framebuffer for the screen and side used.
+
+	if(x+width<0 || x>=fbWidth)return; //check invalid x cords
+	if(y+height<0 || y>=fbHeight)return; //check invalid y cords
+
+	u16 xOffset=0, yOffset=0; //set offset for x and y
+	u16 widthDrawn=width, heightDrawn=height; //set width/height vars that for drawing
+
+	if(x<0)xOffset=-x; //use offset
+	if(y<0)yOffset=-y; //use offset
+	if(x+width>=fbWidth)widthDrawn=fbWidth-x;
+	if(y+height>=fbHeight)heightDrawn=fbHeight-y;
+	widthDrawn-=xOffset;
+	heightDrawn-=yOffset;
+
+	int j;
+	for(j=yOffset; j<yOffset+heightDrawn; j++) //for loop for drawing image
+	{
+		memcpy(&fbAdr[((x+xOffset)+(y+j)*fbWidth)*3], &spriteData[((xOffset)+(j)*width)*3], widthDrawn*3); //copy imagedata into memory
+	}
+}
+````
+This is the function you'll be using for images with transperancy (you don't want to blend with the background):
+````
+void gfxDrawSpriteAlpha(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u16 width, u16 height, s16 x, s16 y)
+{
+	if(!spriteData)return;
+
+	u16 fbWidth, fbHeight;
+	u8* fbAdr=gfxGetFramebuffer(screen, side, &fbWidth, &fbHeight);
+
+	if(x+width<0 || x>=fbWidth)return;
+	if(y+height<0 || y>=fbHeight)return;
+
+	u16 xOffset=0, yOffset=0;
+	u16 widthDrawn=width, heightDrawn=height;
+
+	if(x<0)xOffset=-x;
+	if(y<0)yOffset=-y;
+	if(x+width>=fbWidth)widthDrawn=fbWidth-x;
+	if(y+height>=fbHeight)heightDrawn=fbHeight-y;
+	widthDrawn-=xOffset;
+	heightDrawn-=yOffset;
+
+	//TODO : optimize
+	fbAdr+=(y+yOffset)*fbWidth*3;
+	spriteData+=yOffset*width*4;
+	int j, i;
+	for(j=yOffset; j<yOffset+heightDrawn; j++)
+	{
+		u8* fbd=&fbAdr[(x+xOffset)*3];
+		u8* data=&spriteData[(xOffset)*4];
+		for(i=xOffset; i<xOffset+widthDrawn; i++)
+		{
+			if(data[0])
+			{
+				fbd[0]=data[1];
+				fbd[1]=data[2];
+				fbd[2]=data[3];
+			}
+			fbd+=3;
+			data+=4;
+		}
+		fbAdr+=fbWidth*3;
+		spriteData+=width*4;
+	}
+}
+````
+And this functions is for transperancy and blending with the background:
+````
+void gfxDrawSpriteAlphaBlend(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u16 width, u16 height, s16 x, s16 y)
+{
+	if(!spriteData)return;
+
+	u16 fbWidth, fbHeight;
+	u8* fbAdr=gfxGetFramebuffer(screen, side, &fbWidth, &fbHeight);
+
+	if(x+width<0 || x>=fbWidth)return;
+	if(y+height<0 || y>=fbHeight)return;
+
+	u16 xOffset=0, yOffset=0;
+	u16 widthDrawn=width, heightDrawn=height;
+
+	if(x<0)xOffset=-x;
+	if(y<0)yOffset=-y;
+	if(x+width>=fbWidth)widthDrawn=fbWidth-x;
+	if(y+height>=fbHeight)heightDrawn=fbHeight-y;
+	widthDrawn-=xOffset;
+	heightDrawn-=yOffset;
+
+	//TODO : optimize
+	fbAdr+=(y+yOffset)*fbWidth*3;
+	spriteData+=yOffset*width*4;
+	int j, i;
+	for(j=yOffset; j<yOffset+heightDrawn; j++)
+	{
+		u8* fbd=&fbAdr[(x+xOffset)*3];
+		u8* data=&spriteData[(xOffset)*4];
+		for(i=xOffset; i<xOffset+widthDrawn; i++)
+		{
+			if(data[0])
+			{
+				u8 alphaSource = data[3];
+				fbd[0] = ((data[1] * alphaSource)+(fbd[0] * (255 - alphaSource))) / 256;
+				fbd[1] = ((data[2] * alphaSource)+(fbd[1] * (255 - alphaSource))) / 256;
+				fbd[2] = ((data[3] * alphaSource)+(fbd[2] * (255 - alphaSource))) / 256;
+			}
+			fbd+=3;
+			data+=4;
+		}
+		fbAdr+=fbWidth*3;
+		spriteData+=width*4;
+	}
+}
+````
+These functions are rather long (and complicated) so it's best to not leave them in your main.c code. To do this we will make to files in the source folder. One called "gfx.c" and one called "gfx.h". gfx.c will have the the code for the functions in it. gfx.h will look like this:
+````
+#pragma once
+#include <3ds.h>
+
+void gfxDrawSprite(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u16 width, u16 height, s16 x, s16 y);
+void gfxDrawSpriteAlpha(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u16 width, u16 height, s16 x, s16 y);
+void gfxDrawSpriteAlphaBlend(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u16 width, u16 height, s16 x, s16 y);
+````
+Now we need to include the gfx functions in our main.c code we do this with this line of code: ````#include "gfx.h"````
+If you have your images converted to .bin you can place them a folder with the name "data" this folder should be in the root of your project (same folder as your source and build folder will be in). After you have your images ready you will have to inport them to do this use this line of code: ````#include "image_bin.h"```` this is for a image called "image.bin" in the data folder. So you will use ````#include```` and then the name of your image file ````_bin.h````.
+
+We now have the image ready to be rendered on the screen, to do this we will use the function we added to our code earlier. Use the function needed for the image you made (otherwise the image won't look right!). In this case I am going to render an image without transperancy so I'm going to use the ````gfxDrawSprite()```` function.
+This is how we use the function: ````void gfxDrawSprite(GFX_TOP, GFX_LEFT, (u8*)image_bin, 100, 100, 10, 10);````. This will render a image to the top screen, with a width and height of 100 and located 10 pixels from the bottom and left side of the screen. This will display an image to the screen and that it, you're now able to use images in your homebrews!
+
+### Hello pixel!
 
 ### "Hello world!"
 
