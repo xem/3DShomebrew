@@ -23,6 +23,11 @@ The only thing that is illegal is piracy.<br>
 This project doesn't encourage you to pirate 3DS games (which is impossible using NINJHAX).<br>
 It is only here to help you develop homebrews, so don't worry and have fun!
 
+##Limitations
+At the moment, ninjhax only allows users to access 64MB of RAM, including on the New 3DS. This may change in the future.
+
+As there is currently no good way to use the DSP from homebrew, sound output is not yet possible on the New 3DS. At the moment, there is also no known way of running code on the New 3DS's extra CPU cores under ninjhax, though it is possible to use 80% of the system core's time using APT:SetApplicationCpuTimeLimit rather than 30% as was the case on the Old 3DS.
+
 ##Setup
 
 ###Hardware
