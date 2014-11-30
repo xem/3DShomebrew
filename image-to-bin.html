@@ -86,10 +86,10 @@ f.onchange=load.onclick=rotate.onchange=alpha.onchange=function(){
       d=x.getImageData(0,0,W,H).data;
       b='';
       for(i=0;i<d.length-4;i+=4){
+        b+=String.fromCharCode(d[i+2], d[i+1], d[i]);
         if(alpha.checked){
           b+=String.fromCharCode(d[i+3]);
         }
-        b+=String.fromCharCode(d[i+2], d[i+1], d[i]);
       }
       a.href="data:application/octet-stream;base64,"+btoa(b);
     }
