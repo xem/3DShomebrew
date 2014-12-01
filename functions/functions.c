@@ -1,6 +1,11 @@
+/** ========================================================================================================**/
+/**                                                 Graphics                                                **/
+/** ========================================================================================================**/
+
+
 void gfxDrawSprite(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u16 width, u16 height, s16 x, s16 y)
 {
-//This function includes documantation so you might be able to figure out what the function is doing, you don't need to understand this to use it!
+  //This function includes documantation so you might be able to figure out what the function is doing, you don't need to understand this to use it!
   if(!spriteData)return; //check if the function has sprite data, if not stop!
 
   u16 fbWidth, fbHeight; //set variables for width and height
@@ -32,7 +37,6 @@ void gfxDrawSpriteAlpha(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u1
 
   u16 fbWidth, fbHeight;
   u8* fbAdr=gfxGetFramebuffer(screen, side, &fbWidth, &fbHeight);
-=======
 
   if(x+width<0 || x>=fbWidth)return;
   if(y+height<0 || y>=fbHeight)return;

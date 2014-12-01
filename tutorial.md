@@ -4,10 +4,11 @@
 
 ##Introduction
 
-This document will explain in detail how to develop homebrews (applications, games, ...) for Nintendo 3DS, 2DS and New 3DS.
-<br>We will code them in C/C++, with [ctrulib](https://github.com/smealum/ctrulib)'s help, and play them with [Ninjax](http://smealum.net/ninjhaxç and [hbmenu](https://github.com/xem/3ds_hb_menu).
+This document will explain in detail how to develop homebrews (applications / games) for Nintendo 3DS, 2DS and New 3DS.
+<br>We will code them in C/C++, with [ctrulib](https://github.com/smealum/ctrulib)'s help, and play them with [Ninjhax](http://smealum.net/ninjhax) and [hbmenu](https://github.com/xem/3ds_hb_menu).
 <br>Basic notions of programmation are required, even if they come from another language (Java, PHP, JS, ...).
-<br>Remember that the 3DS homebrew scene is very young, and many things are still difficult or impossible to do. (see the [limitations page](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md/blob/gh-pages/tutorial/limitations.md)).
+<br>Note that the 3DS homebrew scene is very young, and many things are still impossible to do. (see the [limitations page](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md/blob/gh-pages/tutorial/limitations.md)).
+<br>But we're here to make it as simple as possible!
 
 ##Summary
 
@@ -44,7 +45,7 @@ Here's what you need to get started:
 or <br>
 - A New 3DS with a firmware between 9.0.0-20 and 9.2.0-20 + a micro SD card.
 - An SD / microSD card reader.
-- A copy of the 3DS game "Cubic Ninja" (new or used). It has in the same region as your 3DS (Europe, USA or Japan).
+- A copy of the 3DS game "Cubic Ninja". It has to be in the same region as your 3DS (Europe, USA or Japan).
 
 Note: the Gateway 3DS flashcard can also launch homebrews, but only in .3ds and .cia formats.<br>
 This tutorial will focus on .3dsx homebrews, compatible with Ninjhax + hbmenu.
@@ -60,16 +61,7 @@ Here's what you need to install on your computer:
 - Latest version of [Python 3.x.x](https://www.python.org).
 - Create a working directory. (for example ````C:\3DS````). All our projects will go in here.
 
-Windows users: check your environment variables:
-
-- Right-click "This PC" and select "Properties".
-- Click "Advanced system settings" (on the left).
-- Click "Environment Variables..." (on the bottom).
-- Highlight the "PATH" variable (on top), click "Edit...".
-- Check that your DevkitARM and Python install folders are present (ex: "C:\DevkitPro\DevkitARM\bin", "C:\Python34").
-- If one (or both) are not present, add them at the end, saparated by ";". Save and quit.
-
-Linux users: you'll find more setup info on [3Dbrew](http://3dbrew.org/wiki/Setting_up_Development_Environment) 
+Linux users: you'll find more setup info on [3Dbrew](http://3dbrew.org/wiki/Setting_up_Development_Environment).
 
 ###3DS setup
 
@@ -120,6 +112,11 @@ For Linux users, or Windows / Mac users using cat or netcat:
 
 Note: This is only useful for testing as the file won't stay on the 3DS after it is closed.
 
+###Updates
+
+Frameworks, libraries and popular homebrews are regularly updated by their authors, to fix bugs or to add new features.
+<br>We advise you to frequently check if a new version of DevkitPro + ctrulib or Ninjhax + hbmenu is available, and install it!
+
 ##Homebrew development
 
 First, download the following file and unzip it in your working directory: [project template](http://xem.github.io/3DShomebrew/tutorial/template.zip).
@@ -152,14 +149,14 @@ When you will work on your own projects, note that you can rebuild them at any t
 
 Similarly, you can build any homebrew open-source project by opening a CLI in the folder containing its "Makefile" and executing the command ````make````.
 
-=======
+Windows users: if you get compilation errors during the build, check your environment variables:
 
-When you will work on your own projects, note that you can rebuild them at any time to test your changes:
-
-- run the ````make clean```` command. (this will erase the build files)
-- run the ````make```` command again.
-
-Similarly, you can build any homebrew open-source project by opening a CLI in the folder containing its "Makefile" and executing the command ````make````.
+- Right-click "This PC" and select "Properties".
+- Click "Advanced system settings" (on the left).
+- Click "Environment Variables..." (on the bottom).
+- Highlight the "PATH" variable (on top), click "Edit...".
+- Check that your DevkitARM and Python install folders are present (ex: "C:\DevkitPro\DevkitARM\bin", "C:\Python34").
+- If one (or both) are not present, add them at the end, saparated by ";". Save and quit.
 
 ### Hello source code!
 
@@ -268,7 +265,36 @@ To sum up, on each screen, both framebuffers use 3 bytes to store Blue, Green an
 
 ### Hello pixel!
 
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+<!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
+
+### Hello image!
+
+Displaying images or sprites is a vital part of most 2D games and applications. The functions to render images to the screen can be hard to comprehend but luckily enough they've been made for us and they are easy to use.
+
+Images used in 3DS homebrews are usually in a .bin format, you can get an image in this format by either exporting the image as raw data (BGR or ABGR format) or using the <a href="http://xem.github.io/3DShomebrew/tools/image-to-bin.html">image to BIN</a> web tool. The web tool allows you to convert your image and rotate it 90 degrees clockwise, in order to show them the right way up on the 3DS itself.
+
+You can try to develop image-rendering functions by yourself, or use directly the ones present in [our functions collection](https://github.com/xem/3DShomebrew/blob/gh-pages/functions.md). Copy those files in your project and include them with ````#include <functions.h>```` in your main.c file, after 3ds.h inclusion.
+
+To include images in your project:
+- Place your BIN files in the "data" folder.
+- Include each image's definition in your source code. For example, with "my_image.bin", add ````#include "my_image.h"```` in main.c, after functions.h inclusion. (this .h file doesn't exist yet, but it will be created during build).
+
+- ````gfxDrawSprite```` is the functions you'll be using for displaying images that <b>do not</b> have transperancy in them:
+- ````gfxDrawSpriteAlpha```` is the function you'll be using for images with transparency (if you don't want to blend with the background):
+- ````gfxDrawSpriteAlphaBlend```` is the function used for transperancy and blending with the background.
+
+The parameters are:
+- Screen: the screen to use (use the constant GFX_TOP or GFX_BOTTOM)
+- Side: which "side" of the stereoscopic screen to use (GFX_LEFT or GFX_RIGHT for top screen, 0 for bottom screen)
+- Spritedata: the content of your image in BGR format (for gfxDrawSprite) and ABGR (for the others): use "(u8*)name_of_your_bin_file". (the (u8*) part means that the BIN file is read as a bytes array).
+- Width, height, x, y: the size and position of your image on the screen. 
+
+Remember: the point {X=0;Y=0} is the left-bottom corner of the screen, because it's rotated -90 degrees.
+
+Example: ````gfxDrawSprite(GFX_TOP, GFX_LEFT, (u8*)image_bin, 100, 100, 10, 10);````.
+<br>This will render an image to the top left screen, with a width and height of 100 pixels and located at 10 pixels from the bottom and left side of the screen.
+
+<!-- TODO: include example with each kind of image rendering -->
 
 ### Hello buttons!
 
@@ -329,249 +355,58 @@ They compare the current key state vars with the constant of the button we want 
 <br>
 If the corresponding button is down / held / up, the test succeeds, and the following code is executed.
 
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
-
-### Hello image!
-Displaying images or sprites is a fital part of most 2D games and applications. The functions to render images to the screen can be hard to comprihend but luckily enough they've been made for us and the functions are easy to use.
-
-Images on the 3DS are usualy in a .bin format, you can get an image in this format by either exporting the image as raw data or using the <a href="http://xem.github.io/3DShomebrew/tools/image-to-bin.html">image to BIN</a> web tool. The web tool allows you to convert your image and also rotate it 90 degrees clockwise, that way it will look the right way up on the 3DS itself.
-
-This is the functions you'll be using for displaying images that <b>do not</b> have transperancy in them:
-````
-void gfxDrawSprite(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u16 width, u16 height, s16 x, s16 y)
-{
-//This function includes documantation so you might be able to figure out what the function is doing, you don't need to understand this to use it!
-  if(!spriteData)return; //check if the function has sprite data, if not stop!
-
-  u16 fbWidth, fbHeight; //set variables for width and height
-  u8* fbAdr=gfxGetFramebuffer(screen, side, &fbWidth, &fbHeight); //get framebuffer for the screen and side used.
-
-  if(x+width<0 || x>=fbWidth)return; //check invalid x cords
-  if(y+height<0 || y>=fbHeight)return; //check invalid y cords
-
-  u16 xOffset=0, yOffset=0; //set offset for x and y
-  u16 widthDrawn=width, heightDrawn=height; //set width/height vars that for drawing
-
-  if(x<0)xOffset=-x; //use offset
-  if(y<0)yOffset=-y; //use offset
-  if(x+width>=fbWidth)widthDrawn=fbWidth-x;
-  if(y+height>=fbHeight)heightDrawn=fbHeight-y;
-  widthDrawn-=xOffset;
-  heightDrawn-=yOffset;
-
-  int j;
-  for(j=yOffset; j<yOffset+heightDrawn; j++) //for loop for drawing image
-  {
-    memcpy(&fbAdr[((x+xOffset)+(y+j)*fbWidth)*3], &spriteData[((xOffset)+(j)*width)*3], widthDrawn*3); //copy imagedata into memory
-  }
-}
-````
-This is the function you'll be using for images with transperancy (you don't want to blend with the background):
-````
-void gfxDrawSpriteAlpha(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u16 width, u16 height, s16 x, s16 y)
-{
-  if(!spriteData)return;
-
-  u16 fbWidth, fbHeight;
-  u8* fbAdr=gfxGetFramebuffer(screen, side, &fbWidth, &fbHeight);
-=======
-
-  if(x+width<0 || x>=fbWidth)return;
-  if(y+height<0 || y>=fbHeight)return;
-
-  u16 xOffset=0, yOffset=0;
-  u16 widthDrawn=width, heightDrawn=height;
-
-  if(x<0)xOffset=-x;
-  if(y<0)yOffset=-y;
-  if(x+width>=fbWidth)widthDrawn=fbWidth-x;
-  if(y+height>=fbHeight)heightDrawn=fbHeight-y;
-  widthDrawn-=xOffset;
-  heightDrawn-=yOffset;
-
-  //TODO : optimize
-  fbAdr+=(y+yOffset)*fbWidth*3;
-  spriteData+=yOffset*width*4;
-  int j, i;
-  for(j=yOffset; j<yOffset+heightDrawn; j++)
-  {
-    u8* fbd=&fbAdr[(x+xOffset)*3];
-    u8* data=&spriteData[(xOffset)*4];
-    for(i=xOffset; i<xOffset+widthDrawn; i++)
-    {
-      if(data[3])
-      {
-        fbd[0]=data[0];
-        fbd[1]=data[1];
-        fbd[2]=data[2];
-      }
-      fbd+=3;
-      data+=4;
-    }
-    fbAdr+=fbWidth*3;
-    spriteData+=width*4;
-  }
-}
-````
-And this functions is for transperancy and blending with the background:
-````
-void gfxDrawSpriteAlphaBlend(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u16 width, u16 height, s16 x, s16 y)
-{
-  if(!spriteData)return;
-
-  u16 fbWidth, fbHeight;
-  u8* fbAdr=gfxGetFramebuffer(screen, side, &fbWidth, &fbHeight);
-
-  if(x+width<0 || x>=fbWidth)return;
-  if(y+height<0 || y>=fbHeight)return;
-
-  u16 xOffset=0, yOffset=0;
-  u16 widthDrawn=width, heightDrawn=height;
-
-  if(x<0)xOffset=-x;
-  if(y<0)yOffset=-y;
-  if(x+width>=fbWidth)widthDrawn=fbWidth-x;
-  if(y+height>=fbHeight)heightDrawn=fbHeight-y;
-  widthDrawn-=xOffset;
-  heightDrawn-=yOffset;
-
-  //TODO : optimize
-  fbAdr+=(y+yOffset)*fbWidth*3;
-  spriteData+=yOffset*width*4;
-  int j, i;
-  for(j=yOffset; j<yOffset+heightDrawn; j++)
-  {
-    u8* fbd=&fbAdr[(x+xOffset)*3];
-    u8* data=&spriteData[(xOffset)*4];
-    for(i=xOffset; i<xOffset+widthDrawn; i++)
-    {
-      if(data[3])
-      {
-        u8 alphaSource = data[3];
-        fbd[0] = ((data[0] * alphaSource)+(fbd[0] * (255 - alphaSource))) / 256;
-        fbd[1] = ((data[1] * alphaSource)+(fbd[1] * (255 - alphaSource))) / 256;
-        fbd[2] = ((data[2] * alphaSource)+(fbd[2] * (255 - alphaSource))) / 256;
-      }
-      fbd+=3;
-      data+=4;
-    }
-    fbAdr+=fbWidth*3;
-    spriteData+=width*4;
-  }
-}
-````
-These functions are rather long (and complicated) so it's best to not leave them in your main.c code. To do this we will make to files in the source folder. One called "gfx.c" and one called "gfx.h". gfx.c will have the the code for the functions in it. gfx.h will look like this:
-````
-#pragma once
-#include <3ds.h>
-
-void gfxDrawSprite(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u16 width, u16 height, s16 x, s16 y);
-void gfxDrawSpriteAlpha(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u16 width, u16 height, s16 x, s16 y);
-void gfxDrawSpriteAlphaBlend(gfxScreen_t screen, gfx3dSide_t side, u8* spriteData, u16 width, u16 height, s16 x, s16 y);
-````
-Now we need to include the gfx functions in our main.c code we do this with this line of code: ````#include "gfx.h"````
-If you have your images converted to .bin you can place them a folder with the name "data" this folder should be in the root of your project (same folder as your source and build folder will be in). After you have your images ready you will have to inport them to do this use this line of code: ````#include "image_bin.h"```` this is for a image called "image.bin" in the data folder. So you will use ````#include```` and then the name of your image file ````_bin.h````.
-
-We now have the image ready to be rendered on the screen, to do this we will use the function we added to our code earlier. Use the function needed for the image you made (otherwise the image won't look right!). In this case I am going to render an image without transperancy so I'm going to use the ````gfxDrawSprite()```` function.
-This is how we use the function: ````void gfxDrawSprite(GFX_TOP, GFX_LEFT, (u8*)image_bin, 100, 100, 10, 10);````. This will render a image to the top screen, with a width and height of 100 and located 10 pixels from the bottom and left side of the screen. This will display an image to the screen and that it, you're now able to use images in your homebrews!
-
-So what is happening behind the scenes? We don't need to know this but it can be very useful for solving problems so here we go. The 3DS has it's next frame in memory, when rendering the image to the screen what we're realy doind is putting the image in the framebuffer (for more info read the tutorial about VRAM). When using transperancy the function looks at the transperancy and then chacnges what it puts into the framebuffer acordingly (meaning the alpha level is not saved in the framebuffer).
-
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+<!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
 ### "Hello world!"
 
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+<!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
 ### Hello stereoscopy!
 
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+<!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
 ### Hello animation!
 
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+<!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
 ### Hello touchscreen!
 
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+<!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
 ### Hello sound!
 
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+<!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
 ### Hello microphone!
 
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+<!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
 ### Hello filesystem!
 
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+<!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
 ### Hello Internet!
 
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+<!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
 ### Hello Gyroscope!
 
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+<!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
 ### Hello Infrared communication!
 
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+<!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
 ### Hello NFC!
 
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+<!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
 ### Hello Camera(s)!
 
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
+<!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
-### Hello Battery, 3D slider, luminosity, etc
+### Hello Battery, 3D slider, luminosity, etc.
 
-Coming soon!
-=======
-
-### Hello animation!
-
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
-
-### Hello touchscreen!
-
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
-
-### Hello sound!
-
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
-
-### Hello microphone!
-
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
-
-### Hello filesystem!
-
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
-
-### Hello Internet!
-
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
-
-### Hello Gyroscope!
-
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
-
-### Hello Infrared communication!
-
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
-
-### Hello NFC!
-
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
-
-### Hello Camera(s)!
-
-TODO: describe the subject and its API, then provide a full example with source code and a zip to download.
-
-### Hello Battery, 3D slider, luminosity, etc
+<!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
 Coming soon!

@@ -1,11 +1,20 @@
 <!doctype html>
-<meta charset=utf-8>
-<a href=//github.com/xem/3DShomebrew><img style="position:absolute;top:0;right:0;border:0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+<meta charset="utf-8">
+<a href="//github.com/xem/3DShomebrew"><img style="position:absolute; top:0; right:0; border:0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
 <style>
-body { width: 700px; margin: 0 auto; font-family: arial }
-p { background: #f5faff; padding: 30px; }
-canvas { background: #000; }
+body { 
+  width: 700px;
+  margin: 0 auto;
+  font-family: arial;
+}
+p {
+  background: #f5faff;
+  padding: 30px;
+}
+canvas {
+  background: #000;
+}
 </style>
 
 <body>
@@ -30,12 +39,12 @@ Read the <a href=".">3DS homebrew tutorial</a> to learn how to use these BIN fil
 (.bmp, .png, .jpg or .gif - your file will not be sent on a server)
 <br>
 <br>
-<input type=file id=f> <button id=load>Load</button>
+<input type="file" id="f"> <button id="load">Load</button>
 
 <br>
 <br>
 
-<canvas id=c width=0 height=0></canvas>
+<canvas id="c" width="0" height="0"></canvas>
 
 <br>
 <br>
@@ -43,7 +52,7 @@ Read the <a href=".">3DS homebrew tutorial</a> to learn how to use these BIN fil
 <b>2) Check your options:</b>
 <br>
 <br>
-<input type=checkbox id=rotate checked> rotate 90° - <input type=checkbox id=alpha> preserve alpha transparency
+<input type="checkbox" id="rotate" checked> rotate 90° - <input type="checkbox" id="alpha"> preserve alpha transparency
 
 <br>
 <br>
@@ -77,12 +86,10 @@ f.onchange=load.onclick=rotate.onchange=alpha.onchange=function(){
       d=x.getImageData(0,0,W,H).data;
       b='';
       for(i=0;i<d.length-4;i+=4){
+        b+=String.fromCharCode(d[i+2], d[i+1], d[i]);
         if(alpha.checked){
           b+=String.fromCharCode(d[i+3]);
         }
-        b+=String.fromCharCode(d[i+2]);
-        b+=String.fromCharCode(d[i+1]);
-        b+=String.fromCharCode(d[i]);
       }
       a.href="data:application/octet-stream;base64,"+btoa(b);
     }
