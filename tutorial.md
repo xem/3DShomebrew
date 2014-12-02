@@ -12,7 +12,22 @@ This document will explain in detail how to develop homebrews (applications / ga
 
 ##Summary
 
-[TOC]
+- [Is it legal?](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md/blob/gh-pages/tutorial.md#is-it-legal)
+- [Setup](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md/blob/gh-pages/tutorial.md#setup)
+  - [Hardware](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#hardware)
+  - [Computer setup](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#computer-setup)
+  - [3DS setup](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#3ds-setup)
+  - [Homebrew installation](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#homebrew-installation)
+- [Homebrew development](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#homebrew-development)
+  - [Hello template!](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#hello-template)
+  - [Hello build procedure!](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#hello-build-procedure)
+  - [Hello source code!](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#hello-source_code)
+  - [Hello Screens, VRAM and framebuffers!](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#hello-screens-vram-and-framebuffers)
+  - [Hello pixel!](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#hello-pixel)
+  - [Hello Buttons!](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md#hello-buttons)
+  - ...
+  - ...
+  - ...
 
 ##Is it legal?
 
