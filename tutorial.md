@@ -6,7 +6,7 @@
 
 This document will explain in detail how to develop homebrews (applications / games) for Nintendo 3DS, 2DS and New 3DS.
 <br>We will code them in C/C++, with [ctrulib](https://github.com/smealum/ctrulib)'s help, and play them with [Ninjhax](http://smealum.net/ninjhax) and [hbmenu](https://github.com/xem/3ds_hb_menu).
-<br>Basic notions of programmation are required, even if they come from another language (Java, PHP, JS, ...).
+<br>Basic notions of programming are required, even if they come from another language (Java, PHP, JS, ...).
 <br>Note that the 3DS homebrew scene is very young, and many things are still impossible to do. (see the [limitations page](https://github.com/xem/3DShomebrew/blob/gh-pages/tutorial.md/blob/gh-pages/tutorial/limitations.md)).
 <br>But we're here to make it as simple as possible!
 
@@ -58,12 +58,12 @@ Here's what you need to install on your computer:
 - Download [Aemstro](https://github.com/smealum/aemstro) and place its content in "msys", inside your devkitPro install folder. (ex: ````C:\devkitPro\msys````)
 - A C++ compatible IDE like [Netbeans](https://netbeans.org/downloads), or a code editor like [notepad++](http://notepad-plus-plus.org).
 - An FTP client like [FileZilla](https://filezilla-project.org) or [WinSCP](http://winscp.net) to upload homebrews  on your 3DS using wi-fi.
-- Latest version of [Python 3.x.x](https://www.python.org).
+- Latest version of [Python 3](https://www.python.org).
 - Create a working directory. (for example ````C:\3DS````). All our projects will go in here.
 
 Linux users: you'll find more setup info on [3Dbrew](http://3dbrew.org/wiki/Setting_up_Development_Environment).
 
-###3DS setup
+###Homebrew Channel installation
 
 Follow these steps to install the homebrew launcher (or "hbmenu") on your 3DS. This needs to be done only once:
 
@@ -81,7 +81,7 @@ The next time you turn your console on, just launch Cubic Ninja, choose "Create"
 To uninstall Ninjhax (or install it on another console), you need to delete your save file.<br>
 (go to Cubic Ninja's main menu and press L+R+X+Y)
 
-###Homebrew installation
+###Deploying your code to the 3DS
 
 Two files are needed for a 3DS homebrew to be run with Ninjhax: a .3dsx file and a .smdh file.
 
