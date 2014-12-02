@@ -10,7 +10,7 @@ A collection of handy functions created by our contributors or inspired by other
 
 - Download [functions.zip](https://github.com/xem/3DShomebrew/blob/gh-pages/functions/functions.zip)
 - Unzip it in your project's source folder
-- Write ````#include <functions.h>````  at the beginning of your source code, just after 3ds.h.
+- Write ````#include "functions.h"````  at the beginning of your source code, just after 3ds.h.
 - Use the  functions in your code.
 
 Alternatively, you can [browse the source code](https://github.com/xem/3DShomebrew/blob/gh-pages/functions/functions) and copy what you need in your project.
