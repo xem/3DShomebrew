@@ -188,7 +188,7 @@ int main()
     hidScanInput();
     kDown = hidKeysDown();
     kHeld = hidKeysHeld();
-    kUp = hidKeysUp()
+    kUp = hidKeysUp();
 
     // If START button is pressed, break loop and quit
     if (kDown & KEY_START){
