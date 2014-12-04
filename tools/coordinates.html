@@ -1,0 +1,62 @@
+<!doctype html>
+<style>
+body { width: 750px; margin: 0 auto; font-family: arial }
+canvas { background: #000; float: left; margin: 0 15px 0 0}
+p { background: #f5faff; padding: 30px; }
+</style>
+
+<h1>3DS tool: coordinates converter</h1>
+
+<p>
+The 3DS' coordinates system is rotated by -90degrees.
+<br>
+Click on the canvas or edit the fields to update!
+</p>
+
+
+<canvas id=c width=400 height=240></canvas>
+
+<br>
+
+<h3>Real coordinates</h3>
+X <input id=x value=10 type=number oninput=y3ds.value=value><br>
+Y <input id=y value=20 type=number oninput=x3ds.value=240-value>
+
+<br>
+
+<h3>3DS coordinates</h3>
+3DS's X <input id=x3ds value=220 type=number oninput=y.value=240-value> (= 240 - Y)<br>
+3DS's Y <input id=y3ds value=10 type=number oninput=x.value=value> (= X)
+
+<script>
+ctx=c.getContext("2d");
+onload=oninput=function(){
+  c.width=c.width;
+  X=x.value;
+  Y=y.value;
+  ctx.fillStyle="#fff";
+  ctx.fillRect(X,Y,2,2);
+}
+
+c.onclick=function(e){
+  var X;
+  var Y;
+  if (e.pageX || e.pageY) { 
+    X = e.pageX;
+    Y = e.pageY;
+  }
+  else { 
+    X = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft; 
+    Y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop; 
+  } 
+  X -= c.offsetLeft;
+  Y -= c.offsetTop;
+  
+  x.value = X;
+  y.value = Y;
+  x.oninput();
+  y.oninput();
+  oninput();
+  
+}
+</script>
