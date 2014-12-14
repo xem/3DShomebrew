@@ -1,32 +1,44 @@
 <!doctype html>
+
+<a href="//github.com/xem/3DShomebrew"><img style="position:absolute; top:0; right:0; border:0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
 <style>
-body { width: 750px; margin: 0 auto; font-family: arial }
-canvas { background: #000; float: left; margin: 0 15px 0 0}
-p { background: #f5faff; padding: 30px; }
+body { width: 780px; margin: 0 auto; font-family: arial }
+canvas { background: #000; float: left; margin: 0 25px 50px 0}
+p { background: #edf; padding: 30px; line-height: 25px; }
+h3 { margin: 5px;}
 </style>
 
 <h1>3DS tool: coordinates converter</h1>
 
 <p>
-The 3DS' coordinates system is rotated by -90degrees.
+The 3DS' coordinates system is rotated by -90 degrees.
+<br>
+This tool shows the real & rotated coordinates and the framebuffer index for any point of the screen.
 <br>
 Click on the canvas or edit the fields to update!
 </p>
 
+<br>
 
 <canvas id=c width=400 height=240></canvas>
 
-<br>
-
 <h3>Real coordinates</h3>
-X <input id=x value=10 type=number oninput=y3ds.value=value><br>
-Y <input id=y value=20 type=number oninput=x3ds.value=240-value>
+X <input id=x value=10 type=number oninput="y3ds.value=value;updatefb()"><br>
+Y <input id=y value=20 type=number oninput="x3ds.value=240-value;updatefb()">
 
+<br>
 <br>
 
 <h3>3DS coordinates</h3>
-3DS's X <input id=x3ds value=220 type=number oninput=y.value=240-value> (= 240 - Y)<br>
-3DS's Y <input id=y3ds value=10 type=number oninput=x.value=value> (= X)
+3DS's X <input id=x3ds value=220 type=number oninput="y.value=240-value;updatefb()"> (= 240 - Y)<br>
+3DS's Y <input id=y3ds value=10 type=number oninput="x.value=value;updatefb()"> (= X)
+
+<br>
+<br>
+
+<h3>3DS framebuffer index</h3>
+<input readonly id=fbi value=7860>
 
 <script>
 ctx=c.getContext("2d");
@@ -57,6 +69,9 @@ c.onclick=function(e){
   x.oninput();
   y.oninput();
   oninput();
-  
+}
+
+updatefb = function(){
+  fbi.value = 3 * (+x3ds.value + 240 * y3ds.value);
 }
 </script>
