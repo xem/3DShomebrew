@@ -18,11 +18,14 @@ canvas {
   background: #000;
   float: right;
 }
+span {
+  font-size: 12px
+}
 </style>
 
 <body>
 
-<h1>3DS Homebrew tool: image to BIN converter</h1>
+<h1>3DS Homebrew tool: image to BIN converter <span>(v.0.0.2)</span></h1>
 
 <p>
 This tool generates a .bin file from any image.
@@ -90,7 +93,7 @@ f.onchange=load.onclick=rotate.onchange=alpha.onchange=function(){
       }
       d=x.getImageData(0,0,W,H).data;
       b='';
-      for(i=0;i<d.length-4;i+=4){
+      for(i=0;i<d.length;i+=4){
         if(alpha.checked){
           b+=String.fromCharCode(d[i+3]);
         }
