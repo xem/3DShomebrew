@@ -8,7 +8,7 @@ int main()
   srvInit();        // services
   aptInit();        // applets
   hidInit(NULL);    // input
-  gfxInit();        // graphics
+  gfxInitDefault(); // graphics
   gfxSet3D(false);  // stereoscopy (true == on / false == off)
   u32 kDown;        // keys down
   u32 kHeld;        // keys pressed
