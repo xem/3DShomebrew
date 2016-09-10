@@ -411,6 +411,7 @@ int main() {
 We did it! We've finally put "Hello World" on the screen. However, as you've probably noticed, if we ended the program here, it'd probably either crash, not compile, or something else due to the fact that:
 
 1) We haven't made it a loop so the program runs continously
+
 2) Haven't returned 0, as this is "int main()"
 
 So let's solve these problems right now.
@@ -454,11 +455,11 @@ int main()
 
 ````
 
-And we're now done! As you might have noticed, there's some functions in there that I haven't gone over. What's with those "gfx[name]()" functions and why do we have them?
+And we're now done! As you might have noticed, there's some functions in there that I haven't gone over. What's with those "gfx\[name\]()" functions and why do we have them?
 
 For some of the functions we init, including many of the ones coming up such as sockets, they require that any that you init() must be Exit().
 
-For the FlsuhBuffers and SwapBuffers functions, you can read about them here: https://smealum.github.io/ctrulib/gfx_8h.html
+For the FlushBuffers and SwapBuffers functions, you can read about them here: https://smealum.github.io/ctrulib/gfx_8h.html
 While knowing what they do exactly isn't all that important, it is important that you have them in your program.
 
 There's even more we could do! For example:
