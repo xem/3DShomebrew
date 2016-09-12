@@ -358,6 +358,850 @@ If the corresponding button is down / held / up, the test succeeds, and the foll
 <!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
 ### "Hello world!"
+While I've only technically tried compiling this with C++, it should be easily translatable to regular C.
+
+Remember, you can always use Citra after compiling to test your program. (Excluding socket programming as of Sept 9th, 2016, Citra has a bug where it's unable to properly do socket programming. Be sure to check and see if this is still the case, though.)
+
+ - Let's begin -
+
+First, let's put in our regular includes and start our main function
+````
+#include <stdio.h>
+#include <3ds.h>
+
+int main() {
+ // code goes here
+}
+
+````
+
+Alright, perfect! Now lets actually get something done. Let's actually initialize our console so we can actually put text on the screen.
+
+````
+
+#include <stdio.h>
+#include <3ds.h>
+
+int main() {
+  //Allows for graphics (Needed for console Init)
+	gfxInitDefault();
+	
+	consoleInit(GFX_TOP, NULL); //Change this line to consoleInit(GFX_BOTTOM, NULL) if using the bottom screen.
+}
+````
+
+And just like that, we now have our program ready for text to appear! In later portions of the tutorial, we'll be discussing how to use the bottom screen as a keyboard to input text. For now, however, feel free to experiment with making either the top and bottom of the screen a command console.
+
+Alright, now we've initiated the ability to put text on the screen, let's go a step further. and actually print "Hello World" to the screen? Revolutionary, right? 
+
+````
+#include <stdio.h>
+#include <3ds.h>
+
+int main() {
+  //Allows for graphics (Needed for console Init)
+	gfxInitDefault();
+	
+	consoleInit(GFX_TOP, NULL); //Change this line to consoleInit(GFX_BOTTOM, NULL) if using the bottom screen.
+	
+	printf("Hello World!");
+}
+````
+
+We did it! We've finally put "Hello World" on the screen. However, as you've probably noticed, if we ended the program here, it'd probably either crash, not compile, or something else due to the fact that:
+
+1) We haven't made it a loop so the program runs continously
+
+2) Haven't returned 0, as this is "int main()"
+
+So let's solve these problems right now.
+
+````
+
+#include <stdio.h>
+#include <3ds.h>
+
+int main()
+{
+    // Allows to take inputs (Specifically the start button for our case)
+    hidInit();
+    hidScanInput();
+
+    //Tells us when a key is pressed down
+    u32 kDown = hidKeysDown();
+
+    //Allows for graphics (Needed for console INit)
+	gfxInitDefault();
+
+	//gfxSet3D(true); //Uncomment if using stereoscopic 3D
+	consoleInit(GFX_TOP, NULL); //Change this line to consoleInit(GFX_BOTTOM, NULL) if using the bottom screen.
+
+	printf("Hello World");
+
+	// Main loop
+	while (aptMainLoop())
+	{
+		if (kDown & KEY_START)
+			break; //Break in order to return to hbmenu
+
+		// Flush and swap frame-buffers
+		gfxFlushBuffers();
+		gfxSwapBuffers();
+	}
+
+	gfxExit();
+	return 0;
+}
+
+````
+
+And we're now done! As you might have noticed, there's some functions in there that I haven't gone over. What's with those "gfx\[name\]()" functions and why do we have them?
+
+For some of the functions we init, including many of the ones coming up such as sockets, they require that any that you init() must be Exit().
+
+For the FlushBuffers and SwapBuffers functions, you can read about them here: https://smealum.github.io/ctrulib/gfx_8h.html
+While knowing what they do exactly isn't all that important, it is important that you have them in your program.
+
+There's even more we could do! For example:
+````
+	printf("\x1b[0;0H[This Prints on the first line]");
+	printf("\x1b[1;0H[This prints on the second line!]");
+````
+
+By using the string "\x1b[0;0H" we can manipulate what line our text comes on. This is useful for a variety of reasons. If we were to have our printf inside our endless loop, it would endlessly print lines of code. In the future, we'll need the ability to clear and printf on our screen repeatedly. By having the ability to pick which line gets printed, we can have consistency.
+
+If we use C++ features and for-loops, we could have an entire string vector and print out text
+
+````
+std::vector<std::string> chatMessages; //Just pretend it's already populated
+
+//30 total lines (from 0 to 29)
+for(int i = 0; i < chatMessages.size(); i++) {
+  //We want to reserve the first 5 lines for some reason, such as keeping instructions on. Hence the (i+5)
+    printf("\x1b[%d;0H%s", (i+5), chatMessages[i].c_str()); // Notice we have %d where we originally put "0" and "1" in the printf above. Put %s from the string array, and converted it into a C string to prevent errors with printf
+    if(i >= 23) {
+    //As we do have a maximum amount of console lines to work with, we simply clear out the array and start again
+        i = 0;
+    }
+  }
+
+````
+
+But we'll use this moreso when we get to socket programming, rather than here. So don't worry about the code above too much just yet.
+
+
+For conviency, having the kDown and KEY_START breaking the loop back to the homebrew menu makes everything much easier.
+
+-VSMS
+<!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
+
+### Hello Typing!
+
+Alright, now we're able to put text on the screen. But what if we want a user to put their own text?
+You're in luck! As there's already a library for this, it doesn't require too much extra information on our end in order to add a keyboard.
+
+HBKBLib: https://gbatemp.net/threads/hbkblib-a-3ds-keyboard-library.397568/
+
+This is the library we'll be using. Best part of it is, the demo inside already has a compiled version of the library, so we really don't even have to worry about compiling it ourselves! It is definitely preferred that you compile it yourself, however. I had a lot of trouble getting it to compile, so I simply decided to use the precompiled version. Doing so gave me compile errors later on that we'll be able to fix, but if you compile it yourself initially, you could probably avoid the headache.
+
+ - Let's begin -
+
+Due to how the devkitpro compiler and makefile works, it's paramount that you have both HBKB's "include" and "lib" folders are inside of the "libs" folder on your project's main directory. Furthermore, we need to make adjustments to the actual makefile to make sure the hbkb library is included. The -lhbkb is what's important.
+
+Example:
+````
+LIBS: -lctru -lm -lhbkb 
+````
+
+As stated earlier, YOU MAY HAVE PROBLEMS IF YOU USE THE PRECOMPILED VERSION OF THE HBKB LIBRARY. If so, please use
+````
+-D_GLIBCXX_USE_CXX11_ABI=0 
+````
+in either your cflags or your cxx flags. I have it in my CXX flags because I largely use C++ for most of my projects. Again, ONLY USE THAT IF YOU HAVE COMPILING ISSUES.
+
+Alright, now that the files are in the correct folders, and those folders are in the correct libs folder, and we've made the proper changes to the makefile, it's finally time to begin writing our program.
+
+HBKB comes with it's own demo file, and I'll largely be using that (with some modifications) for the basis of this example.
+
+Again, I mainly write this code to work for C++, but unlike the previous section, this might either NOT be backwards compatible, or difficult to convert into backwards compatibility with regular C.
+
+````
+//Blablabla use in every program
+#include <3ds.h>
+#include <stdio.h>
+#include <string>
+
+//ONLY INCLUDE THIS IF YOU'RE HAVING COMPILING ISSUES
+//#define _GLIBCXX_USE_CXX11_ABI 0/1
+
+//The actual keyboard library
+#include "hbkb.h"
+
+int main() {
+
+	gfxInitDefault();
+	consoleInit(GFX_TOP, NULL);
+
+	// Keyboard Class
+	HB_Keyboard sHBKB;
+
+	printf("\x1b[0;0HHB_Keyboard Library Demo.");
+	printf("\x1b[1;0HPress Start to exit.");
+
+	while (aptMainLoop())
+	{
+		//Scan Inputs
+		hidScanInput();
+		u32 kDown = hidKeysDown();
+
+		if (kDown & KEY_START) 
+			break;
+
+}
+````
+So far, we've only seen two unique lines of code. Let's disect them.
+
+
+````
+//The actual keyboard library
+#include "hbkb.h"
+````
+Pretty self-explanatory. Includes the library we're going to be using.
+
+
+````
+	HB_Keyboard sHBKB;
+````
+Defines 'sHBKB' as a 'HB_Keyboard.' Nothing really unique or difficult to explain here.
+
+So there's not much to talk about here. Let's keep digging in.
+
+
+````
+//Blablabla use in every program
+#include <3ds.h>
+#include <stdio.h>
+#include <string>
+
+//The actual keyboard library
+#include "hbkb.h"
+
+//ONLY INCLUDE THIS IF YOU'RE HAVING COMPILING ISSUES
+//#define _GLIBCXX_USE_CXX11_ABI 0/1
+
+int main() {
+
+	gfxInitDefault();
+	consoleInit(GFX_TOP, NULL);
+
+	// Keyboard Class
+	HB_Keyboard sHBKB;
+
+	printf("\x1b[0;0HHB_Keyboard Library Demo.");
+	printf("\x1b[1;0HPress Start to exit.");
+
+	while (aptMainLoop())
+	{
+		//Scan Inputs
+		hidScanInput();
+		u32 kDown = hidKeysDown();
+
+		if (kDown & KEY_START) 
+			break;
+			
+		// Touch Stuff
+		touchPosition touch;
+
+		//Read the touch screen coordinates
+		hidTouchRead(&touch);
+
+		// Call Keyboard with Touch Position
+    u8 KBState = sHBKB.HBKB_CallKeyboard(touch);
+
+}
+````
+Alright, now we have THREE new lines of code. Let's see if we can understand them!
+
+
+
+````
+		// Touch Stuff
+		touchPosition touch;
+````
+So this actually is a part of the ctrulib library. This is how we use the 3ds to read x and y coordinates tapped on the bottom screen.
+
+
+````
+		//Read the touch screen coordinates
+		hidTouchRead(&touch);
+````
+Here's the input library reading the coordinates.
+
+````
+		// Call Keyboard with Touch Position
+    u8 KBState = sHBKB.HBKB_CallKeyboard(touch);
+````
+And finally, here's the hbkb library using the coordinates. We'll be using this a little later.
+
+Ok, great! We've not only figured out how to get data from the bottom screen, but we've even figured out how to feed it into our keyboard. But we aren't done yet, as we haven't even created a string or saved a string. This is where it becomes largely C++.
+
+````
+//Blablabla use in every program
+#include <3ds.h>
+#include <stdio.h>
+#include <string>
+
+//The actual keyboard library
+#include "hbkb.h"
+
+//ONLY INCLUDE THIS IF YOU'RE HAVING COMPILING ISSUES
+//#define _GLIBCXX_USE_CXX11_ABI 0/1
+
+int main() {
+
+	gfxInitDefault();
+	consoleInit(GFX_TOP, NULL);
+
+	// Keyboard Class
+	HB_Keyboard sHBKB;
+
+	printf("\x1b[0;0HHB_Keyboard Library Demo.");
+	printf("\x1b[1;0HPress Start to exit.");
+
+	while (aptMainLoop())
+	{
+		//Scan Inputs
+		hidScanInput();
+		u32 kDown = hidKeysDown();
+
+		if (kDown & KEY_START) 
+			break;
+			
+		// Touch Stuff
+		touchPosition touch;
+
+		//Read the touch screen coordinates
+		hidTouchRead(&touch);
+
+		// Call Keyboard with Touch Position
+    u8 KBState = sHBKB.HBKB_CallKeyboard(touch);
+		
+		// Print Input
+    std::string InputHBKB = sHBKB.HBKB_CheckKeyboardInput(); // Check Input
+    const char* InputCChar = InputHBKB.c_str();
+    printf("\x1b[3;0HInput :");
+    printf("\x1b[4;0H%s", InputCChar);
+}
+````
+
+
+So now we have  `sHBKB.HBKB_CheckKeyboardInput();` which actually checks the input of all the buttons pressed on the keyboard! 
+`const char* InputCChar = InputHBKB.c_str();` reads it as a C string, and the two `printf` functions display what the user is typing on the screen. 
+
+Congradulations, you've officially begun typing! We'll experiment a little more with some of the features HBKB has to offer, such as cleaning the keyboard and using the KBState.
+
+````
+//Blablabla use in every program
+#include <3ds.h>
+#include <stdio.h>
+#include <string>
+
+//The actual keyboard library
+#include "hbkb.h"
+
+//ONLY INCLUDE THIS IF YOU'RE HAVING COMPILING ISSUES
+//#define _GLIBCXX_USE_CXX11_ABI 0/1
+
+int main() {
+
+	gfxInitDefault();
+	consoleInit(GFX_TOP, NULL);
+
+	// Keyboard Class
+	HB_Keyboard sHBKB;
+
+	printf("\x1b[0;0HHB_Keyboard Library Demo.");
+	printf("\x1b[1;0HPress Start to exit.");
+
+	while (aptMainLoop())
+	{
+		//Scan Inputs
+		hidScanInput();
+		u32 kDown = hidKeysDown();
+
+		if (kDown & KEY_START) 
+			break;
+			
+		// Touch Stuff
+		touchPosition touch;
+
+		//Read the touch screen coordinates
+		hidTouchRead(&touch);
+
+		// Call Keyboard with Touch Position
+    u8 KBState = sHBKB.HBKB_CallKeyboard(touch);
+		
+		// Print Input
+    std::string InputHBKB = sHBKB.HBKB_CheckKeyboardInput(); // Check Input
+    const char* InputCChar = InputHBKB.c_str();
+    printf("\x1b[3;0HInput :");
+    printf("\x1b[4;0H%s", InputCChar);
+    
+    		if (KBState == 1) // User finished Input
+		{
+			sHBKB.HBKB_Clean(); // Clean Input
+			printf("\x1b[2;0HKeyboard Return = Enter Key Pressed");
+		}
+		else if (KBState == 2)
+			printf("\x1b[2;0HKeyboard Return = Generic Key Pressed");
+		else if (KBState == 3)
+		{
+			sHBKB.HBKB_Clean(); // Clean Input
+			printf("\x1b[2;0HKeyboard Return = Cancel Button Pressed");
+		}
+		else if (KBState == 4)
+			printf("\x1b[2;0HKeyboard Return = No Key Pressed");
+		else if (KBState == 0)
+			printf("\x1b[2;0HKeyboard Return = UNKNOWN (HBKB Error).");
+		else
+			printf("\x1b[2;0HKeyboard Return = UNKNOWN (main.cpp Error).");
+}
+````
+
+So, now we're acutally using the KBState. What are we doing with it? We're using it to understand what exactly the user is doing. For example:
+
+If KBState == 1, the user likely wants to submit what they typed. If the KBState == 3, they probably want to cancel whatever they just did. The key states are pretty self explanatory, so I'll let you read them and see what they do.
+Of course, the program isn't finished, as we need some final touches. I.E: Return 0, clear the buffers, etc.
+
+````
+#include <3ds.h>
+#include <stdio.h>
+#include <string>
+
+#include "hbkb.h"
+
+//ONLY INCLUDE THIS IF YOU'RE HAVING COMPILING ISSUES
+//#define _GLIBCXX_USE_CXX11_ABI 0/1
+
+int main(int argc, char **argv)
+{
+	gfxInitDefault();
+	consoleInit(GFX_TOP, NULL);
+
+	// Keyboard Class
+	HB_Keyboard sHBKB;
+
+	printf("\x1b[0;0HHB_Keyboard Library Demo.");
+	printf("\x1b[1;0HPress Start to exit.");
+
+	while (aptMainLoop())
+	{
+		//Scan Inputs
+		hidScanInput();
+		u32 kDown = hidKeysDown();
+
+		if (kDown & KEY_START) 
+			break;
+
+		// Touch Stuff
+		touchPosition touch;
+
+		//Read the touch screen coordinates
+		hidTouchRead(&touch);
+
+		// Call Keyboard with Touch Position
+        u8 KBState = sHBKB.HBKB_CallKeyboard(touch);
+		
+		// Print Input
+        std::string InputHBKB = sHBKB.HBKB_CheckKeyboardInput(); // Check Input
+        const char* InputCChar = InputHBKB.c_str();
+        printf("\x1b[3;0HInput :");
+        printf("\x1b[4;0H%s", InputCChar);
+/*
+		if (KBState == 1) // User finished Input
+		{
+			sHBKB.HBKB_Clean(); // Clean Input
+			printf("\x1b[2;0HKeyboard Return = Enter Key Pressed");
+			break;
+		}
+		else if (KBState == 2)
+			printf("\x1b[2;0HKeyboard Return = Generic Key Pressed");
+		else if (KBState == 3)
+		{
+			sHBKB.HBKB_Clean(); // Clean Input
+			printf("\x1b[2;0HKeyboard Return = Cancel Button Pressed");
+			break;
+		}
+		else if (KBState == 4)
+			printf("\x1b[2;0HKeyboard Return = No Key Pressed");
+		else if (KBState == 0)
+			printf("\x1b[2;0HKeyboard Return = UNKNOWN (HBKB Error).");
+		else
+			printf("\x1b[2;0HKeyboard Return = UNKNOWN (main.cpp Error).");
+*/
+		// Flush and swap framebuffers
+		gfxFlushBuffers();
+		gfxSwapBuffers();
+
+		//Wait for VBlank
+		gspWaitForVBlank();
+	}
+
+	// Exit services
+	gfxExit();
+	return 0;
+}
+
+````
+
+REMEMBER: This is largely for C++, and may be difficult to use in C. Keep that in mind.
+Also, if you have trouble compiling, be use to make the changes in the makefile and uncomment out 
+````
+//ONLY INCLUDE THIS IF YOU'RE HAVING COMPILING ISSUES
+//#define _GLIBCXX_USE_CXX11_ABI 0/1
+````
+-VSMS
+
+<!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
+
+### Hello Sockets! (Part 1)
+
+This portion of the tutorial requires EITHER knowledge of Javascript/Node.js OR you having the ability to make a TCP server in the language of choice. I won't be going too indepth of how to make a TCP server, but I will give you this link and a general overview of it: https://gist.github.com/creationix/707146
+
+Furthermore, our 3ds-side (client-side) socket will mimic http://wiki.treck.com/Introduction_to_BSD_Sockets#TCP_Client but with some VERY IMPORTANT 3ds specific code that we'll need to go over. The link goes over the general knowledge needed for socket programming, but the 3ds has a few unique qwerks that are paramount to getting the socket programming to work. 
+
+Here's an official example of 3ds socket code straight form the devkitPro github account and largely what we'll be basing our code around.
+https://github.com/devkitPro/3ds-examples/blob/master/network/sockets/source/sockets.c
+
+While the socket programming in-and-of itself is probably mostly just C code, many of the individual liberties I take are prodominately C++. If you only want to use sockets, it probably won't be an issue. If you're trying to use too much more of the code i write, turning it from C++ to C will likely be very difficult, so keep that in mind.
+So this portion of the entire tutorial might be the most confusing for any number of reasons. Especially because of all the assumptions we'll be making.
+
+1) We're assuming that you either have some basic knowledge of Node.js/Javascript to follow the guide OR you can make your own TCP server in any language of your choice.  (NOTE: As far as I'm aware, this will not work with socket.io).
+
+2) You're programming for C++ and not C.
+
+3) You have at least a basic understand of sockets.
+
+4) We're constantly using command line to get our server up and running.
+
+5) Although we're making a generic TCP server, we're assuming ONLY 3ds will be connect to it.
+ - Let's Begin (TCP SERVER) - 
+Let's actually start with the server, rather than the client. Otherwise, how will we know our 3ds is going to connect?
+So, we're using Node.js as our server. I'm assuming you already know how to install and set node.js up. If not, https://www.youtube.com/playlist?list=PLoYCgNOIyGAACzU6GliHJDp4kmOw3NFsh will give you a basic understand. I generated the basic files with express-generator. As I stated earlier, socket.io (and websockets in general) doesn't use the same protocol that regular TCP sockets do, so we won't be using it. 
+
+````
+var socketClients = [];
+
+net.createServer(function(socket) {
+	socket.datacount = 0;
+	socket.on("error", (err) => console.log("Abrupt client end."));
+	socket.name = socket.remoteAddress + ":" + socket.remotePort;
+	
+	socketClients.push(socket);
+	
+	console.log("Connected made!");
+	socket.write("Hi! Officially connected to the server\r\n"); 
+	setInterval(function(){socket.datacount = 0}, 10000);
+	
+	socket.on("data", function(data) {
+		socket.datacount++;
+		if(socket.datacount > 15) {
+			socket.write("Flood detection - Too many msgs\r\n");
+			} else {
+			try {
+					socket.write("You said: " + data);
+					console.log(socket.name + " said " + data)
+					//socket.write("\r\n");
+			} catch(e) {
+				console.log(e);
+			};
+		}
+	
+	})
+}).listen(8080);
+````
+
+Alright, I don't want to get /too/ in-depth since this is a 3ds tutorial and not a node.js/javascript or TCP Server tutorial. But I'll go over the general things that each piece of code does and let you know what's most important to keep for later. Furthermore, there's a lot that we're leaving out since we're assuming /only/ 3dses will be connecting to the TCP server (and not, say, a telnet command.)
+
+`net.createServer(function(socket) {` - Creates the socket server. The socket variable inside of the function parenthesis is each individual socket connection.
+
+`	socket.datacount = 0; ` - Used later for flood detection
+
+`	socket.on("error", (err) => console.log("Abrupt client end."));` - Allows us to handle errors (such as unexpected connection closes, like when you press the power button to force a shutdown instead of the start button to handle graceful, intended exits.
+
+`	socket.name = socket.remoteAddress + ":" + socket.remotePort;` - Used to help identify the socket. Gives us IP address and their port.
+
+	`socketClients.push(socket);` - Pushes socket into an array of socket clients. This gives us the opportunity to later give every socket a message (We're not going to do that in this tutorial, as that's server side. But if you check the link above it wouldn't take too many extra lines of code. The only reason I didn't do this part is because I only own a 2ds and have no way of confirming it'd undoubtedly work on multiple systems as intended.)
+	
+	`console.log("Connected made!");` - Simple console log to let us know a user connected to our server
+	`socket.write("Hi! Officially connected to the server\r\n"); ` - Tells the user they've connected to our server
+	`setInterval(function(){socket.datacount = 0}, 10000);` - Used to reset the flood count every 10 seconds (prevent spammming to all users)
+
+Alright, that was most of the simple code. Now let's get onto the major block:
+````
+	socket.on("data", function(data) { // We recieve the data from the 3ds client
+		socket.datacount++; // Increases flood count detection
+		if(socket.datacount > 15) { //If the user is indeed sending too many messages (He's sent more than 15 messages in 10 seconds)
+			socket.write("Flood detection - Too many msgs\r\n"); // Let user know this is excessive
+			} else {
+			try { // try, catch for error prevention (In the event a telnet is connected for some reason)
+					socket.write("You said: " + data); // Repeats data to user
+					console.log(socket.name + " said " + data) //log data that was recieved from the client to sever console
+					//socket.write("\r\n");
+			} catch(e) {
+				console.log(e); // If there is an error sending the message, log it to the console.
+			};
+		}
+	
+	})
+
+````
+
+That's basically it for the server. Again, as this isn't a server tutorial, but a 3ds tutorial, I may have been more vague than previously. Viewing the github gist on node.js TCP servers and watching the playlist on Node.js may help clear up any confusing information. Furthermore, you could just create any TCP server in any programming language of your choice.
+
+Next is for the 3ds client.
+-VSMS
+
+### Hello Sockets! (Part 2)
+
+ - Let's Begin (3DS CLIENT) -
+Oh boy, even the includes are a block a code.
+
+THIS WILL NOT WORK ON CITRA EMULATOR AS OF SEPT 9TH, 2016. ALL FILES MUST BE TESTED ON AN ACTUAL 3DS.
+````
+//Generic inputs
+#include <stdio.h>
+#include <stdlib.h>
+#include <3ds.h>
+
+#include "hbkb.h" // Keyboard (C++)
+#include <vector> // Vectors (We're gonna create a vector of string for all messages) (C++)
+#include <string.h> // std::string (C++)
+
+#include <malloc.h> //Needed for memalign
+
+// Needed for the socket connection
+#include <sys/socket.h> 
+#include <sys/types.h> 
+#include <netinet/in.h>
+#include <netdb.h>
+#include <unistd.h>
+#include <errno.h>
+#include <arpa/inet.h>
+#include <fcntl.h>
+
+//When we memalign for the sockbuffer
+#define SOC_ALIGN       0x1000
+#define SOC_BUFFERSIZE  0x100000
+
+//Needed to remove compiler errors -- also change makefile if needed
+//#define _GLIBCXX_USE_CXX11_ABI 0/1
+````
+
+Yes, that's only the includes. I feel as though the comments are self-explanatory, so I don't think I'm going to go too in-depth with them for the time being. I'll be more specific with the actual functions.
+
+I'm also not gonna repost the entire thing until the end, but rather blocks at a time since this could get rather large.
+Let's start with what we already know. 
+
+````
+int main()
+{
+	gfxInitDefault();
+	consoleInit(GFX_TOP, NULL); //Change this line to consoleInit(GFX_BOTTOM, NULL) if using the bottom screen.
+  HB_Keyboard sHBKB;
+  
+  //Rest of code later
+````
+
+Alright, that's basically just what we've done previously. Nothing unusual here...
+````
+	int sock, bytes_recieved, ret, numberOfChatMessages;
+  std::vector<std::string> chatMessages;
+
+	char send_data[256], recv_data[256];
+	send_data[0] = recv_data[0] = 0;
+  numberOfChatMessages = 0;
+
+	struct sockaddr_in server_addr;
+	static u32 *SOC_buffer = NULL;
+````
+All of these variables are used later, but it's probably not such a bad idea to know what we're gonna do with them.
+
+`sock` will be used as a return value to tell us wether or not we were able to initialize the socket function.
+`bytes_recieved` will be for how many characters we can accept from the server
+`ret` is for intilizing soc:u service (one of the 3ds quirks)
+`numberOfChatMessages` specifically for our vector when receieve messages
+`send_data` and `recv_data` are placeholders for sending and recieving data respectively.
+
+We'll get into the server_addr in a bit, but SOC_buffer right now.
+
+`SOC_buffer = (u32*)memalign(SOC_ALIGN, SOC_BUFFERSIZE);` needed for socInit();
+
+````
+if(SOC_buffer == NULL) {
+        gfxExit();
+        socExit();
+        return 0;
+	}
+````
+Just making sure our SOC_buffer actually exist.
+
+````
+	// Now intialise soc:u service
+	if ((ret = socInit(SOC_buffer, SOC_BUFFERSIZE)) != 0) {
+        gfxExit();
+        socExit();
+        return 0;
+	}
+````
+Now we've used the 3ds specific socInit() function. We're now able to start using sockets.
+
+
+`sock = socket(AF_INET, SOCK_STREAM, 0);` - We've officially created a socket! We haven't given it an IP address, so it's not actually doing much. But it at least exist!
+
+````
+	if(sock == -1) {
+        gfxExit();
+        socExit();
+        return 0;
+	}
+````
+Once again, making sure the sock actually exist.
+
+Alright! Now we're ready to actually connect to a server. That's where server_addr comes in.
+
+	`server_addr.sin_family = AF_INET;`
+	`server_addr.sin_port = htons([INSERT SERVER PORT HERE]);` - IMPORTANT: Make sure whatever port you used in node.js, you use here.
+`	server_addr.sin_addr.s_addr = inet_addr("[INSERT SERVER IP ADDRESS HERE]");` - Assuming you're using a local computer, use ipconfig in the command prompt. Type your ipv4 address (something like 192.168.x.x).
+
+````
+	if(connect(sock, (struct sockaddr *)&server_addr, sizeof(server_addr)) == -1) {
+        gfxExit();
+        socExit();
+        return 0;
+	}
+````
+We're now officially connected to the server! We'll be able to connect to the server.
+
+
+````
+	if(fcntl(sock, F_SETFL, fcntl(sock, F_GETFL, 0) | O_NONBLOCK) == -1) {
+        gfxExit();
+        socExit();
+        return 0;
+	}
+````
+This makes the socket NONBLOCKING, allowing us to do multiple things while the socket connection happens in the background.
+So we've actually done basically everything! We've initiation the soc:u, created a socket, and connected to the server!
+All that's left now is the ability to send and recieve messages.
+We'll take care of that in the third and final portion of sockets.
+
+-VSMS
+
+### Hello Sockets! (Part 3)
+
+````
+	while (aptMainLoop())
+	{
+		gspWaitForVBlank();
+		hidScanInput();
+		u32 kDown = hidKeysDown();
+````
+
+Again, all things we've seen before. Nothing unique or unusual here.
+
+`ret = recv(sock, recv_data, sizeof(recv_data), 0);` - Here, we actually recieve messages and put the data in the recv_data. Great! 
+Here's where some of my personal liberties are gonna start coming into play. Largely C++ features, this is where it may start being difficult to translate into C.
+
+````
+ if(strlen(recv_data) > 0){ // Checks to make sure the data we recieve isn't empty
+            consoleClear(); // clears the console so text doesn't overlap
+            numberOfChatMessages++; //Lets us know how many messages are in the vector
+
+            if(numberOfChatMessages > 23) { // If there are more than 24 messages
+                chatMessages.clear(); // Empties vector once we've surpassed 23 in the array
+                numberOfChatMessages = 0; //Since we've reset the vector, we should reset this too
+                chatMessages.push_back(recv_data); // (Remember vectors/arrays/etc start at 0)
+                memset(&recv_data[0], 0, sizeof(recv_data)); // Clear the recv_data
+            } else { //If we have less than 24 messages
+                chatMessages.push_back(recv_data); //Add the data to the vector
+                memset(&recv_data[0], 0, sizeof(recv_data)); //Clear the recv_data
+                numberOfChatMessages++; //increase number of messages in the vector
+            }
+        }
+````
+Explained with comments, so it should be good.
+
+Alright. So we can initiate the soc:u, create a socket, connect to a server, AND recieve data. Let's display data once we've obtained it. For now, we'll keep something basic.
+
+````
+
+    for(int i = 0; i < chatMessages.size(); i++) { //counts every message in vector
+        printf("\x1b[%d;0H%s", (i+5), chatMessages[i].c_str()); // Prints every message on its own line, 5 lines down
+        if(i >= 23) { //30 max total possible lines, mines 5 for instructions and etc, with 2 lines unused
+            i = 0; // restart once we're 23 lines.
+        }
+    }
+
+````
+
+And we're officially able to print data we've recieved from the server onto the sceen! We still don't have the ability to /send/ data, but that's quite simple with HBKB library.
+
+````
+
+
+		// Touch Stuff
+		touchPosition touch;
+
+		//Read the touch screen coordinates
+		hidTouchRead(&touch);
+
+		// Call Keyboard with Touch Position
+		u8 KBState = sHBKB.HBKB_CallKeyboard(touch);
+
+		std::string InputHBKB = sHBKB.HBKB_CheckKeyboardInput(); // Check Input
+		const char* InputCChar = InputHBKB.c_str();
+````
+All things we've seen before. Nothing unusual here.
+
+
+````
+		//Print input
+
+		if (KBState == 1) {
+			sHBKB.HBKB_Clean(); // Clean Input
+			consoleClear();
+			if (strlen(InputCChar) <= 100 && strlen(InputCChar) > 0) {
+				strcpy(send_data, InputCChar);
+				send(sock, send_data, (strlen(send_data) + 1), 0);
+			}
+		}
+````
+
+Now this is where we make a few changes from the original HBKB library.
+`	if (strlen(InputCChar) <= 100 && strlen(InputCChar) > 0) {` We make sure we don't spam empty strings to the server. We also make sure we have a reasonable char length (100) to help prevent buffer overflows.
+`strcpy(send_data, InputCChar);` Copies the InputCChar string into our send_data string.
+`send(sock, send_data, (strlen(send_data) + 1), 0);` sends the string to the server through our socket.
+We did it! We've officially accomplished everything we need to. Now we just return 0 and exit out of everything and do all the usual junk.
+
+````
+		if (kDown & KEY_START)
+			break; //Break in order to return to hbmenu
+
+		// Flush and swap frame-buffers
+		gfxFlushBuffers();
+		gfxSwapBuffers();
+	}
+
+	gfxExit();
+	socExit();
+	close(sock);
+	return 0;
+````
+
+And we're completely done! Too look at a more thorough view of the source code, visit here https://github.com/verysimplyms/3dsTCP-client
+
+-VSMS
 
 <!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
@@ -410,3 +1254,4 @@ If the corresponding button is down / held / up, the test succeeds, and the foll
 <!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
 Coming soon!
+
