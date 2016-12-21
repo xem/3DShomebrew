@@ -885,7 +885,9 @@ So this portion of the entire tutorial might be the most confusing for any numbe
 4) We're constantly using command line to get our server up and running.
 
 5) Although we're making a generic TCP server, we're assuming ONLY 3ds will be connect to it.
+
  - Let's Begin (TCP SERVER) - 
+ 
 Let's actually start with the server, rather than the client. Otherwise, how will we know our 3ds is going to connect?
 So, we're using Node.js as our server. I'm assuming you already know how to install and set node.js up. If not, https://www.youtube.com/playlist?list=PLoYCgNOIyGAACzU6GliHJDp4kmOw3NFsh will give you a basic understand. I generated the basic files with express-generator. As I stated earlier, socket.io (and websockets in general) doesn't use the same protocol that regular TCP sockets do, so we won't be using it. 
 
@@ -960,11 +962,14 @@ Alright, that was most of the simple code. Now let's get onto the major block:
 That's basically it for the server. Again, as this isn't a server tutorial, but a 3ds tutorial, I may have been more vague than previously. Viewing the github gist on node.js TCP servers and watching the playlist on Node.js may help clear up any confusing information. Furthermore, you could just create any TCP server in any programming language of your choice.
 
 Next is for the 3ds client.
+
+
 -VSMS
 
 ### Hello Sockets! (Part 2)
 
  - Let's Begin (3DS CLIENT) -
+ 
 Oh boy, even the includes are a block a code.
 
 THIS WILL NOT WORK ON CITRA EMULATOR AS OF SEPT 9TH, 2016. ALL FILES MUST BE TESTED ON AN ACTUAL 3DS.
