@@ -1208,6 +1208,8 @@ And we're completely done! Too look at a more thorough view of the source code, 
 
 -VSMS
 
+### Hello Encryption! (AES)
+
 <!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
 ### Hello stereoscopy!
