@@ -1223,7 +1223,7 @@ I did this on Windows, so your experience may differ depending on your platform.
 When it comes to installing zlib, it should be fairly simple and straightforward. Downloading and installing other libraries I'm not entirely sure about, as I've only done mbedtls and I had some small difficulties doing that due to cross-compiling platform issues. But those issues were relatively minor and simple to solve, as you'd expect from git repo whose sole existence is to port libraries for the 3ds.
 
 -VSMS
-### Hello Encryption! (AES) Part 1
+### Hello Encryption! (AES) (Part 1)
 
 With our last tutorial being an intro to portlibs, this is going to be an intro to encrypting data on our 3ds.
 Encryption is paramount because of how necessary it to transmit secure information across the internet. Encryption reduces attacks such as MitM.
@@ -1242,7 +1242,11 @@ You should be sure CC, CXX, and AR are properly exported in MSYS. Additionally, 
 After building the library, you should have: libmedcrypto.a, libmedtls.a, and libmedx509.a all in your library folder.
 You're going to want to copy and paste these into your project's lib folder. Furthermore, you're going to want to take all of the header files in include/mbedtls (where you were cross-compiling your library) mbedtls folder, and copy and paste that folder into the include folder of your main project (where you want to actually make your .3dsx file for your 3ds) as well.
 
+Now that you've compiled the library, and have everything in the proper location, let's actually make an application!
+
 -VSMS
+
+### Hello Encryption! (AES) (Part 2)
 
 <!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
