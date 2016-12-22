@@ -1208,7 +1208,41 @@ And we're completely done! Too look at a more thorough view of the source code, 
 
 -VSMS
 
-### Hello Encryption! (AES)
+### Hello 3DS Portlibs!
+
+This is where it gets very interesting. In this portion of the tutorial, we're going to be cross-compiling 3rd party libraries using https://github.com/devkitPro/3ds_portlibs
+It's actually pretty simple and intuitive to follow. As of December 21st, 2016, I've only attempted two librarires. One being zlib (because it's required in order to get the other libraries to work) and the other being mbedtls (for encryption.)
+I did this on Windows, so your experience may differ depending on your platform. If you're also doing this on windows, you may need to download wget. I downloaded the 64-bit version from https://eternallybored.org/misc/wget/ (you may need to rename it from wget64.exe to simply wget.exe if you plan on using the 64bit version.) Be sure to put this wget file in the ` C:/devkitpro/msys/bin ` folder.
+
+- Let's begin - 
+
+- Download https://github.com/devkitPro/3ds_portlibs
+- Open MSYS from your devKitPro
+- Follow the instructions on the devkitpro page
+
+When it comes to installing zlib, it should be fairly simple and straightforward. Downloading and installing other libraries I'm not entirely sure about, as I've only done mbedtls and I had some small difficulties doing that due to cross-compiling platform issues. But those issues were relatively minor and simple to solve, as you'd expect from git repo whose sole existence is to port libraries for the 3ds.
+
+-VSMS
+### Hello Encryption! (AES) Part 1
+
+With our last tutorial being an intro to portlibs, this is going to be an intro to encrypting data on our 3ds.
+Encryption is paramount because of how necessary it to transmit secure information across the internet. Encryption reduces attacks such as MitM.
+
+So this portion of the tutorial will be in 2 parts
+1) Download, Installing, and Cross-compiling mbedtls
+2) Creating our homebrew application (Should work in Citra)
+
+- Let's begin - 
+
+Simply follow the devkitpro instructions. This should lead you to "make mbedtls" and "install mbedtls."
+Depending on the platform that you're compiling on, you may run into issues.
+
+You should be sure CC, CXX, and AR are properly exported in MSYS. Additionally, I had issues regarding the [timing.c](https://tls.mbed.org/api/timing_8c_source.html) file regarding the `alarm()` function located [here](https://tls.mbed.org/kb/development/what-external-dependencies-does-mbedtls-rely-on). To add on to that, I also had difficulties with the [gen_key.c](https://tls.mbed.org/api/gen__key_8c_source.html) file with the `sleep(1)` function. In both instances, I made some minor work arounds (in the gen_key.c I commented out the line completely) and the library compiled and builded without issue.
+
+After building the library, you should have: libmedcrypto.a, libmedtls.a, and libmedx509.a all in your library folder.
+You're going to want to copy and paste these into your project's lib folder. Furthermore, you're going to want to take all of the header files in include/mbedtls (where you were cross-compiling your library) mbedtls folder, and copy and paste that folder into the include folder of your main project (where you want to actually make your .3dsx file for your 3ds) as well.
+
+-VSMS
 
 <!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
 
