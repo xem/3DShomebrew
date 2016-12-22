@@ -885,7 +885,9 @@ So this portion of the entire tutorial might be the most confusing for any numbe
 4) We're constantly using command line to get our server up and running.
 
 5) Although we're making a generic TCP server, we're assuming ONLY 3ds will be connect to it.
+
  - Let's Begin (TCP SERVER) - 
+ 
 Let's actually start with the server, rather than the client. Otherwise, how will we know our 3ds is going to connect?
 So, we're using Node.js as our server. I'm assuming you already know how to install and set node.js up. If not, https://www.youtube.com/playlist?list=PLoYCgNOIyGAACzU6GliHJDp4kmOw3NFsh will give you a basic understand. I generated the basic files with express-generator. As I stated earlier, socket.io (and websockets in general) doesn't use the same protocol that regular TCP sockets do, so we won't be using it. 
 
@@ -960,11 +962,14 @@ Alright, that was most of the simple code. Now let's get onto the major block:
 That's basically it for the server. Again, as this isn't a server tutorial, but a 3ds tutorial, I may have been more vague than previously. Viewing the github gist on node.js TCP servers and watching the playlist on Node.js may help clear up any confusing information. Furthermore, you could just create any TCP server in any programming language of your choice.
 
 Next is for the 3ds client.
+
+
 -VSMS
 
 ### Hello Sockets! (Part 2)
 
  - Let's Begin (3DS CLIENT) -
+ 
 Oh boy, even the includes are a block a code.
 
 THIS WILL NOT WORK ON CITRA EMULATOR AS OF SEPT 9TH, 2016. ALL FILES MUST BE TESTED ON AN ACTUAL 3DS.
@@ -1203,7 +1208,185 @@ And we're completely done! Too look at a more thorough view of the source code, 
 
 -VSMS
 
-<!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
+### Hello 3DS Portlibs!
+
+This is where it gets very interesting. In this portion of the tutorial, we're going to be cross-compiling 3rd party libraries using https://github.com/devkitPro/3ds_portlibs
+It's actually pretty simple and intuitive to follow. As of December 21st, 2016, I've only attempted two librarires. One being zlib (because it's required in order to get the other libraries to work) and the other being mbedtls (for encryption.)
+I did this on Windows, so your experience may differ depending on your platform. If you're also doing this on windows, you may need to download wget. I downloaded the 64-bit version from https://eternallybored.org/misc/wget/ (you may need to rename it from wget64.exe to simply wget.exe if you plan on using the 64bit version.) Be sure to put this wget file in the ` C:/devkitpro/msys/bin ` folder.
+
+- Let's begin - 
+
+- Download https://github.com/devkitPro/3ds_portlibs
+- Open MSYS from your devKitPro
+- Follow the instructions on the devkitpro page
+
+When it comes to installing zlib, it should be fairly simple and straightforward. Downloading and installing other libraries I'm not entirely sure about, as I've only done mbedtls and I had some small difficulties doing that due to cross-compiling platform issues. But those issues were relatively minor and simple to solve, as you'd expect from git repo whose sole existence is to port libraries for the 3ds.
+
+-VSMS
+### Hello Encryption! (AES) (Part 1)
+
+With our last tutorial being an intro to portlibs, this is going to be an intro to encrypting data on our 3ds.
+Encryption is paramount because of how necessary it to transmit secure information across the internet. Encryption reduces attacks such as MitM.
+
+So this portion of the tutorial will be in 2 parts:
+
+1) Download, Installing, and Cross-compiling mbedtls
+
+2) Creating our homebrew application (Should work in Citra, but I used Citra Edge as of December 21st, 2016) 
+
+- Let's begin - 
+
+Simply follow the devkitpro instructions. This should lead you to "make mbedtls" and "install mbedtls."
+Depending on the platform that you're compiling on, you may run into issues.
+
+You should be sure CC, CXX, and AR are properly exported in MSYS. Additionally, I had issues regarding the [timing.c](https://tls.mbed.org/api/timing_8c_source.html) file regarding the `alarm()` function located [here](https://tls.mbed.org/kb/development/what-external-dependencies-does-mbedtls-rely-on). To add on to that, I also had difficulties with the [gen_key.c](https://tls.mbed.org/api/gen__key_8c_source.html) file with the `sleep(1)` function. In both instances, I made some minor work arounds (in the gen_key.c I commented out the line completely) and the library compiled and builded without issue.
+
+After building the library, you should have: libmedcrypto.a, libmedtls.a, and libmedx509.a all in your library folder.
+You're going to want to copy and paste these into your project's lib folder. Furthermore, you're going to want to take all of the header files in include/mbedtls (where you were cross-compiling your library) mbedtls folder, and copy and paste that folder into the include folder of your main project (where you want to actually make your .3dsx file for your 3ds) as well.
+
+Now that you've compiled the library, and have everything in the proper location, let's actually make an application!
+
+-VSMS
+
+### Hello Encryption! (AES) (Part 2)
+
+First and foremost, we must add the libraries to our makefile.
+
+Much like how you added `-lhbkb` in the past, you should also add `-lmbedcrypto` to your makefile as well. 
+
+Now this is where we actually start programming!
+
+````
+
+#include <stdio.h>
+#include <3ds.h>
+#include <stdlib.h>
+#include <iostream>
+
+#include "mbedtls/aes.h"
+
+````
+
+Nothing really either out of the ordinary or unexpected here. We included the `mbedtls/aes.h` because that's the portion of this library that we'll be using, but otherwise everything else is something we've experienced in one form or another.
+
+````
+int main()
+{
+    // Allows to take inputs (Specifically the start button for our case)
+    hidInit();
+    hidScanInput();
+
+    //Tells us when a key is pressed down
+    u32 kDown = hidKeysDown();
+
+    //Allows for graphics (Needed for console INit)
+	gfxInitDefault();
+
+	//gfxSet3D(true); //Uncomment if using stereoscopic 3D
+	consoleInit(GFX_TOP, NULL); //Change this line to consoleInit(GFX_BOTTOM, NULL) if using the bottom screen.
+	
+	//All of our AES-specific code is going to go here
+	
+	// Main loop
+	while (aptMainLoop())
+	{
+		if (kDown & KEY_START)
+			break; //Break in order to return to hbmenu
+
+		// Flush and swap frame-buffers
+		gfxFlushBuffers();
+		gfxSwapBuffers();
+	}
+
+	gfxExit();
+	return 0;
+}
+
+
+````
+
+Again, nothing unusual. I commented in a spot where, for the sake of our example, our AES code will be. Mbedtls has a lot of specific requirements that must be explained in detail. For a full view of the entire source code, [click here](https://github.com/verysimplyms/3DSCryptoAES/blob/master/source/main.cpp)
+
+Now, let's get started with AES.
+
+	 ` mbedtls_aes_context aes; ` - This creates a context for AES
+	 
+	` mbedtls_aes_init( &aes ); ` - This Initializes it
+
+This is actually pretty similar to what we've seen so far. We've created context and initialized them many times already, so you should be pretty used to this at this point.
+
+Now this is where things get interesting...
+
+````
+	//This is our password
+	unsigned char key[32] = {'p', 'a', 's', 's', 'w', 'o', 'r', 'd', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	//This is needed for padding encryption + decryption
+	unsigned char iv[16] = { 14, 31, 6, 126, 18, 12, 36, 70, 100, 9, 42, 51, 111, 84, 3, 25 };
+	unsigned char iv2[16] = { 14, 31, 6, 126, 18, 12, 36, 70, 100, 9, 42, 51, 111, 84, 3, 25 };
+	
+	//This is what actually gets encrypted
+	unsigned char input [128] = { 's', 'e', 'c', 'r', 'e', 't', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	
+	//This is the encrypted content
+	unsigned char output[128];
+	
+	//This is where we'll store the decrypted content
+	unsigned char outputAgain[128];
+````
+
+The comments are pretty self-explanatory. One thing to note are all of the zeroes at the end of the key and input. This is one of the specific requirements of mbedtls that I referenced earlier. They MUST be completely filled. There are numerous ways of doing this, but I felt this is the easiest for our example.
+
+`iv` and `iv2` have the exact same data, because our encryption program changes them after use. If we want to be able to decrypt the data, we must be able to have a copy of it.
+
+If you notice, everything is a multiple of 32, with the lowest being 16. This is another requirement of mbedtls.
+
+````
+	//we keep track of the size of our input, with the minimal size being 16
+	size_t input_len = 16;
+````
+
+IMPORTANT: input_len must be a multiple of 32, with the smallest being 16, and the largest being the 128 we chose. Otherwise you'll get errors.
+
+````
+	std::cout << "Unencrypted message: " << std::endl;
+	
+	//This simply shows the message before we encrypt it
+	std::cout << input << std::endl;
+	
+	//Makes sure there's no errors
+	if(mbedtls_aes_setkey_enc( &aes, key, 256 )  ==  0) {
+	
+		//This actually PERFORMS the encryption in this step.
+		if(mbedtls_aes_crypt_cbc( &aes, MBEDTLS_AES_ENCRYPT, input_len, iv, input, output) != 0) {
+			//If there was an error, tell the user
+			std::cout << "There was an error setting the key" << std::endl;
+		}
+	} else {
+			//If there was an error, tell the user
+			std::cout << "There was an error setting the key" << std::endl;
+	}
+	
+	std::cout << "Encrypted version of message: " << std::endl;
+	
+	//This displays the encrypted version of our message
+	std::cout << output << std::endl;
+	
+	//Does basically what we did before, but for decryption
+	mbedtls_aes_setkey_dec( &aes, key, 256 );
+	mbedtls_aes_crypt_cbc( &aes, MBEDTLS_AES_DECRYPT, input_len, iv2, output, outputAgain);
+	
+	std::cout << "Decrypted version of message: " << std::endl;
+	std::cout << outputAgain << std::endl;
+
+````
+
+That's everything for the basics! As you can tell, when encrypting we used `iv` and decrypting we used `iv2`. This is because mbedtls automatically changes the value of `iv`. However, when decrypting, we absolutely need that exact value for decryption, so we simply saved the value twice and used iv2.
+
+Again, the complete source code for everything together is [here](https://github.com/verysimplyms/3DSCryptoAES/blob/master/source/main.cpp) .
+
+-VSMS
 
 ### Hello stereoscopy!
 
