@@ -1386,7 +1386,7 @@ That's everything for the basics! As you can tell, when encrypting we used `iv` 
 
 Again, the complete source code for everything together is [here](https://github.com/verysimplyms/3DSCryptoAES/blob/master/source/main.cpp) .
 
-<!-- TODO: describe the API, then provide a full example with source code and a zip to download. -->
+-VSMS
 
 ### Hello stereoscopy!
 
