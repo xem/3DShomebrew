@@ -1232,7 +1232,7 @@ So this portion of the tutorial will be in 2 parts:
 
 1) Download, Installing, and Cross-compiling mbedtls
 
-2) Creating our homebrew application (Should work in Citra)
+2) Creating our homebrew application (Should work in Citra, but I used Citra Edge as of December 21st, 2016) 
 
 - Let's begin - 
 
