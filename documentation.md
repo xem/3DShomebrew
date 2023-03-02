@@ -1,10 +1,10 @@
-#3DS and ctrulib documentation
+# 3DS and ctrulib documentation
 
 WIP.
 
 The following document was made by studying the [doxygen build of ctrulib](http://xem.github.io/3DShomebrew/documentation/doxygen) and ctrulib's sourcecode.
 
-##Summary
+## Summary
 - ctrulib documentation
   - Variables
   - Memory allocator
@@ -33,9 +33,9 @@ The following document was made by studying the [doxygen build of ctrulib](http:
   - Srv
   
 
-##ctrulib documentation
+## ctrulib documentation
 
-###Variables
+### Variables
 
 In addition to [the standard C/C++ types](http://en.cppreference.com/w/cpp/language/types), ctrulib provides the following short-hand types.<br>
 They are all types of integers (no decimal numbers), but of course you can use native floating point numbers (with decimals), booleans (true/false) and chars.
@@ -69,9 +69,9 @@ U64_MAX // max u64 value (about 1.8e19)
 BIT(n)  // returns the nth bit of a number (TODO: confirm that, and explain how to use it)
 ````
 
-###Memory allocator
+### Memory allocator
 
-####Functions
+#### Functions
 ````
 void * 	linearMemAlign (size_t size, size_t alignment)
 void * 	linearAlloc (size_t size)
@@ -91,9 +91,9 @@ void 	  Destroy ()
 u32 	  GetFreeSpace ()
 ````
 
-###GPU
+### GPU
 
-####Functions
+#### Functions
 
 ````
 void 	GPU_Init (Handle *gsphandle)
@@ -140,9 +140,9 @@ void 	SHDR_UseProgram (DVLB_s *dvlb, u8 id)
 void 	SHDR_FreeDVLB (DVLB_s *dvlb)
 ````
 
-###Networking/Sockets
+### Networking/Sockets
 
-####Functions
+#### Functions
 
 ````
 int 	    accept (int sockfd, struct sockaddr *addr, socklen_t *addrlen)
@@ -180,16 +180,16 @@ int 	    sockatmark (int sockfd)
 int 	    socket (int domain, int type, int protocol)
 ````
 
-####Macros / constants
+#### Macros / constants
 
 ````
 NET_UNKNOWN_ERROR_OFFSET = -10000
 MAX_HOSTENT_RESULTS = 16
 ````
 
-###AC
+### AC
 
-####Functions
+#### Functions
 ````
 Result 	acInit ()
 Result 	acExit ()
@@ -199,7 +199,7 @@ Result 	ACU_GetWifiStatus (Handle *servhandle, u32 *out)
 Result 	ACU_WaitInternetConnection ()
 ````
 
-###Application Management
+### Application Management
 
 #### Functions
 
@@ -218,9 +218,9 @@ Result 	AM_DeleteAppTitle (u8 mediatype, u64 titleid)
 Result 	AM_InstallFIRM (u8 mediatype, u64 titleid)
 ````
 
-###APT
+### APT
 
-####Functions
+#### Functions
 
 ````
 void 	    aptInitCaptureInfo (u32 *ns_capinfo)
@@ -234,14 +234,14 @@ void 	    aptEventHandler (u32 arg)
 Result 	  aptInit (void)
 ````
 
-####Macros
+#### Macros
 ````
 APT_HANDLER_STACKSIZE = 0x1000
 ````
 
-###CFGNOR
+### CFGNOR
 
-####Functions
+#### Functions
 ````
 Result 	CFGNOR_Initialize (u8 value)
 Result 	CFGNOR_Shutdown ()
@@ -251,9 +251,9 @@ Result 	CFGNOR_DumpFlash (u32 *buf, u32 size)
 Result 	CFGNOR_WriteFlash (u32 *buf, u32 size)
 ````
 
-###CFGU
+### CFGU
 
-####Functions
+#### Functions
 ````
 Result 	initCfgu ()
 Result 	exitCfgu ()
@@ -264,9 +264,9 @@ Result 	CFGU_GetCountryCodeString (u16 code, u16 *string)
 Result 	CFGU_GetCountryCodeID (u16 string, u16 *code)
 ````
 
-###Audio subsystem
+### Audio subsystem
 
-####Functions
+#### Functions
 
 ````
 Result 	CSND_cmd1 (Handle *mutexhandle, Handle *sharedmemhandle, u32 sharedmem_size, u32 off0, u32 off1, u32 off2, u32 off3)
@@ -290,9 +290,9 @@ Result 	CSND_getchannelstate (u32 entryindex, u32 *out)
 Result 	CSND_getchannelstate_isplaying (u32 entryindex, u8 *status)
 ````
 
-###Filesystem / IO
+### Filesystem / IO
 
-####Functions
+#### Functions
 
 ````
 Handle 	__get_handle_from_list (char *name)
@@ -326,7 +326,7 @@ Result 	FSDIR_Read (Handle handle, u32 *entriesRead, u32 entryCount, FS_dirent *
 Result 	FSDIR_Close (Handle handle)
 ````
 
-####Macros / constants
+#### Macros / constants
 
 File opening
 
@@ -359,11 +359,11 @@ FS_WRITE_FLUSH = 0x00010001   // write with flush
 
 (used in FSFILE_Write())
 
-###GSP
+### GSP
 
 (screen capture?)
 
-####Functions
+#### Functions
 
 ````
 Result 	gspInit ()
@@ -389,15 +389,15 @@ Result 	GSPGPU_RestoreVramSysArea (Handle *handle)
 Result 	GSPGPU_SubmitGxCommand (u32 *sharedGspCmdBuf, u32 gxCommand[0x8], Handle *handle)
 ````
 
-####Macros / constants
+#### Macros / constants
 
 ````
 GSP_EVENT_STACK_SIZE = 0x1000
 ````
 
-###GX
+### GX
 
-####Functions
+#### Functions
 
 ````
 Result 	GX_RequestDma (u32 *gxbuf, u32 *src, u32 *dst, u32 length)
@@ -408,8 +408,8 @@ Result 	GX_SetTextureCopy (u32 *gxbuf, u32 *inadr, u32 indim, u32 *outadr, u32 o
 Result 	GX_SetCommandList_First (u32 *gxbuf, u32 *buf0a, u32 buf0s, u32 *buf1a, u32 buf1s, u32 *buf2a, u32 buf2s)
 ````
 
-###User Input/HID
-####Button constants
+### User Input/HID
+#### Button constants
 ````
 KEY_A, KEY_B, KEY_X, KEY_Y
 KEY_L, KEY_R, KEY_ZL, KEY_ZR 	                                    
@@ -431,7 +431,7 @@ if(hidKeysHeld() & KEY_A) {
    //your code when A button is held down
 }
 ````
-####Functions
+#### Functions
 ````
 Result 	hidInit (u32 *sharedMem)
 void 	  hidExit ()
@@ -452,9 +452,9 @@ Result 	HIDUSER_EnableGyroscope ()
 Result 	HIDUSER_DisableGyroscope ()
 ````
 
-###HTTPC
+### HTTPC
 
-####Functions
+#### Functions
 
 ````
 Result 	httpcInit ()
@@ -481,9 +481,9 @@ Result 	HTTPC_GetDownloadSizeState (Handle handle, Handle contextHandle, u32 *do
 Result 	HTTPC_GetResponseStatusCode (Handle handle, Handle contextHandle, u32 *out)
 ````
 
-###Infrared Communication
+### Infrared Communication
 
-####Functions
+#### Functions
 
 ````
 Result 	irucmd_Initialize ()
@@ -503,10 +503,10 @@ Result 	IRU_SendData (u8 *buf, u32 size, u32 wait)
 Result 	IRU_RecvData (u8 *buf, u32 size, u8 flag, u32 *transfercount, u32 wait)
 ````
 
-###Hardware expansion services/IRRST
+### Hardware expansion services/IRRST
 Used to communicate with any new hardware that was added to the New3DS. This is effectively only used to talk to the C-stick as far as we know. 
 
-####Functions
+#### Functions
 
 ````
 Result 	irrstInit (u32 *sharedMem)
@@ -521,9 +521,9 @@ Result 	IRRST_Initialize (u32 unk1, u8 unk2)
 Result 	IRRST_Shutdown (void)
 ````
 
-###Microphone/Audio capture
+### Microphone/Audio capture
 
-####Functions
+#### Functions
 
 ````
 Result 	MIC_Initialize (u32 *sharedmem, u32 sharedmem_size, u8 control, u8 recording, u8 unk0, u8 unk1, u8 unk2)
@@ -542,9 +542,9 @@ Result 	MIC_SetRecording (u8 value)
 Result 	MIC_IsRecoding (u8 *value)
 ````
 
-###Hardware Video Decoder
+### Hardware Video Decoder
 
-####Functions
+#### Functions
 
 ````
 Result  mvdstdSetConfig (mvdstdConfig *config)
@@ -554,9 +554,9 @@ Result 	mvdstdShutdown ()
 Result 	mvdstdProcessFrame (mvdstdConfig *config, u32 *h264_vaddr_inframe, u32 h264_inframesize, u32 h264_frameid)
 ````
 
-###NS
+### NS
 
-####Functions
+#### Functions
 
 ````
 Result 	nsInit ()
@@ -565,9 +565,9 @@ Result 	NS_LaunchTitle (u64 titleid, u32 launch_flags, u32 *procid)
 Result 	NS_RebootToTitle (u8 mediatype, u64 titleid)
 ````
 
-###Process/Program management service
+### Process/Program management service
 
-####Functions
+#### Functions
 
 ````
 Result 	pmInit ()
@@ -581,7 +581,7 @@ Result 	PM_LaunchFIRMSetParams (u32 firm_titleid_low, u32 size, u8 *in)
 
 ### Process Services
 
-####Functions
+#### Functions
 
 ````
 Result 	psInit ()
@@ -592,9 +592,9 @@ Result 	PS_GetLocalFriendCodeSeed (u64 *seed)
 Result 	PS_GetDeviceId (u32 *device_id)
 ````
 
-###PTM
+### PTM
 
-####Functions
+#### Functions
 
 ````
 Result 	ptmInit ()
@@ -606,9 +606,9 @@ Result 	PTMU_GetPedometerState (Handle *servhandle, u8 *out) //out = 1 means cou
 Result 	PTMU_GetTotalStepCount (Handle *servhandle, u32 *steps)
 ````
 
-###GFX
+### GFX
 
-####Functions
+#### Functions
 
 ````
 void 	gfxSet3D (bool enable)
@@ -622,9 +622,9 @@ void 	gfxSwapBuffers ()
 void 	gfxSwapBuffersGpu ()
 ````
 
-###Srv
+### Srv
 
-####Functions
+#### Functions
 
 ````
 Handle 	__get_handle_from_list (const char *name)
