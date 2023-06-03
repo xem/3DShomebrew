@@ -1,4 +1,4 @@
-#3DS Homebrew tools and tutorial
+# 3DS Homebrew tools and tutorial
 
 Homepage: http://xem.github.io/3DShomebrew
 
